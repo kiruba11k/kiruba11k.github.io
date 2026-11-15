@@ -7,6 +7,7 @@ import HeaderCarousel from "@/components/HeaderCarousel";
 import SidebarFilters from "@/components/SidebarFilters";
 import RepoModal from "@/components/RepoModal";
 import SurprisePill from "@/components/SurprisePill";
+import ScrollStory from "@/components/ScrollStory";
 import { decorateRepositories, fetchAllRepositories } from "@/lib/github";
 import type { DecoratedRepo, LanguageFilter, SidebarFilter } from "@/lib/types";
 
@@ -154,6 +155,8 @@ export default function RepoDirectory({ initialRepos }: { initialRepos: Decorate
               <article className="experience-item"><div className="experience-date mono">AUG 2024 — SEP 2024</div><div><h3>Django Developer Intern <span>· Tecosys</span></h3><p>Contributed to Cerina GPT and designed 8+ Django REST APIs to connect AI inference endpoints with real-time application workflows.</p></div></article>
             </div>
           </motion.section>
+
+          <ScrollStory />
 
           <motion.section className="work-section reveal-section" initial={{ opacity: 0, y: 42 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
             <div className="profile-section-head"><span className="section-overline mono">SELECTED WORK / 05</span><h2>Projects worth exploring</h2></div>
