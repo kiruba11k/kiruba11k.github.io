@@ -2,9 +2,10 @@
 
 import { motion } from "framer-motion";
 import { Layers3, Star, BrainCircuit, ScanEye, Code2, ChartNoAxesCombined, Bot } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import type { SidebarFilter } from "@/lib/types";
 
-const filters: { id: SidebarFilter; label: string; icon: typeof Layers3 }[] = [
+const filters: { id: SidebarFilter; label: string; icon: LucideIcon }[] = [
   { id: "all", label: "All repositories", icon: Layers3 },
   { id: "featured", label: "Featured", icon: Star },
   { id: "agentic-rag", label: "Agentic & RAG", icon: BrainCircuit },
