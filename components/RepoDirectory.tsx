@@ -7,6 +7,7 @@ import HeaderCarousel from "@/components/HeaderCarousel";
 import SidebarFilters from "@/components/SidebarFilters";
 import RepoModal from "@/components/RepoModal";
 import SurprisePill from "@/components/SurprisePill";
+import { decorateRepositories, fetchAllRepositories } from "@/lib/github";
 import type { DecoratedRepo, LanguageFilter, SidebarFilter } from "@/lib/types";
 
 const languageTabs: LanguageFilter[] = ["All", "Python", "Java", "Notebooks", "Web / JS", "Other"];
@@ -28,17 +29,27 @@ export default function RepoDirectory({ initialRepos }: { initialRepos: Decorate
   const [selectedRepo, setSelectedRepo] = useState<DecoratedRepo | null>(null);
   const [loading, setLoading] = useState(initialRepos.length === 0);
   const [loadError, setLoadError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const loadRepositories = useCallback(async () => {
+    setLoading(true);
+    setLoadError(false);
+    setErrorMessage("");
+    try {
+      const data = await fetchAllRepositories();
+      setRepos(decorateRepositories(data));
+    } catch (error) {
+      setLoadError(true);
+      setErrorMessage(error instanceof Error ? error.message : "Could not load GitHub repositories.");
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
   useEffect(() => {
     if (initialRepos.length > 0) return;
-    let cancelled = false;
-    fetch("/api/repos")
-      .then((response) => { if (!response.ok) throw new Error("GitHub is temporarily unavailable"); return response.json(); })
-      .then((data: DecoratedRepo[]) => { if (!cancelled) { setRepos(data); setLoadError(false); } })
-      .catch(() => { if (!cancelled) setLoadError(true); })
-      .finally(() => { if (!cancelled) setLoading(false); });
-    return () => { cancelled = true; };
-  }, [initialRepos.length]);
+    void loadRepositories();
+  }, [initialRepos.length, loadRepositories]);
 
   useEffect(() => {
     function shortcuts(event: KeyboardEvent) {
@@ -137,7 +148,7 @@ export default function RepoDirectory({ initialRepos }: { initialRepos: Decorate
             </div>
 
             <div className="results-line"><span>{filteredRepos.length} repositories</span><span className="mono">{activeFilter === "all" ? "ALL PROJECTS" : activeFilter.toUpperCase().replace("-", " ")}</span></div>
-            {loadError && <div className="error-panel"><span>Couldn’t reach GitHub just now.</span><button onClick={() => { setLoading(true); setLoadError(false); fetch("/api/repos").then((r) => r.json()).then((data: DecoratedRepo[]) => setRepos(data)).catch(() => setLoadError(true)).finally(() => setLoading(false)); }}><RefreshCw size={13} /> Retry</button></div>}
+            {loadError && <div className="error-panel"><span>{errorMessage || "Couldn’t reach GitHub just now."}</span><button onClick={() => void loadRepositories()}><RefreshCw size={13} /> Retry</button></div>}
             {loading && <div className="loading-state"><span className="loading-spinner" /> Fetching repositories from GitHub…</div>}
             {!loading && !loadError && filteredRepos.length === 0 && <div className="empty-state"><FolderGit2 size={25} /><strong>No repositories found</strong><span>Try another keyword or category.</span></div>}
             <div className={view === "list" ? "repo-list" : "repo-grid"}>
