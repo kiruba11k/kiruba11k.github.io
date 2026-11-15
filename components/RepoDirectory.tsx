@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion, useScroll, useSpring } from "framer-motion";
 import { Search, List, LayoutGrid, Star, GitFork, CalendarDays, ArrowUpRight, RefreshCw, Github, Linkedin, Mail, ChevronDown, Code2, FolderGit2 } from "lucide-react";
-import HeaderCarousel from "@/components/HeaderCarousel";
+import GameWorld from "@/components/GameWorld";
 import SidebarFilters from "@/components/SidebarFilters";
 import RepoModal from "@/components/RepoModal";
 import SurprisePill from "@/components/SurprisePill";
@@ -108,7 +108,7 @@ export default function RepoDirectory({ initialRepos }: { initialRepos: Decorate
   return (
     <div className="app-shell">
       <motion.div className="scroll-progress" style={{ scaleX: scrollProgress }} />
-      <HeaderCarousel />
+      <GameWorld />
       <div className="directory-layout">
         <SidebarFilters active={activeFilter} counts={counts} onChange={(filter) => { setActiveFilter(filter); setVisibleCount(24); }} />
         <main className="main-column">
@@ -132,7 +132,7 @@ export default function RepoDirectory({ initialRepos }: { initialRepos: Decorate
             </div>
           </motion.section>
 
-          <motion.section className="profile-section reveal-section" initial={{ opacity: 0, y: 42 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.16 }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
+          <motion.section id="chapter-profile" className="profile-section reveal-section game-chapter-section" initial={{ opacity: 0, y: 42 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.16 }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
             <div className="profile-section-head"><span className="section-overline mono">PROFILE / 02</span><h2>Building AI that moves beyond the demo.</h2></div>
             <div className="impact-grid">
               <div className="impact-card"><strong>3</strong><span>Generative AI automation tools shipped</span></div>
@@ -140,7 +140,7 @@ export default function RepoDirectory({ initialRepos }: { initialRepos: Decorate
               <div className="impact-card"><strong>10+</strong><span>Web sources and APIs integrated</span></div>
               <div className="impact-card"><strong>35%</strong><span>Output-quality improvement after SFT</span></div>
             </div>
-            <div className="profile-section-head skills-head"><span className="section-overline mono">TECH STACK / 03</span><h2>Tools I work with</h2></div>
+            <div id="chapter-loadout" className="profile-section-head skills-head"><span className="section-overline mono">TECH STACK / 03</span><h2>Tools I work with</h2></div>
             <div className="skill-groups">
               <div className="skill-group"><strong>ML &amp; Deep Learning</strong><div className="skill-tags"><span>Python</span><span>PyTorch</span><span>TensorFlow</span><span>Keras</span><span>Scikit-learn</span><span>NumPy</span><span>Pandas</span></div></div>
               <div className="skill-group"><strong>Computer Vision &amp; NLP</strong><div className="skill-tags"><span>OpenCV</span><span>YOLO</span><span>CNNs</span><span>Segmentation</span><span>ByteTrack</span><span>Transformers</span><span>BERT</span><span>Hugging Face</span></div></div>
@@ -148,7 +148,7 @@ export default function RepoDirectory({ initialRepos }: { initialRepos: Decorate
             </div>
           </motion.section>
 
-          <motion.section className="experience-section reveal-section" initial={{ opacity: 0, y: 42 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
+          <motion.section id="chapter-career" className="experience-section reveal-section game-chapter-section" initial={{ opacity: 0, y: 42 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
             <div className="profile-section-head"><span className="section-overline mono">EXPERIENCE / 04</span><h2>Where I’ve contributed</h2></div>
             <div className="experience-list">
               <article className="experience-item"><div className="experience-date mono">APR 2025 — PRESENT</div><div><h3>AI / ML Engineer <span>· LeadStrategus</span></h3><p>Built and deployed GenAI automation tools, data-ingestion pipelines and fine-tuned language models. Developed and evaluated ML/DL models using PyTorch, TensorFlow and scikit-learn.</p></div></article>
@@ -158,7 +158,7 @@ export default function RepoDirectory({ initialRepos }: { initialRepos: Decorate
 
           <ScrollStory />
 
-          <motion.section className="work-section reveal-section" initial={{ opacity: 0, y: 42 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
+          <motion.section id="chapter-projects" className="work-section reveal-section game-chapter-section" initial={{ opacity: 0, y: 42 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
             <div className="profile-section-head"><span className="section-overline mono">SELECTED WORK / 05</span><h2>Projects worth exploring</h2></div>
             <div className="work-grid">
               <motion.article className="work-card" whileHover={{ y: -7, rotateX: 1.5, rotateY: -1.5, scale: 1.015 }} transition={{ type: "spring", stiffness: 260, damping: 20 }}><span className="work-index mono">01 / COMPUTER VISION</span><h3>ParcelGuard</h3><p>Visual inspection pipeline combining YOLO detection, Mask R-CNN / U-Net segmentation, ByteTrack and reference-guided anomaly analysis.</p><div className="work-tags">PyTorch · OpenCV · ResNet18 · FastAPI</div></motion.article>
@@ -173,7 +173,7 @@ export default function RepoDirectory({ initialRepos }: { initialRepos: Decorate
             <p className="education-note">Relevant coursework: Machine Learning, Neural Networks, Data Structures &amp; Algorithms, Computer Vision.</p>
           </motion.section>
 
-          <motion.section className="directory-section reveal-section" initial={{ opacity: 0, y: 42 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.08 }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
+          <motion.section id="chapter-archive" className="directory-section reveal-section game-chapter-section" initial={{ opacity: 0, y: 42 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.08 }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
             <div className="directory-heading">
               <div><div className="section-overline mono">THE INDEX / 01</div><h2>Repository directory<span className="count-chip mono">{repos.length}</span></h2></div>
               <div className="directory-actions"><span className="sync-status"><i /> LIVE INDEX</span><button className={"view-toggle " + (view === "list" ? "selected" : "")} onClick={() => setView("list")} aria-label="List view"><List size={15} /></button><button className={"view-toggle " + (view === "grid" ? "selected" : "")} onClick={() => setView("grid")} aria-label="Grid view"><LayoutGrid size={15} /></button></div>
