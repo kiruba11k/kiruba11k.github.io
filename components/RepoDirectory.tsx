@@ -39,9 +39,15 @@ function SceneArt({type}:{type:"parcel"|"traffic"|"llm"|"career"|"education"}) {
  );
 }
 function MissionCard({number,tag,title,desc,tech,type,href,image,alt}:{number:string;tag:string;title:string;desc:string;tech:string;type:"parcel"|"traffic"|"llm";href:string;image:string;alt:string}) {
- return <motion.article className={"mission-card mission-"+type} whileHover={{y:-9,rotateX:1.5,scale:1.012}} transition={{type:"spring",stiffness:190,damping:20}}>
+ const [briefOpen,setBriefOpen]=useState(false);
+ const brief=type==="parcel"?"INSPECTION ROUTE  /  DETECT → SEGMENT → COMPARE → CLASSIFY":type==="traffic"?"TRAFFIC ROUTE  /  DETECT → TRACK → COUNT → ANALYSE":"MODEL ROUTE  /  PREPARE → LoRA → EVALUATE → PUBLISH";
+ return <motion.article className={"mission-card mission-"+type} initial={{opacity:0,y:38,rotateX:5}} whileInView={{opacity:1,y:0,rotateX:0}} viewport={{once:true,amount:.16}} whileHover={{y:-8,rotateX:1.2,scale:1.012}} transition={{type:"spring",stiffness:175,damping:20}}>
   <div className="mission-visual"><img className="mission-photo" src={image} alt={alt} loading="lazy"/><div className="mission-photo-shade"/><span className="mission-number">MISSION {number}</span><span className="mission-difficulty">● ● ● <i>FIELD VISUAL</i></span><div className="mission-scan"/><div className="mission-corner-mark">KP / OPS</div></div>
-  <div className="mission-copy"><div className="mission-type">{tag}</div><h3>{title}</h3><p>{desc}</p><div className="mission-tech">{tech}</div><a href={href} target="_blank" rel="noreferrer">VIEW MISSION FILE <ArrowUpRight size={14}/></a></div>
+  <div className="mission-copy"><div className="mission-type">{tag}</div><h3>{title}</h3><p>{desc}</p><div className="mission-tech">{tech}</div>
+   <button type="button" className="mission-brief-toggle" aria-expanded={briefOpen} onClick={()=>setBriefOpen(v=>!v)}>{briefOpen?"CLOSE MISSION BRIEF":"OPEN MISSION BRIEF"} <ChevronDown size={13}/></button>
+   <AnimatePresence initial={false}>{briefOpen&&<motion.div className="mission-brief" initial={{height:0,opacity:0}} animate={{height:"auto",opacity:1}} exit={{height:0,opacity:0}} transition={{duration:.28}}><span>OPERATION FLOW</span><p>{brief}</p><small>FIELD NOTES · PROJECT OVERVIEW</small></motion.div>}</AnimatePresence>
+   <a href={href} target="_blank" rel="noreferrer">VIEW MISSION FILE <ArrowUpRight size={14}/></a>
+  </div>
  </motion.article>
 }
 
@@ -69,6 +75,16 @@ export default function RepoDirectory({initialRepos}:{initialRepos:DecoratedRepo
   const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)setActiveChapter(e.target.id)}),{rootMargin:"-25% 0px -60% 0px"});
   chapters.forEach(c=>{const el=document.getElementById(c.id);if(el)obs.observe(el)});
   return()=>obs.disconnect();
+ },[]);
+ useEffect(()=>{
+  const targets=document.querySelectorAll<HTMLElement>(".chapter-block,.career-entry,.achievement-row>div,.loadout-card,.education-mission,.world-footer");
+  const reduced=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if(reduced){targets.forEach(el=>el.classList.add("scene-visible"));return}
+  const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{
+   if(entry.isIntersecting){entry.target.classList.add("scene-visible");observer.unobserve(entry.target)}
+  }),{threshold:.12,rootMargin:"0px 0px -7% 0px"});
+  targets.forEach(el=>{el.classList.add("scene-reveal");observer.observe(el)});
+  return()=>observer.disconnect();
  },[]);
  useEffect(()=>{
   function keys(e:KeyboardEvent){const t=e.target as HTMLElement|null;const typing=t&&(t.tagName==="INPUT"||t.tagName==="TEXTAREA"||t.isContentEditable);if(e.key==="/"&&!typing&&!selectedRepo){e.preventDefault();document.getElementById("repo-search")?.focus()}if(e.key==="Escape"&&document.activeElement?.id==="repo-search"){setQuery("");(document.activeElement as HTMLElement).blur()}}
