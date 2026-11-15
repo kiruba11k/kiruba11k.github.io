@@ -1,40 +1,47 @@
 # Kirubakaran — GitHub Repository Directory
 
-A Next.js App Router portfolio and searchable directory for all public repositories owned by [@kiruba11k](https://github.com/kiruba11k).
+A static Next.js App Router portfolio and searchable directory for all public repositories owned by [@kiruba11k](https://github.com/kiruba11k).
+
+## Live site
+
+https://kiruba11k.github.io/
 
 ## Features
 
-- Fetches the complete public repository list from the GitHub REST API (100 repositories per page; paginates until the final page).
-- Server-rendered repository data with a one-hour revalidation window.
-- Client-side API fallback when the initial GitHub fetch is unavailable.
-- Featured repository priority, automatic topic/language categorization, language filters and live search.
-- List/grid views, progressive loading, repository detail modal, language breakdown and clone-command copy.
-- Responsive sidebar, top domain gallery, keyboard shortcuts (/ and Esc), theme toggle and Surprise me action.
+- Browser-side GitHub REST API fetching with pagination (100 repositories per page, up to 1,000).
+- Six featured repositories pinned above the chronological repository list.
+- Automatic categorization using repository name, description, topics and primary language.
+- Sidebar filters, language tabs, instant search and keyboard shortcuts (/ and Esc).
+- List/grid views, progressive loading, repository details, language breakdown and clone-command copy.
+- Responsive design, curved domain showcase, dark/light theme and Surprise me action.
 
 ## Stack
 
-- Next.js 14 App Router and React 18
-- TypeScript and Tailwind CSS
-- Framer Motion and Lucide React
-- GitHub REST API
+- Next.js 14 App Router, React 18 and TypeScript
+- Tailwind CSS, Framer Motion and Lucide React
+- GitHub REST API (public endpoints; no token required)
 
 ## Run locally
 
-Install dependencies with `npm install`, then run `npm run dev`. Open http://localhost:3000.
+```bash
+npm install
+npm run dev
+```
 
-## Deploy
+Open http://localhost:3000.
 
-This project uses Next.js server rendering, Route Handlers and ISR. Deploy it to a Next.js-capable host such as **Vercel**:
+## GitHub Pages deployment
 
-1. Import `kiruba11k/kiruba11k.github.io` into Vercel.
-2. Keep the framework preset as Next.js.
-3. Use the default build command (`next build`) and output settings.
-4. Deploy. No GitHub token is required for public repositories.
+This repository is configured for **Next.js static export**. Repository data is fetched directly from GitHub in the browser, because GitHub Pages does not run Next.js servers, Route Handlers or ISR.
 
-### Hosting note
+One-time setup in GitHub:
 
-GitHub Pages only serves static assets; it cannot execute Next.js Route Handlers or server-side ISR. The existing GitHub Pages deployment will therefore not run this app's live server features. Use Vercel (or another Node.js Next.js host) for the full experience. The repository API is cached for one hour to reduce GitHub's unauthenticated API usage.
+1. Open **Settings → Pages** in this repository.
+2. Under **Build and deployment → Source**, choose **GitHub Actions**.
+3. Save. The workflow in `.github/workflows/nextjs-build.yml` builds the `out/` directory and deploys it to GitHub Pages on every push to `main`.
 
-## Repository data
+The live address remains https://kiruba11k.github.io/.
 
-The six pinned projects are declared in `lib/github.ts`. All other repositories are fetched and sorted by most recently pushed. Repository details and language breakdown are fetched on demand and cached.
+## API considerations
+
+The site uses GitHub's unauthenticated public API. It requests repository pages sequentially and stops when a page contains fewer than 100 items. Browser requests are subject to GitHub's public rate limits; the UI provides a retry message if the limit is reached.
