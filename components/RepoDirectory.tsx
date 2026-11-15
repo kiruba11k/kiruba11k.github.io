@@ -161,6 +161,12 @@ export default function RepoDirectory({ initialRepos }: { initialRepos: Decorate
             </div>
           </section>
 
+          <section className="education-section">
+            <div className="profile-section-head"><span className="section-overline mono">EDUCATION / 06</span><h2>Foundation</h2></div>
+            <div className="education-card"><div><h3>B.E. Computer Science &amp; Engineering</h3><p>Sree Sakthi Engineering College · Coimbatore</p></div><span className="education-date mono">AUG 2020 — MAY 2024</span></div>
+            <p className="education-note">Relevant coursework: Machine Learning, Neural Networks, Data Structures &amp; Algorithms, Computer Vision.</p>
+          </section>
+
           <section className="directory-section">
             <div className="directory-heading">
               <div><div className="section-overline mono">THE INDEX / 01</div><h2>Repository directory<span className="count-chip mono">{repos.length}</span></h2></div>
