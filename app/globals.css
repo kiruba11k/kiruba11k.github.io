@@ -1382,3 +1382,161 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid #159e
   .game-intro>.city-background>.city-atmosphere{background:linear-gradient(90deg,rgba(248,247,253,.88),rgba(248,247,253,.54)),linear-gradient(0deg,#f5f6fb,transparent 70%)!important}
   .chapter-block,.chapter-block:nth-of-type(odd){background:transparent!important}
 }
+
+
+/* FINAL LIGHT ART DIRECTION — unified editorial canvas across every chapter */
+:root{
+  color-scheme:light!important;
+  --bg:#f7f7fc;--surface:#fff;--raised:#f0f1f8;--raised-2:#e9eaf3;
+  --line:#e4e4ef;--text:#25243b;--muted:#707188;--soft:#5e5e76;
+  --game-ink:#25243b;--game-muted:#707188;--game-panel:#fff;
+}
+html,body{background:#f7f7fc!important;color:#25243b!important}
+body{
+ background:
+  radial-gradient(ellipse at 0% 8%,rgba(235,86,157,.065),transparent 32%),
+  radial-gradient(ellipse at 100% 40%,rgba(83,185,198,.065),transparent 30%),
+  #f7f7fc!important;
+ background-attachment:fixed!important;
+}
+.app-shell,.vice-shell,.story-main{
+ background:transparent!important;color:#25243b!important;
+}
+.story-main{position:relative;isolation:isolate}
+.chapter-block,.chapter-block:nth-of-type(odd),.chapter-block:nth-of-type(even){
+ background:transparent!important;
+ color:#25243b!important;
+ border-color:#e6e5ef!important;
+ box-shadow:none!important;
+}
+.chapter-block:before,.chapter-block:after{background:transparent!important;box-shadow:none!important}
+.chapter-title-row h2{color:#28263e!important}
+.chapter-title-row h2 em{color:#e83e91!important}
+.chapter-side-note{color:#77768c!important}
+.chapter-side-note b{color:#149eae!important}
+.chapter-kicker{color:#df398b!important}
+p,.player-bio,.career-copy p,.mission-copy p,.loadout-card p,.archive-topline p{color:#66677e!important}
+/* All chapter surfaces share the same clean white/lavender system */
+.player-card,.loadout-card,.career-entry,.mission-card,.education-mission,
+.repo-card,.repo-row,.achievement-row>div{
+ background:#fff!important;
+ color:#28263e!important;
+ border:1px solid #e4e3ee!important;
+ box-shadow:0 12px 36px rgba(48,43,82,.065)!important;
+}
+.player-card{background:#fff!important;border-radius:12px!important}
+.player-details{background:#fff!important;color:#28263e!important}
+.player-details h3{color:#28263e!important}
+.player-details h3 em{color:#e83e91!important}
+.player-label,.player-role,.player-stats small{color:#77768c!important}
+.player-role span,.player-label b{color:#159eae!important}
+.player-bio{color:#62637b!important}
+.player-stats{border-color:#e8e7f0!important}
+.player-stats strong{color:#29273f!important}
+.player-links a{color:#d93687!important}
+/* Replace the remaining CSS-drawn player skyline with a photographic scene */
+.player-art{
+ background:
+  linear-gradient(0deg,rgba(22,17,43,.28),rgba(255,255,255,.02)),
+  url("https://images.unsplash.com/photo-1535498730771-e735b998cd64?auto=format&fit=crop&w=1800&q=90") center 52%/cover no-repeat!important;
+}
+.player-art:after{background:linear-gradient(0deg,rgba(20,14,35,.42),transparent 55%)!important}
+.player-sun,.player-palm,.player-cityline,.player-silhouette{display:none!important}
+.player-art-caption{color:#fff!important;text-shadow:0 2px 12px rgba(0,0,0,.65)!important}
+/* Skill loadout */
+.loadout-card{
+ background:linear-gradient(145deg,#fff 0%,#f5f4fb 100%)!important;
+ border-radius:10px!important;
+}
+.loadout-card:before{display:none!important}
+.loadout-icon{background:#fff0f7!important;color:#df398b!important;border-color:#f1c7dc!important}
+.loadout-level{color:#d93687!important}
+.loadout-card h3{color:#29273f!important}
+.loadout-skills span{background:#fff!important;color:#55556e!important;border:1px solid #e3e2ed!important}
+.loadout-meter{background:#e7e6ef!important}
+.loadout-meter i{background:linear-gradient(90deg,#e83e91,#35b9c4)!important}
+/* Cinematic photographs stay rich; only the surrounding chapter canvas is light */
+.career-scene,.scene-art,.mission-visual,.education-art{
+ border-radius:8px!important;overflow:hidden!important;
+}
+.career-scene{border:1px solid #dedde9!important;box-shadow:0 14px 34px rgba(45,39,76,.08)!important}
+.scene-art:before{background:linear-gradient(90deg,rgba(22,17,43,.36),rgba(22,17,43,.06)),linear-gradient(0deg,rgba(22,17,43,.48),transparent 58%)!important}
+.scene-photo-grade{background:linear-gradient(0deg,rgba(20,14,35,.32),transparent 60%)!important}
+.career-scene-title{color:#fff!important;text-shadow:0 2px 18px rgba(0,0,0,.6)!important}
+.career-scene-title span,.career-scene-title b{color:#fff!important}
+.career-entry{
+ background:linear-gradient(110deg,#fff,#fbfaff)!important;
+ border-radius:8px!important;border-color:#e5e3ee!important;
+}
+.career-date,.career-copy>span{color:#77768c!important}
+.career-date i,.career-tags{color:#159eae!important}
+.career-copy h3{color:#29273f!important}
+.career-copy h3 em{color:#df398b!important}
+.career-copy p{color:#66677e!important}
+.career-marker{background:#fff0f7!important;color:#df398b!important;border-color:#f1c7dc!important}
+.mission-card{border-radius:10px!important;overflow:hidden!important}
+.mission-copy{background:#fff!important}
+.mission-type{color:#d93687!important}
+.mission-copy h3{color:#29273f!important}
+.mission-copy p{color:#66677e!important}
+.mission-tech{color:#159eae!important}
+.mission-brief{background:#fbfaff!important;color:#55556e!important;border-color:#e9b5d1!important}
+.mission-brief p,.mission-brief small{color:#66677e!important}
+.mission-brief-toggle{background:#fff3f8!important;color:#d93687!important;border-color:#f0c7dc!important}
+.education-mission{border-radius:10px!important;overflow:hidden!important}
+.education-mission>div:last-child{background:#fff!important;color:#29273f!important}
+.education-mission h3{color:#29273f!important}
+.education-mission p{color:#66677e!important}
+.education-label{color:#d93687!important}
+.education-mission small{color:#159eae!important}
+/* Repository garage and footer */
+.archive-chapter{background:transparent!important}
+.archive-tools .search-wrap,.search-wrap{background:#fff!important;border:1px solid #e1e0eb!important}
+.search-wrap input{color:#29273f!important}
+.search-wrap input::placeholder{color:#9291a4!important}
+.language-tabs .tab,.directory-actions button{background:#fff!important;color:#66667c!important;border-color:#e2e1ec!important}
+.language-tabs .tab.active,.directory-actions button.selected{background:#e83e91!important;color:#fff!important;border-color:#e83e91!important}
+.repo-title-line strong,.repo-main strong{color:#29273f!important}
+.repo-main p,.repo-meta,.repo-meta span{color:#6d6d83!important}
+.repo-topics span,.language-pill{background:#f4f3f9!important;color:#62627a!important;border-color:#e5e4ed!important}
+.world-footer{background:linear-gradient(110deg,#f3edf7,#edf3f8 55%,#fbf0f6)!important;color:#29273f!important;border-top:1px solid #e4e2ed!important}
+.world-footer h2{color:#29273f!important}
+.world-footer>div>span,.world-footer small{color:#77768c!important}
+/* Navigation, progress and floating controls */
+.game-nav,.world-nav,.game-chapter-bar{
+ background:rgba(255,255,255,.94)!important;
+ color:#4f4e67!important;border-color:#e4e3ed!important;
+ box-shadow:0 5px 22px rgba(48,43,82,.055)!important;
+ backdrop-filter:blur(18px)!important;
+}
+.game-nav a,.game-nav button,.game-nav-brand,.game-nav-right,
+.world-nav a,.world-nav button,.world-location,.game-chapter-bar span,.game-chapter-bar strong{color:#55546c!important}
+.game-nav button.active,.world-nav button.active{color:#df398b!important}
+.game-chapter-progress{background:#e7e6ef!important}
+.game-chapter-progress i,.scroll-progress{background:linear-gradient(90deg,#e83e91,#35b9c4)!important}
+.floating-chapter{background:#fff!important;color:#66657c!important;border-color:#e5e3ed!important;box-shadow:0 8px 24px rgba(48,43,82,.1)!important}
+.floating-chapter b{color:#d93687!important}
+.surprise-pill{background:linear-gradient(100deg,#e83e91,#ff9bc3)!important;color:#32132a!important}
+/* Hero is the one full-bleed cinematic image; fade into the light site below */
+.game-intro{background:#f7f7fc!important;color:#29273f!important}
+.game-intro>.city-background>img{filter:saturate(.9) contrast(.98) brightness(1.08)!important;opacity:1!important}
+.game-intro>.city-background>.city-atmosphere{
+ background:linear-gradient(90deg,rgba(247,247,252,.83),rgba(247,247,252,.48) 45%,rgba(247,247,252,.08)),
+ linear-gradient(0deg,#f7f7fc 0%,rgba(247,247,252,.02) 28%,rgba(255,255,255,.12))!important;
+}
+.game-intro:after{background:linear-gradient(0deg,#f7f7fc 0%,rgba(247,247,252,.03) 25%,transparent 100%)!important}
+.game-scanlines{opacity:.025!important}
+.game-topbar,.game-logo,.game-top-status,.game-sound,.game-kicker,.game-hero-content,.game-hero-meta,.game-scroll-cue,.game-controls-hint{color:#4d4c65!important}
+.game-hero-content h1{color:#29273f!important}
+.game-hero-content h1 em,.game-city-label span{color:#e83e91!important;text-shadow:0 4px 20px rgba(232,62,145,.12)!important}
+.game-hero-content p{color:#55556e!important}
+.game-hero-meta{border-color:rgba(80,77,110,.2)!important}
+.game-city-label small,.game-city-label b{color:#56556e!important}
+.game-sound,.game-ghost-button,.game-controls-hint span{background:rgba(255,255,255,.86)!important;color:#55546c!important;border-color:#dedde9!important}
+.game-start-button{background:linear-gradient(100deg,#e83e91,#ff9bc3)!important;color:#32132a!important}
+.game-bottom-gradient{background:linear-gradient(0deg,#f7f7fc,transparent)!important}
+@media(max-width:760px){
+ body{background-attachment:scroll!important}
+ .chapter-block{background:transparent!important}
+ .player-art{min-height:300px!important}
+}
