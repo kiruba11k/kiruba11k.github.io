@@ -38,9 +38,9 @@ function SceneArt({type}:{type:"parcel"|"traffic"|"llm"|"career"|"education"}) {
   </svg>
  );
 }
-function MissionCard({number,tag,title,desc,tech,type,href}:{number:string;tag:string;title:string;desc:string;tech:string;type:"parcel"|"traffic"|"llm";href:string}) {
- return <motion.article className={"mission-card mission-"+type} whileHover={{y:-9,rotateX:2,rotateY:-1,scale:1.012}} transition={{type:"spring",stiffness:190,damping:20}}>
-  <div className="mission-visual"><SceneArt type={type}/><span className="mission-number">MISSION {number}</span><span className="mission-difficulty">● ● ● <i>CLASSIFIED</i></span><div className="mission-scan"/></div>
+function MissionCard({number,tag,title,desc,tech,type,href,image,alt}:{number:string;tag:string;title:string;desc:string;tech:string;type:"parcel"|"traffic"|"llm";href:string;image:string;alt:string}) {
+ return <motion.article className={"mission-card mission-"+type} whileHover={{y:-9,rotateX:1.5,scale:1.012}} transition={{type:"spring",stiffness:190,damping:20}}>
+  <div className="mission-visual"><img className="mission-photo" src={image} alt={alt} loading="lazy"/><div className="mission-photo-shade"/><span className="mission-number">MISSION {number}</span><span className="mission-difficulty">● ● ● <i>FIELD VISUAL</i></span><div className="mission-scan"/><div className="mission-corner-mark">KP / OPS</div></div>
   <div className="mission-copy"><div className="mission-type">{tag}</div><h3>{title}</h3><p>{desc}</p><div className="mission-tech">{tech}</div><a href={href} target="_blank" rel="noreferrer">VIEW MISSION FILE <ArrowUpRight size={14}/></a></div>
  </motion.article>
 }
@@ -112,9 +112,9 @@ export default function RepoDirectory({initialRepos}:{initialRepos:DecoratedRepo
    <section id="chapter-projects" className="chapter-block missions-chapter">
     <div className="chapter-title-row"><div><span className="chapter-kicker">04 / SELECTED OPERATIONS</span><h2>Choose a <em>mission.</em></h2></div><span className="chapter-side-note">3 FEATURED FILES <b>● ● ●</b></span></div>
     <div className="missions-grid">
-     <MissionCard number="01" tag="COMPUTER VISION / INSPECTION" title="ParcelGuard" desc="A visual inspection system combining object detection, segmentation, tracking and reference-guided anomaly analysis to identify parcel damage." tech="YOLO · MASK R-CNN / U-NET · BYTETRACK · PYTORCH" type="parcel" href="https://github.com/kiruba11k"/>
-     <MissionCard number="02" tag="REAL-TIME VIDEO ANALYTICS" title="Smart Traffic Intelligence" desc="Detect and track cars, motorcycles, buses and trucks with persistent identities, virtual-line counting and live traffic analytics." tech="YOLO · OPENCV · BYTETRACK" type="traffic" href="https://github.com/kiruba11k"/>
-     <MissionCard number="03" tag="LLM FINE-TUNING / NLP" title="Mistral-7B · LoRA / QLoRA" desc="Fine-tuned a 7B language model on 5K domain pairs using PEFT, tracked experiments and published the model to Hugging Face Hub." tech="MISTRAL-7B · PEFT · W&B · HUGGING FACE" type="llm" href="https://github.com/kiruba11k"/>
+     <MissionCard number="01" tag="COMPUTER VISION / INSPECTION" title="ParcelGuard" desc="A visual inspection system combining object detection, segmentation, tracking and reference-guided anomaly analysis to identify parcel damage." tech="YOLO · MASK R-CNN / U-NET · BYTETRACK · PYTORCH" type="parcel" href="https://github.com/kiruba11k" image="https://blog.fontpackaging.com/hubfs/magnific_a-battered-corrugated-car_2960550790.png" alt="Damaged corrugated parcel on an industrial conveyor belt"/>
+     <MissionCard number="02" tag="REAL-TIME VIDEO ANALYTICS" title="Smart Traffic Intelligence" desc="Detect and track cars, motorcycles, buses and trucks with persistent identities, virtual-line counting and live traffic analytics." tech="YOLO · OPENCV · BYTETRACK" type="traffic" href="https://github.com/kiruba11k" image="https://images.unsplash.com/photo-1714238080829-986d493e0e55?auto=format&fit=crop&w=1400&q=85" alt="Nighttime multi-lane urban highway with cars and trucks"/>
+     <MissionCard number="03" tag="LLM FINE-TUNING / NLP" title="Mistral-7B · LoRA / QLoRA" desc="Fine-tuned a 7B language model on 5K domain pairs using PEFT, tracked experiments and published the model to Hugging Face Hub." tech="MISTRAL-7B · PEFT · W&B · HUGGING FACE" type="llm" href="https://github.com/kiruba11k" image="https://cdn.gccgamers.com/media/posts/ai-pc-featured.webp" alt="High-performance AI workstation with GPU hardware and training monitor"/>
     </div>
    </section>
    <section className="chapter-block education-chapter">
