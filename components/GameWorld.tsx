@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowDown, ArrowUpRight, Crosshair, Gamepad2, Map, Radio, Sparkles, Volume2 } from "lucide-react";
 
@@ -24,6 +24,17 @@ export default function GameWorld() {
   const [started, setStarted] = useState(false);
   const [active, setActive] = useState("chapter-profile");
   const reduceMotion = useReducedMotion();
+  useEffect(() => {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => { if (entry.isIntersecting) setActive(entry.target.id); });
+    }, { rootMargin: "-28% 0px -58% 0px", threshold: 0 });
+    chapters.forEach(chapter => {
+      const node = document.getElementById(chapter.id);
+      if (node) observer.observe(node);
+    });
+    return () => observer.disconnect();
+  }, []);
+  const activeIndex = Math.max(0, chapters.findIndex(chapter => chapter.id === active));
   const jump = (id: string) => {
     setStarted(true);
     setActive(id);
@@ -33,7 +44,7 @@ export default function GameWorld() {
     <section className="game-intro" id="game-start">
       <CityArtwork />
       <div className="game-scanlines" />
-      <div className="game-topbar"><a href="#game-start" className="game-logo"><span>KP</span> OPEN WORLD <i>™</i></a><div className="game-top-status"><span><i /> ONLINE</span><span>COIMBATORE → BENGALURU</span></div><button className="game-sound" aria-label="Sound is off"><Volume2 size={15}/><span>SOUND OFF</span></button></div>
+      <div className="game-topbar"><a href="#game-start" className="game-logo"><span>KP</span> OPEN WORLD <i>™</i></a><div className="game-top-status"><span><i /> ONLINE</span><span>VICE COAST · INDIA SERVER</span></div><button className="game-sound" aria-label="Sound is off"><Volume2 size={15}/><span>SOUND OFF</span></button></div>
       <div className="game-hero-content">
         <motion.div className="game-kicker" initial={{ opacity: 0, x: -24 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: .3 }}><span /> THE STORY OF AN AI / ML ENGINEER <span className="game-kicker-line"/></motion.div>
         <motion.h1 initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .8, delay: .4 }}>KIRUBAKARAN<br/><em>PERIYASAMY</em></motion.h1>
@@ -44,7 +55,7 @@ export default function GameWorld() {
         </motion.div>
         <div className="game-hero-meta"><span>PLAYER 001 / KIRUBA</span><span>AI ENGINEER · LEVEL 01.5+</span><span>OPEN WORLD EXPERIENCE</span></div>
       </div>
-      <motion.div className="game-city-label" animate={reduceMotion ? undefined : { y: [0,-7,0], opacity:[.92,1,.92] }} transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}><span>VICE COAST</span><small>THE CITY NEVER STOPS LEARNING</small><b>WANTED LEVEL <i>★ ★ ★ ☆ ☆</i></b></motion.div>
+      <motion.div className="game-city-label" animate={reduceMotion ? undefined : { y: [0,-7,0], opacity:[.92,1,.92] }} transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}><span>VICE COAST</span><small>THE CITY NEVER STOPS LEARNING</small><b>MISSION PROGRESS <i>{String(activeIndex + 1).padStart(2,"0")} / 05</i></b></motion.div>
       <div className="game-bottom-gradient"/>
       <div className="game-scroll-cue"><span>SCROLL TO EXPLORE</span><ArrowDown size={14}/></div>
     </section>
@@ -53,6 +64,6 @@ export default function GameWorld() {
       <nav>{chapters.map(ch => <button key={ch.id} className={active===ch.id?"active":""} onClick={()=>jump(ch.id)}><small>{ch.no}</small>{ch.name}</button>)}</nav>
       <div className="game-nav-right"><span><Radio size={13}/> STORY ONLINE</span><a href="https://github.com/kiruba11k" target="_blank" rel="noreferrer">GITHUB <ArrowUpRight size={12}/></a></div>
     </header>
-    <div className="game-chapter-bar"><span><Map size={13}/> CURRENT OBJECTIVE</span><strong>{chapters.find(ch=>ch.id===active)?.name ?? "EXPLORE THE WORLD"}</strong><span className="game-chapter-progress"><i/></span></div>
+    <div className="game-chapter-bar"><span><Map size={13}/> CURRENT OBJECTIVE</span><strong>{chapters.find(ch=>ch.id===active)?.name ?? "EXPLORE THE WORLD"}</strong><span className="game-chapter-progress"><i style={{ width: `${((activeIndex + 1) / chapters.length) * 100}%` }}/></span></div>
   </>;
 }
