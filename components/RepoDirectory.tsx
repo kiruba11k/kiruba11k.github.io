@@ -15,7 +15,8 @@ const chapters = [
   {id:"chapter-loadout",no:"02",name:"ARSENAL",sub:"Skills"},
   {id:"chapter-career",no:"03",name:"STORY",sub:"Career"},
   {id:"chapter-projects",no:"04",name:"MISSIONS",sub:"Projects"},
-  {id:"chapter-archive",no:"05",name:"GARAGE",sub:"GitHub"},
+  {id:"chapter-education",no:"05",name:"ORIGIN",sub:"Education"},
+  {id:"chapter-archive",no:"06",name:"GARAGE",sub:"GitHub"},
 ];
 function displayName(name:string){return name.replace(/[-_]+/g," ").replace(/\\b\\w/g,l=>l.toUpperCase())}
 function shortDate(date:string){return new Date(date).toLocaleDateString("en-US",{month:"short",day:"numeric"})}
