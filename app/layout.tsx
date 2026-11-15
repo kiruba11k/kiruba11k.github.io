@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Kirubakaran Periyasamy — GitHub Directory",
-  description: "A living directory of Kirubakaran Periyasamy public GitHub repositories, projects and engineering interests.",
+  title: "Kirubakaran Periyasamy — AI / ML Engineer",
+  description: "AI/ML Engineer in Bengaluru with 1.5+ years of experience in machine learning, deep learning, computer vision, NLP and Generative AI.",
   metadataBase: new URL("https://kiruba11k.github.io"),
   openGraph: {
     title: "Kirubakaran Periyasamy — GitHub Directory",
-    description: "Explore projects across agentic AI, RAG, computer vision, backend engineering and data.",
+    description: "Explore AI/ML projects across computer vision, LLM fine-tuning, RAG pipelines and production AI engineering.",
     type: "website"
   }
 };
