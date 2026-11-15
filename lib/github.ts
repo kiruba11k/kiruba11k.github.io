@@ -12,25 +12,41 @@ export const FEATURED_REPOS = [
   { name: "Analyzing-Amazon-Sales-Data", note: "Data & Analytics · Python, Pandas & Power BI" }
 ] as const;
 
-async function fetchPage(page: number): Promise<GitHubRepo[]> {
-  const response = await fetch(
-    API + "/users/" + USER + "/repos?per_page=100&page=" + page + "&sort=pushed&direction=desc&type=owner",
-    { headers: { Accept: "application/vnd.github+json", "X-GitHub-Api-Version": "2022-11-28" }, next: { revalidate: 3600 } }
-  );
-  if (!response.ok) throw new Error("GitHub API returned " + response.status);
-  return response.json() as Promise<GitHubRepo[]>;
-}
-
-export async function getAllRepositories(): Promise<GitHubRepo[]> {
-  const pages: GitHubRepo[][] = [];
+/**
+ * Browser-side GitHub REST fetch for GitHub Pages.
+ * Requests one page at a time to stay friendly to GitHub's unauthenticated rate limit.
+ */
+export async function fetchAllRepositories(): Promise<GitHubRepo[]> {
+  const repositories: GitHubRepo[] = [];
   for (let page = 1; page <= 10; page += 1) {
-    const batch = await fetchPage(page);
-    pages.push(batch);
+    const url = API + "/users/" + USER + "/repos?per_page=100&page=" + page + "&sort=pushed&direction=desc&type=owner";
+    const response = await fetch(url, {
+      headers: { Accept: "application/vnd.github+json", "X-GitHub-Api-Version": "2022-11-28" },
+      cache: "no-store"
+    });
+    if (!response.ok) {
+      const remaining = response.headers.get("x-ratelimit-remaining");
+      if (response.status === 403 && remaining === "0") {
+        throw new Error("GitHub's public API rate limit has been reached. Please try again in about an hour.");
+      }
+      throw new Error("GitHub API returned " + response.status + ". Please try again.");
+    }
+    const batch = await response.json() as GitHubRepo[];
+    repositories.push(...batch);
     if (batch.length < 100) break;
   }
   const unique = new Map<number, GitHubRepo>();
-  pages.flat().forEach((repo) => unique.set(repo.id, repo));
+  repositories.forEach((repo) => unique.set(repo.id, repo));
   return Array.from(unique.values()).sort((a, b) => Date.parse(b.pushed_at) - Date.parse(a.pushed_at));
+}
+
+export async function fetchRepositoryLanguages(repo: string): Promise<Record<string, number>> {
+  const response = await fetch(API + "/repos/" + USER + "/" + encodeURIComponent(repo) + "/languages", {
+    headers: { Accept: "application/vnd.github+json", "X-GitHub-Api-Version": "2022-11-28" },
+    cache: "no-store"
+  });
+  if (!response.ok) throw new Error("Unable to load language breakdown");
+  return response.json() as Promise<Record<string, number>>;
 }
 
 export function categoryFor(repo: GitHubRepo): RepoCategory[] {
@@ -72,13 +88,4 @@ export function decorateRepositories(repos: GitHubRepo[]) {
     if (a.isFeatured && b.isFeatured) return (featured.get(a.name.toLowerCase())?.index ?? 99) - (featured.get(b.name.toLowerCase())?.index ?? 99);
     return Date.parse(b.pushed_at) - Date.parse(a.pushed_at);
   });
-}
-
-export async function getRepositoryLanguages(repo: string): Promise<Record<string, number>> {
-  const response = await fetch(API + "/repos/" + USER + "/" + encodeURIComponent(repo) + "/languages", {
-    headers: { Accept: "application/vnd.github+json", "X-GitHub-Api-Version": "2022-11-28" },
-    next: { revalidate: 3600 }
-  });
-  if (!response.ok) throw new Error("Unable to load language breakdown");
-  return response.json() as Promise<Record<string, number>>;
 }
