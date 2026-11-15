@@ -57,7 +57,7 @@ export default function RepoModal({ repo, onClose }: { repo: DecoratedRepo | nul
               <div><div className="repo-owner mono">KIRUBA11K / PUBLIC</div><h2 id="repo-modal-title">{repo.name}</h2></div>
               {repo.isFeatured && <span className="featured-badge"><Star size={11} fill="currentColor" /> Featured</span>}
             </div>
-            <p className="modal-description">{repo.description || repo.fallbackDescription}</p>
+            <p className="modal-description">{repo.description || repo.featuredNote || repo.fallbackDescription}</p>
             <div className="modal-stats">
               <span><Code2 size={14} /> {repo.language || "Not specified"}</span>
               <span><Star size={14} /> {repo.stargazers_count} stars</span>
