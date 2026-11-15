@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useScroll, useSpring } from "framer-motion";
 import { Search, List, LayoutGrid, Star, GitFork, CalendarDays, ArrowUpRight, RefreshCw, Github, Linkedin, Mail, ChevronDown, Code2, FolderGit2 } from "lucide-react";
 import HeaderCarousel from "@/components/HeaderCarousel";
 import SidebarFilters from "@/components/SidebarFilters";
@@ -30,6 +30,8 @@ export default function RepoDirectory({ initialRepos }: { initialRepos: Decorate
   const [loading, setLoading] = useState(initialRepos.length === 0);
   const [loadError, setLoadError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const { scrollYProgress } = useScroll();
+  const scrollProgress = useSpring(scrollYProgress, { stiffness: 110, damping: 28, restDelta: 0.001 });
 
   const loadRepositories = useCallback(async () => {
     setLoading(true);
@@ -104,6 +106,7 @@ export default function RepoDirectory({ initialRepos }: { initialRepos: Decorate
 
   return (
     <div className="app-shell">
+      <motion.div className="scroll-progress" style={{ scaleX: scrollProgress }} />
       <HeaderCarousel />
       <div className="directory-layout">
         <SidebarFilters active={activeFilter} counts={counts} onChange={(filter) => { setActiveFilter(filter); setVisibleCount(24); }} />
