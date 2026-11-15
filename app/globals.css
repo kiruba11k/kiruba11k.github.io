@@ -1540,3 +1540,121 @@ p,.player-bio,.career-copy p,.mission-copy p,.loadout-card p,.archive-topline p{
  .chapter-block{background:transparent!important}
  .player-art{min-height:300px!important}
 }
+
+
+/* SPACING + TYPE SCALE FIX: career cards and repository rows */
+.career-timeline{margin:0!important;padding:0!important}
+.career-timeline:before{display:none!important}
+.career-entry{
+ display:grid!important;
+ grid-template-columns:minmax(145px,175px) 42px minmax(0,1fr)!important;
+ align-items:start!important;
+ gap:18px!important;
+ width:100%!important;
+ margin:0 0 14px!important;
+ padding:25px 30px 27px 26px!important;
+ border:1px solid #e3e2ed!important;
+ border-radius:10px!important;
+ background:linear-gradient(120deg,#fff 0%,#fbfaff 100%)!important;
+ box-shadow:0 12px 34px rgba(48,43,82,.055)!important;
+}
+.career-date{padding-top:8px!important;font-size:9px!important;line-height:1.7!important;letter-spacing:.09em!important}
+.career-date i{font-size:8px!important;line-height:1.6!important;margin-top:10px!important}
+.career-marker{width:40px!important;height:40px!important;border-radius:8px!important;box-shadow:0 5px 16px rgba(232,62,145,.1)!important}
+.career-copy{min-width:0!important;padding:3px 0 0!important;border:0!important}
+.career-copy>span{font-size:9px!important;line-height:1.6!important;letter-spacing:.14em!important}
+.career-copy h3{font-size:clamp(20px,2.1vw,27px)!important;line-height:1.2!important;letter-spacing:-.035em!important;margin:12px 0 14px!important}
+.career-copy p{font-size:14px!important;line-height:1.85!important;margin:0!important;max-width:780px!important}
+.career-tags{font-size:9px!important;line-height:1.7!important;letter-spacing:.11em!important;margin-top:18px!important}
+.repo-list{gap:10px!important}
+.repo-row{
+ min-height:100px!important;
+ display:flex!important;align-items:center!important;
+ gap:24px!important;width:100%!important;
+ padding:20px 24px!important;
+ margin:0!important;
+ border:1px solid #e4e3ee!important;
+ border-radius:9px!important;
+ background:#fff!important;
+ box-shadow:0 8px 24px rgba(48,43,82,.035)!important;
+}
+.repo-row:hover{padding:20px 24px!important;transform:translateY(-2px)!important;background:#fff!important;border-color:#e8a4c6!important;box-shadow:0 14px 30px rgba(48,43,82,.085)!important}
+.repo-main{min-width:0!important}
+.repo-title-line{gap:10px!important;flex-wrap:wrap!important}
+.repo-title-line strong{font-size:16px!important;line-height:1.35!important;letter-spacing:-.025em!important}
+.repo-main p{font-size:12px!important;line-height:1.7!important;margin:8px 0 0!important;max-width:650px!important}
+.repo-meta{align-self:center!important;gap:14px!important;font-size:10px!important}
+.language-pill{padding:6px 9px!important;font-size:9px!important}
+.featured-badge{padding:5px 8px!important;font-size:9px!important}
+.repo-row>.repo-main>.repo-title-line>svg{width:15px;height:15px}
+.repo-card{padding:20px!important;min-height:185px!important}
+.repo-card .repo-title-line strong{font-size:16px!important;white-space:normal!important}
+.repo-card .repo-main p{font-size:12px!important;line-height:1.7!important}
+.archive-topline{margin-bottom:26px!important;gap:20px!important}
+.archive-topline p{font-size:14px!important;line-height:1.7!important}
+.archive-tools .search-wrap{height:54px!important;padding:0 18px!important}
+.archive-tools .search-wrap input{font-size:13px!important}
+.archive-chapter .tab{padding:11px 16px!important;font-size:9px!important}
+.results-line{padding:20px 0 12px!important;font-size:11px!important}
+.chapter-title-row{margin-bottom:40px!important}
+.chapter-title-row h2{line-height:1.08!important}
+.chapter-block{padding-top:100px!important;padding-bottom:90px!important}
+@media(max-width:900px){
+ .career-entry{grid-template-columns:130px 38px minmax(0,1fr)!important;gap:13px!important;padding:22px!important}
+ .career-copy h3{font-size:21px!important}
+ .repo-row{gap:14px!important;padding:18px!important}
+ .repo-meta{gap:8px!important}
+}
+@media(max-width:640px){
+ .chapter-block{padding:72px 0 62px!important}
+ .chapter-title-row{align-items:flex-start!important;flex-direction:column!important;gap:10px!important;margin-bottom:24px!important}
+ .career-entry{grid-template-columns:34px minmax(0,1fr)!important;gap:12px!important;padding:18px!important}
+ .career-date{grid-column:2;grid-row:1;padding:0!important}
+ .career-marker{grid-column:1;grid-row:1;width:34px!important;height:34px!important}
+ .career-copy{grid-column:2;grid-row:2}
+ .career-copy h3{font-size:20px!important}
+ .career-copy p{font-size:13px!important}
+ .repo-row{align-items:flex-start!important;flex-direction:column!important;gap:12px!important;padding:17px!important}
+ .repo-meta{align-self:flex-start!important;flex-wrap:wrap!important}
+ .repo-title-line strong{font-size:15px!important}
+ .archive-topline{align-items:flex-start!important;flex-direction:column!important}
+}
+/* Cinematic page entrance and real loading feedback */
+.boot-loader{
+ position:fixed;inset:0;z-index:9999;display:grid;place-items:center;
+ background:radial-gradient(ellipse at 50% 42%,#fff 0%,#f5f3fb 62%,#eeeff8 100%);
+ color:#28263e;overflow:hidden;
+}
+.boot-loader:before{
+ content:"";position:absolute;inset:0;opacity:.55;pointer-events:none;
+ background:linear-gradient(110deg,transparent 35%,rgba(232,62,145,.08) 50%,transparent 65%);
+ transform:translateX(-100%);animation:boot-sweep 1.25s ease-in-out infinite;
+}
+.boot-loader-inner{position:relative;width:min(360px,82vw);text-align:center}
+.boot-loader-mark{
+ width:58px;height:58px;margin:0 auto 22px;display:grid;place-items:center;
+ border:1px solid #e9b6d0;border-radius:16px;background:#fff;
+ color:#e83e91;font:700 16px "DM Mono",monospace;
+ box-shadow:0 12px 35px rgba(232,62,145,.12);
+ animation:boot-mark 1.15s ease-in-out infinite alternate;
+}
+.boot-loader-title{font:800 25px "Barlow Condensed",sans-serif;letter-spacing:.035em;text-transform:uppercase}
+.boot-loader-sub{margin-top:8px;color:#77768c;font:9px "DM Mono",monospace;letter-spacing:.2em}
+.boot-loader-track{height:3px;margin:25px 0 0;background:#e6e4ef;border-radius:9px;overflow:hidden}
+.boot-loader-track i{display:block;width:38%;height:100%;background:linear-gradient(90deg,#e83e91,#35b9c4);border-radius:9px;animation:boot-progress 1.05s cubic-bezier(.6,0,.3,1) forwards}
+@keyframes boot-progress{0%{width:0}55%{width:72%}100%{width:100%}}
+@keyframes boot-mark{from{transform:translateY(0) rotate(-4deg)}to{transform:translateY(-5px) rotate(4deg)}}
+@keyframes boot-sweep{to{transform:translateX(100%)}}
+@media(prefers-reduced-motion:reduce){.boot-loader:before,.boot-loader-mark,.boot-loader-track i{animation:none!important}}
+/* Content entrance: staggered, restrained and responsive */
+.scene-reveal{opacity:0;transform:translate3d(0,28px,0);transition:opacity .75s cubic-bezier(.2,.7,.2,1),transform .75s cubic-bezier(.2,.7,.2,1)}
+.scene-reveal.scene-visible{opacity:1;transform:translate3d(0,0,0)}
+.career-entry.scene-reveal{transition-delay:.04s}
+.loadout-card.scene-reveal{transition-delay:.06s}
+.mission-card{transition:box-shadow .35s ease,border-color .35s ease}
+.mission-card:hover{box-shadow:0 22px 50px rgba(48,43,82,.14)!important;border-color:#e9a2c5!important}
+.player-card,.education-mission,.career-entry,.loadout-card,.repo-row,.repo-card{transition:box-shadow .35s ease,border-color .35s ease,transform .35s ease}
+.player-card:hover,.education-mission:hover,.career-entry:hover,.loadout-card:hover{box-shadow:0 18px 44px rgba(48,43,82,.11)!important;border-color:#e8b2cf!important}
+.scene-photo,.mission-photo,.game-intro .city-background img{animation:photo-arrive .9s cubic-bezier(.2,.7,.2,1) both}
+@keyframes photo-arrive{from{opacity:.35;transform:scale(1.035)}to{opacity:1;transform:scale(1)}}
+@media(prefers-reduced-motion:reduce){.scene-reveal,.scene-photo,.mission-photo,.game-intro .city-background img{opacity:1!important;transform:none!important;transition:none!important;animation:none!important}}
