@@ -58,6 +58,7 @@ export default function RepoDirectory({initialRepos}:{initialRepos:DecoratedRepo
  const [visibleCount,setVisibleCount]=useState(24);
  const [selectedRepo,setSelectedRepo]=useState<DecoratedRepo|null>(null);
  const [loading,setLoading]=useState(initialRepos.length===0);
+ const [booting,setBooting]=useState(true);
  const [loadError,setLoadError]=useState(false);
  const [errorMessage,setErrorMessage]=useState("");
  const [activeChapter,setActiveChapter]=useState("chapter-profile");
@@ -70,6 +71,7 @@ export default function RepoDirectory({initialRepos}:{initialRepos:DecoratedRepo
   finally{setLoading(false)}
  },[]);
  useEffect(()=>{if(initialRepos.length>0)return;void loadRepositories()},[initialRepos.length,loadRepositories]);
+ useEffect(()=>{const reduced=window.matchMedia("(prefers-reduced-motion: reduce)").matches;const timer=window.setTimeout(()=>setBooting(false),reduced?120:1150);return()=>window.clearTimeout(timer)},[]);
  useEffect(()=>{
   const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)setActiveChapter(e.target.id)}),{rootMargin:"-25% 0px -60% 0px"});
   chapters.forEach(c=>{const el=document.getElementById(c.id);if(el)obs.observe(el)});
@@ -94,6 +96,16 @@ export default function RepoDirectory({initialRepos}:{initialRepos:DecoratedRepo
  const openSurprise=useCallback(()=>{if(filteredRepos.length)setSelectedRepo(filteredRepos[Math.floor(Math.random()*filteredRepos.length)])},[filteredRepos]);
  const jump=(id:string)=>document.getElementById(id)?.scrollIntoView({behavior:"smooth",block:"start"});
  return <div className="app-shell vice-shell">
+  <AnimatePresence>
+   {booting&&<motion.div className="boot-loader" role="status" aria-label="Loading portfolio" initial={{opacity:1}} exit={{opacity:0,filter:"blur(8px)"}} transition={{duration:.42,ease:"easeOut"}}>
+    <motion.div className="boot-loader-inner" initial={{y:14,opacity:0}} animate={{y:0,opacity:1}} transition={{duration:.55,ease:[.2,.7,.2,1]}}>
+     <motion.div className="boot-loader-mark" animate={{y:[0,-5,0],rotate:[-3,3,-3]}} transition={{duration:1.5,repeat:Infinity,ease:"easeInOut"}}>KP</motion.div>
+     <div className="boot-loader-title">Entering Vice Coast</div>
+     <div className="boot-loader-sub">INITIALIZING PORTFOLIO · AI / ML ENGINEER</div>
+     <div className="boot-loader-track"><i/></div>
+    </motion.div>
+   </motion.div>}
+  </AnimatePresence>
   <motion.div className="scroll-progress" style={{scaleX:scrollProgress}}/>
   <GameWorld/>
   <div className="world-nav">
