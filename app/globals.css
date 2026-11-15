@@ -1658,3 +1658,121 @@ p,.player-bio,.career-copy p,.mission-copy p,.loadout-card p,.archive-topline p{
 .scene-photo,.mission-photo,.game-intro .city-background img{animation:photo-arrive .9s cubic-bezier(.2,.7,.2,1) both}
 @keyframes photo-arrive{from{opacity:.35;transform:scale(1.035)}to{opacity:1;transform:scale(1)}}
 @media(prefers-reduced-motion:reduce){.scene-reveal,.scene-photo,.mission-photo,.game-intro .city-background img{opacity:1!important;transform:none!important;transition:none!important;animation:none!important}}
+
+
+/* Precision spacing and typography pass */
+body{font-family:"Inter",sans-serif!important;font-size:14px;line-height:1.75;letter-spacing:0}
+p{line-height:1.8!important}
+.chapter-title-row{margin-bottom:30px!important}
+.chapter-title-row h2{font-family:"Space Grotesk","Inter",sans-serif!important;font-size:clamp(34px,4.4vw,56px)!important;line-height:1.08!important;letter-spacing:-.055em!important}
+.chapter-kicker,.chapter-side-note,.career-date,.career-copy>span,.career-tags,.loadout-level,.mission-type,.mission-tech,.education-label,.repo-meta,.directory-foot,.results-line,.player-label,.player-role{
+ font-family:"DM Mono",monospace!important;letter-spacing:.11em!important;line-height:1.6!important;
+}
+.player-details h3,.career-copy h3,.mission-copy h3,.loadout-card h3,.education-mission h3,
+.repo-title-line strong,.world-footer h2{
+ font-family:"Space Grotesk","Inter",sans-serif!important;
+ letter-spacing:-.045em!important;line-height:1.18!important;
+}
+.player-bio,.career-copy p,.mission-copy p,.loadout-card p,.education-mission p,.repo-main p{
+ font-family:"Inter",sans-serif!important;font-size:14px!important;line-height:1.8!important;letter-spacing:0!important;
+}
+/* Career timeline: align date, marker and copy into one compact rhythm */
+.career-timeline{margin:0!important;padding:0!important}
+.career-timeline:before{
+ left:185px!important;top:24px!important;bottom:24px!important;
+ background:linear-gradient(180deg,#e83e91,#42bdc7)!important;opacity:.45;
+}
+.career-entry{
+ display:grid!important;
+ grid-template-columns:150px 42px minmax(0,1fr)!important;
+ align-items:start!important;gap:18px!important;
+ padding:22px 24px!important;margin:0 0 12px!important;
+ border:1px solid #e5e3ee!important;border-radius:10px!important;
+ background:linear-gradient(110deg,#fff,#fcfbff)!important;
+ box-shadow:0 9px 28px rgba(48,43,82,.045)!important;
+}
+.career-date{grid-column:1!important;grid-row:1!important;padding:4px 0 0!important;font-size:9px!important;line-height:1.8!important}
+.career-date i{font-size:8px!important;margin-top:8px!important;display:block!important}
+.career-marker{grid-column:2!important;grid-row:1!important;width:38px!important;height:38px!important;border-radius:10px!important;z-index:2!important}
+.career-copy{grid-column:3!important;grid-row:1!important;min-width:0!important;padding:2px 0 8px!important;border:0!important}
+.career-copy>span{font-size:9px!important;color:#85839a!important}
+.career-copy h3{font-size:22px!important;margin:10px 0 9px!important;color:#29273f!important}
+.career-copy h3 em{color:#df398b!important}
+.career-copy p{max-width:760px!important;margin:0!important;color:#686980!important}
+.career-tags{font-size:9px!important;margin-top:15px!important;color:#159eae!important}
+.career-entry:hover{transform:translateY(-3px)!important;box-shadow:0 18px 40px rgba(48,43,82,.09)!important}
+.career-entry:last-child{margin-bottom:0!important}
+/* Repository rows: compact, padded and vertically centered */
+.repo-list{display:grid!important;gap:9px!important}
+.repo-row{
+ display:flex!important;flex-direction:row!important;align-items:center!important;
+ justify-content:space-between!important;gap:24px!important;
+ width:100%!important;min-height:88px!important;height:auto!important;
+ padding:17px 22px!important;margin:0!important;
+ border:1px solid #e5e3ee!important;border-radius:9px!important;
+ background:rgba(255,255,255,.94)!important;
+ box-shadow:0 5px 18px rgba(48,43,82,.035)!important;
+}
+.repo-row:hover{padding:17px 22px!important;transform:translateY(-2px)!important;background:#fff!important;box-shadow:0 14px 30px rgba(48,43,82,.085)!important;border-color:#e9b2cf!important}
+.repo-main{min-width:0!important;flex:1!important}
+.repo-title-line{gap:10px!important;align-items:center!important}
+.repo-title-line strong{font-size:16px!important;font-weight:700!important;color:#29273f!important}
+.repo-main p{font-size:12px!important;line-height:1.65!important;margin:7px 0 0!important;max-width:720px!important;color:#74748a!important}
+.repo-meta{align-self:center!important;flex:none!important;justify-content:flex-end!important;gap:13px!important;font-size:10px!important;white-space:nowrap}
+.language-pill{padding:5px 8px!important;font-size:9px!important}
+.repo-card{padding:20px!important;min-height:185px!important;border-radius:10px!important}
+.repo-card .repo-title-line strong{font-size:16px!important;white-space:normal!important}
+.repo-card .repo-main p{font-size:12px!important}
+.archive-tools{margin-bottom:16px!important}
+.language-tabs{gap:9px!important;margin:14px 0 22px!important}
+.language-tabs .tab{padding:10px 16px!important;font:10px "DM Mono",monospace!important}
+.results-line{padding:15px 0 13px!important;font-size:10px!important}
+/* Make section entrances feel intentional, with gentle staggered card reveals */
+.chapter-title-row,.archive-topline,.archive-tools,.language-tabs,.results-line{
+ animation:editorial-rise .65s cubic-bezier(.2,.7,.2,1) both;
+}
+.chapter-title-row{animation-delay:.04s}
+.loadout-card,.career-entry,.mission-card,.education-mission,.achievement-row>div,.repo-card,.repo-row{
+ will-change:transform;
+}
+.loadout-card,.mission-card,.education-mission,.achievement-row>div{
+ animation:editorial-rise .72s cubic-bezier(.2,.7,.2,1) both;
+}
+.loadout-card:nth-child(2),.mission-card:nth-child(2){animation-delay:.09s}
+.loadout-card:nth-child(3),.mission-card:nth-child(3){animation-delay:.18s}
+@keyframes editorial-rise{from{opacity:0;transform:translate3d(0,18px,0)}to{opacity:1;transform:translate3d(0,0,0)}}
+.repo-row{animation:repo-enter .42s cubic-bezier(.2,.7,.2,1) both}
+@keyframes repo-enter{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}
+.mission-card .mission-photo{transition:transform .8s cubic-bezier(.2,.7,.2,1),filter .8s ease}
+.mission-card:hover .mission-photo{transform:scale(1.055)!important;filter:saturate(1.08)!important}
+.player-card,.loadout-card,.career-entry,.mission-card,.education-mission,.repo-card,.repo-row{
+ transition:transform .32s cubic-bezier(.2,.7,.2,1),box-shadow .32s ease,border-color .32s ease!important;
+}
+.boot-loader{display:grid!important;opacity:1}
+.boot-loader-inner{padding:12px}
+@media(max-width:900px){
+ .career-timeline:before{left:42px!important}
+ .career-entry{grid-template-columns:42px minmax(0,1fr)!important;gap:14px!important;padding:18px!important}
+ .career-date{grid-column:2!important;grid-row:1!important;padding:0!important}
+ .career-marker{grid-column:1!important;grid-row:1!important}
+ .career-copy{grid-column:2!important;grid-row:2!important}
+ .career-copy h3{font-size:20px!important}
+ .repo-row{gap:12px!important;padding:15px 16px!important}
+ .repo-meta{flex-wrap:wrap!important;white-space:normal!important}
+}
+@media(max-width:640px){
+ .repo-row{align-items:flex-start!important;flex-direction:column!important;gap:12px!important;min-height:0!important}
+ .repo-meta{align-self:flex-start!important;justify-content:flex-start!important}
+ .career-timeline:before{left:18px!important}
+ .career-entry{grid-template-columns:36px minmax(0,1fr)!important;padding:15px!important}
+ .career-marker{width:34px!important;height:34px!important}
+ .career-date,.career-copy{grid-column:2!important}
+ .career-copy{grid-row:2!important}
+ .career-copy h3{font-size:18px!important}
+}
+@media(prefers-reduced-motion:reduce){
+ .chapter-title-row,.archive-topline,.archive-tools,.language-tabs,.results-line,
+ .loadout-card,.career-entry,.mission-card,.education-mission,.achievement-row>div,.repo-card,.repo-row{
+  animation:none!important;transition:none!important;transform:none!important;
+ }
+}
