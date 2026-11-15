@@ -108,7 +108,7 @@ export default function RepoDirectory({ initialRepos }: { initialRepos: Decorate
       <div className="directory-layout">
         <SidebarFilters active={activeFilter} counts={counts} onChange={(filter) => { setActiveFilter(filter); setVisibleCount(24); }} />
         <main className="main-column">
-          <div className="intro-block">
+          <motion.div className="intro-block reveal-section" initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
             <div className="eyebrow mono"><span className="eyebrow-dot" /> AI / ML ENGINEER / BENGALURU, INDIA</div>
             <h1>Hey, I’m <span>Kirubakaran.</span></h1>
             <p>AI/ML Engineer with 1.5+ years of experience building machine learning solutions, deep learning applications, Generative AI pipelines and LLM-powered systems. I work across computer vision, NLP, model fine-tuning and production APIs with FastAPI and Django REST Framework. <strong>{repos.length ? repos.length + " public repositories" : "AI systems built for real workflows"}.</strong></p>
@@ -117,18 +117,18 @@ export default function RepoDirectory({ initialRepos }: { initialRepos: Decorate
               <a href="https://github.com/kiruba11k" target="_blank" rel="noreferrer"><Github size={14} /> GitHub</a>
               <a href="https://www.linkedin.com/in/kirubakaranperiyasamy/" target="_blank" rel="noreferrer"><Linkedin size={14} /> LinkedIn</a>
             </div>
-          </div>
+          </motion.div>
 
-          <section className="focus-slot">
+          <motion.section className="focus-slot reveal-section" initial={{ opacity: 0, y: 34 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.25 }} transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }} whileHover={{ y: -3 }}>
             <div className="focus-label"><span>CURRENT ROLE</span><span className="experience-pill">1.5+ YEARS EXPERIENCE</span></div>
             <div className="focus-row">
               <div className="focus-symbol"><Code2 size={18} /></div>
               <div className="focus-copy"><strong>AI / ML Engineer · LeadStrategus</strong><span>April 2025 — Present · Bengaluru, India</span></div>
               <a href="https://www.linkedin.com/in/kirubakaranperiyasamy/" target="_blank" rel="noreferrer" aria-label="View LinkedIn profile"><ArrowUpRight size={16} className="focus-arrow" /></a>
             </div>
-          </section>
+          </motion.section>
 
-          <section className="profile-section">
+          <motion.section className="profile-section reveal-section" initial={{ opacity: 0, y: 42 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.16 }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
             <div className="profile-section-head"><span className="section-overline mono">PROFILE / 02</span><h2>Building AI that moves beyond the demo.</h2></div>
             <div className="impact-grid">
               <div className="impact-card"><strong>3</strong><span>Generative AI automation tools shipped</span></div>
@@ -142,32 +142,32 @@ export default function RepoDirectory({ initialRepos }: { initialRepos: Decorate
               <div className="skill-group"><strong>Computer Vision &amp; NLP</strong><div className="skill-tags"><span>OpenCV</span><span>YOLO</span><span>CNNs</span><span>Segmentation</span><span>ByteTrack</span><span>Transformers</span><span>BERT</span><span>Hugging Face</span></div></div>
               <div className="skill-group"><strong>GenAI &amp; Engineering</strong><div className="skill-tags"><span>LLMs</span><span>RAG</span><span>LangChain</span><span>LangGraph</span><span>LoRA / QLoRA</span><span>FastAPI</span><span>Django REST</span><span>Docker</span><span>AWS</span><span>Weights &amp; Biases</span></div></div>
             </div>
-          </section>
+          </motion.section>
 
-          <section className="experience-section">
+          <motion.section className="experience-section reveal-section" initial={{ opacity: 0, y: 42 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
             <div className="profile-section-head"><span className="section-overline mono">EXPERIENCE / 04</span><h2>Where I’ve contributed</h2></div>
             <div className="experience-list">
               <article className="experience-item"><div className="experience-date mono">APR 2025 — PRESENT</div><div><h3>AI / ML Engineer <span>· LeadStrategus</span></h3><p>Built and deployed GenAI automation tools, data-ingestion pipelines and fine-tuned language models. Developed and evaluated ML/DL models using PyTorch, TensorFlow and scikit-learn.</p></div></article>
               <article className="experience-item"><div className="experience-date mono">AUG 2024 — SEP 2024</div><div><h3>Django Developer Intern <span>· Tecosys</span></h3><p>Contributed to Cerina GPT and designed 8+ Django REST APIs to connect AI inference endpoints with real-time application workflows.</p></div></article>
             </div>
-          </section>
+          </motion.section>
 
-          <section className="work-section">
+          <motion.section className="work-section reveal-section" initial={{ opacity: 0, y: 42 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
             <div className="profile-section-head"><span className="section-overline mono">SELECTED WORK / 05</span><h2>Projects worth exploring</h2></div>
             <div className="work-grid">
               <article className="work-card"><span className="work-index mono">01 / COMPUTER VISION</span><h3>ParcelGuard</h3><p>Visual inspection pipeline combining YOLO detection, Mask R-CNN / U-Net segmentation, ByteTrack and reference-guided anomaly analysis.</p><div className="work-tags">PyTorch · OpenCV · ResNet18 · FastAPI</div></article>
               <article className="work-card"><span className="work-index mono">02 / VIDEO ANALYTICS</span><h3>Smart Traffic Intelligence</h3><p>Vehicle detection and tracking for cars, motorcycles, buses and trucks, with persistent IDs, virtual-line counting and real-time analytics.</p><div className="work-tags">YOLO · OpenCV · ByteTrack</div></article>
               <article className="work-card"><span className="work-index mono">03 / LLM FINE-TUNING</span><h3>Mistral-7B · LoRA / QLoRA</h3><p>Fine-tuned a 7B model on 5K domain pairs with PEFT, tracked experiments in Weights &amp; Biases and published the model to Hugging Face Hub.</p><div className="work-tags">Mistral-7B · PEFT · Hugging Face</div></article>
             </div>
-          </section>
+          </motion.section>
 
-          <section className="education-section">
+          <motion.section className="education-section reveal-section" initial={{ opacity: 0, y: 42 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.25 }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
             <div className="profile-section-head"><span className="section-overline mono">EDUCATION / 06</span><h2>Foundation</h2></div>
             <div className="education-card"><div><h3>B.E. Computer Science &amp; Engineering</h3><p>Sree Sakthi Engineering College · Coimbatore</p></div><span className="education-date mono">AUG 2020 — MAY 2024</span></div>
             <p className="education-note">Relevant coursework: Machine Learning, Neural Networks, Data Structures &amp; Algorithms, Computer Vision.</p>
-          </section>
+          </motion.section>
 
-          <section className="directory-section">
+          <motion.section className="directory-section reveal-section" initial={{ opacity: 0, y: 42 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.08 }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
             <div className="directory-heading">
               <div><div className="section-overline mono">THE INDEX / 01</div><h2>Repository directory<span className="count-chip mono">{repos.length}</span></h2></div>
               <div className="directory-actions"><span className="sync-status"><i /> LIVE INDEX</span><button className={"view-toggle " + (view === "list" ? "selected" : "")} onClick={() => setView("list")} aria-label="List view"><List size={15} /></button><button className={"view-toggle " + (view === "grid" ? "selected" : "")} onClick={() => setView("grid")} aria-label="Grid view"><LayoutGrid size={15} /></button></div>
@@ -199,7 +199,10 @@ export default function RepoDirectory({ initialRepos }: { initialRepos: Decorate
                     className={view === "list" ? "repo-row" : "repo-card"}
                     onClick={() => setSelectedRepo(repo)}
                     initial={{ opacity: 0, y: 12 }}
-                    animate={{ opacity: 1, y: 0 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.12 }}
+                    whileHover={{ y: -3, scale: view === "grid" ? 1.015 : 1.005 }}
+                    whileTap={{ scale: 0.995 }}
                     exit={{ opacity: 0, y: -8 }}
                     transition={{ duration: 0.22, delay: index < 12 ? index * 0.018 : 0 }}
                   >
@@ -220,8 +223,8 @@ export default function RepoDirectory({ initialRepos }: { initialRepos: Decorate
             </div>
             {filteredRepos.length > visibleCount && <button className="load-more" onClick={() => setVisibleCount((count) => count + 24)}>Load more repositories <ChevronDown size={14} /><span className="mono">{Math.min(visibleCount, filteredRepos.length)} / {filteredRepos.length}</span></button>}
             <div className="directory-foot mono"><span>SHOWING {shownRepos.length} OF {filteredRepos.length}</span><span>DATA VIA GITHUB REST API</span></div>
-          </section>
-          <footer className="main-footer"><span>© {new Date().getFullYear()} KIRUBAKARAN PERIYASAMY</span><span>BUILT AROUND THE WORK, NOT THE HYPE.</span></footer>
+          </motion.section>
+          <motion.footer className="main-footer reveal-section" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.55 }}><span>© {new Date().getFullYear()} KIRUBAKARAN PERIYASAMY</span><span>BUILT AROUND THE WORK, NOT THE HYPE.</span></motion.footer>
         </main>
       </div>
       <SurprisePill disabled={filteredRepos.length === 0} onClick={openSurprise} />
