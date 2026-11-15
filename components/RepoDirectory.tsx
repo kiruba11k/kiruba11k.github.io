@@ -155,8 +155,8 @@ export default function RepoDirectory({ initialRepos }: { initialRepos: Decorate
                   >
                     <div className="repo-main">
                       <div className="repo-title-line"><strong>{displayName(repo.name)}</strong>{repo.isFeatured && <span className="featured-badge"><Star size={10} fill="currentColor" /> Featured</span>}<ArrowUpRight size={13} className="repo-open-icon" /></div>
-                      <p>{repo.description || repo.fallbackDescription}</p>
-                      {view === "grid" && (repo.topics || []).length > 0 && <div className="repo-topics">{repo.topics.slice(0, 3).map((topic) => <span key={topic}>{topic}</span>)}</div>}
+                      <p>{repo.description || repo.featuredNote || repo.fallbackDescription}</p>
+                      {view === "grid" && (repo.topics || []).length > 0 && <div className="repo-topics">{(repo.topics || []).slice(0, 3).map((topic) => <span key={topic}>{topic}</span>)}</div>}
                     </div>
                     <div className="repo-meta">
                       {repo.language && <span className="language-pill"><i />{repo.language}</span>}
