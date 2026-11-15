@@ -9,8 +9,8 @@ const domains = [
   { title: "RAG Pipelines", note: "Retrieval · embeddings", icon: BrainCircuit, angle: -11, y: 9 },
   { title: "Computer Vision", note: "Detection · segmentation", icon: ScanEye, angle: -4, y: 0 },
   { title: "Document AI", note: "OCR · extraction", icon: FileText, angle: 4, y: 0 },
-  { title: "Full-stack & Java", note: "APIs · applications", icon: Code2, angle: 11, y: 9 },
-  { title: "Data Analytics", note: "Insights · experiments", icon: ChartNoAxesCombined, angle: 18, y: 23 }
+  { title: "ML Engineering", note: "Training · evaluation", icon: Code2, angle: 11, y: 9 },
+  { title: "Model Optimization", note: "Fine-tuning · deployment", icon: ChartNoAxesCombined, angle: 18, y: 23 }
 ];
 
 export default function HeaderCarousel() {
