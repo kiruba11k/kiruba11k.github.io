@@ -59,7 +59,7 @@ export function fallbackDescription(repo: GitHubRepo): string {
 }
 
 export function decorateRepositories(repos: GitHubRepo[]) {
-  const featured = new Map(FEATURED_REPOS.map((repo, index) => [repo.name.toLowerCase(), { ...repo, index }]));
+  const featured = new Map<string, { name: string; note: string; index: number }>(FEATURED_REPOS.map((repo, index) => [repo.name.toLowerCase(), { ...repo, index }] as const));
   return repos.map((repo) => ({
     ...repo,
     categories: categoryFor(repo),
