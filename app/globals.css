@@ -666,3 +666,15 @@ body{background:var(--vc-bg);color:var(--vc-cream)}
  .floating-chapter{right:10px;bottom:10px;padding:9px 11px}.floating-chapter span{display:none}
 }
 @media(prefers-reduced-motion:reduce){.mission-card,.mission-art{transition:none!important}}
+
+
+/* Photographic mission media — render the source photos as real card imagery */
+.mission-visual{isolation:isolate;position:relative;min-height:230px;background:#101729;overflow:hidden}
+.mission-visual .mission-photo{position:absolute;inset:0;z-index:0;display:block;width:100%;height:100%;object-fit:cover;object-position:center 48%;opacity:1;filter:saturate(.92) contrast(1.06);transform:scale(1.001);transition:transform .8s cubic-bezier(.2,.7,.2,1),filter .6s ease}
+.mission-visual .mission-photo-shade{position:absolute;z-index:1;inset:0;background:linear-gradient(180deg,rgba(7,10,25,.08) 0%,rgba(7,10,25,.02) 48%,rgba(7,10,25,.64) 100%),linear-gradient(90deg,rgba(7,10,25,.13),transparent 45%,rgba(7,10,25,.12));pointer-events:none}
+.mission-visual:after{z-index:2;pointer-events:none;background:linear-gradient(0deg,rgba(9,13,29,.34),transparent 42%)}
+.mission-visual .mission-number,.mission-visual .mission-difficulty,.mission-visual .mission-scan,.mission-visual .mission-corner-mark{z-index:3}
+.mission-card:hover .mission-visual .mission-photo{transform:scale(1.065);filter:saturate(1.12) contrast(1.08)}
+.mission-card:hover .mission-visual .mission-photo-shade{background:linear-gradient(180deg,rgba(7,10,25,.02),rgba(7,10,25,.5))}
+.mission-card .mission-copy{position:relative;z-index:2}
+@media(max-width:600px){.mission-visual{min-height:220px}.mission-visual .mission-photo{object-position:center}}
