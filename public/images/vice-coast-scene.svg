@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+<defs>
+ <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#120d36"/><stop offset=".35" stop-color="#44215b"/><stop offset=".62" stop-color="#f05b91"/><stop offset="1" stop-color="#ffb47d"/></linearGradient>
+ <radialGradient id="sun"><stop stop-color="#fff2c9"/><stop offset=".55" stop-color="#ffb7a1"/><stop offset="1" stop-color="#ff579f"/></radialGradient>
+ <linearGradient id="sea" x2="0" y2="1"><stop stop-color="#a83e87"/><stop offset=".28" stop-color="#29265d"/><stop offset="1" stop-color="#080d28"/></linearGradient>
+ <linearGradient id="glass" x2="1" y2="1"><stop stop-color="#293b68"/><stop offset=".5" stop-color="#151c42"/><stop offset="1" stop-color="#090e28"/></linearGradient>
+ <linearGradient id="road" x2="0" y2="1"><stop stop-color="#27204a"/><stop offset="1" stop-color="#070a1d"/></linearGradient>
+ <linearGradient id="pink" x2="0" y2="1"><stop stop-color="#ff8ac0"/><stop offset="1" stop-color="#ef318c"/></linearGradient>
+ <filter id="blur"><feGaussianBlur stdDeviation="28"/></filter>
+ <filter id="glow"><feGaussianBlur stdDeviation="9" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs>
+<rect width="1920" height="1080" fill="url(#sky)"/>
+<circle cx="1440" cy="340" r="205" fill="url(#sun)" opacity=".94"/>
+<ellipse cx="1440" cy="550" rx="310" ry="36" fill="#ff6eaa" opacity=".35" filter="url(#blur)"/>
+<path d="M0 555 Q330 470 610 565T1120 540T1920 530V1080H0Z" fill="#332050" opacity=".58"/>
+<!-- distant skyline -->
+<g fill="#171b42" opacity=".78">
+ <path d="M0 540h95v-130h55v-80h65v210h38V430h65v-95h70v210h54V390h75v-70h80v245h50V425h60v-90h60v205h75V430h55v-140h72v260h70V390h62v-95h75v245h55V410h55v-90h85v225h80V420h55v-125h70v245h60V400h75v-80h80v220h50V390h90v160h60v-95h80v135H0Z"/>
+</g>
+<!-- art deco towers -->
+<g>
+ <path d="M140 720V360l80-75 80 75v360Z" fill="url(#glass)" stroke="#ff7bb5" stroke-width="4"/>
+ <path d="M160 360h120M180 330h80M195 300h50" stroke="#ff8cbd" stroke-width="5" fill="none"/>
+ <path d="M430 740V300h170v440Z" fill="url(#glass)" stroke="#4de4ee" stroke-width="4"/>
+ <path d="M455 330v360m42-360v360m42-360v360" stroke="#ff6da9" stroke-width="7" opacity=".8"/>
+ <path d="M690 710V390l95-110 95 110v320Z" fill="url(#glass)" stroke="#ff79b3" stroke-width="4"/>
+ <path d="M720 400h130M720 455h130M720 510h130M720 565h130" stroke="#52d9e9" stroke-width="5"/>
+ <path d="M1030 720V330h180v390Z" fill="url(#glass)" stroke="#56dce9" stroke-width="4"/>
+ <path d="M1060 360v320m45-320v320m45-320v320" stroke="#ff76b3" stroke-width="6"/>
+ <path d="M1300 710V420h150v290Z" fill="url(#glass)" stroke="#ff7db4" stroke-width="4"/>
+ <path d="M1330 445h90m-90 55h90m-90 55h90m-90 55h90" stroke="#5ce4ee" stroke-width="5"/>
+ <path d="M1570 720V340h230v380Z" fill="url(#glass)" stroke="#4edce9" stroke-width="4"/>
+ <path d="M1600 370v320m48-320v320m48-320v320m48-320v320" stroke="#ff78b5" stroke-width="6"/>
+</g>
+<!-- windows -->
+<g fill="#ffcfac" opacity=".8">
+ <path d="M170 390h16v32h-16zm35 0h16v32h-16zm35 0h16v32h-16zM460 365h18v27h-18zm45 0h18v27h-18zm45 0h18v27h-18zM1060 395h18v30h-18zm45 0h18v30h-18zm45 0h18v30h-18zM1600 405h18v28h-18zm48 0h18v28h-18zm48 0h18v28h-18z"/>
+</g>
+<!-- ocean -->
+<path d="M0 705 Q280 665 540 715T1060 690T1530 700T1920 675V1080H0Z" fill="url(#sea)"/>
+<g stroke="#ff80b7" opacity=".42" fill="none">
+ <path d="M0 770Q240 742 470 772T940 766T1420 768T1920 745" stroke-width="4"/>
+ <path d="M0 820Q260 790 510 823T1010 817T1490 819T1920 800" stroke-width="3"/>
+ <path d="M120 880h420m160 25h530m140-30h400M0 970h340m470-10h420m360 20h300" stroke-width="2"/>
+</g>
+<!-- boulevard perspective -->
+<path d="M720 1080 930 700h210l270 380Z" fill="url(#road)" stroke="#ff6aab" stroke-width="3"/>
+<path d="M950 1080 1030 700h18l-40 380m170 0-60-380h18l90 380" stroke="#ffca8c" stroke-width="5" opacity=".9"/>
+<path d="M1090 1080 1080 700h8l20 380" stroke="#fef0c9" stroke-width="7" opacity=".7"/>
+<!-- palm silhouettes -->
+<g fill="none" stroke="#10132f" stroke-linecap="round">
+ <path d="M95 1080Q170 740 220 210" stroke-width="26"/>
+ <path d="M220 210Q70 105 25 160Q110 155 190 225Q70 195 55 245Q145 218 210 235Q140 285 155 325Q220 265 235 230Q275 300 320 285Q280 220 235 210Q345 205 360 160Q280 170 225 205Q295 105 270 65Q220 130 210 200" stroke-width="17"/>
+ <path d="M1810 1080Q1745 750 1700 290" stroke-width="23"/>
+ <path d="M1700 290Q1560 175 1510 230Q1600 220 1680 300Q1565 275 1540 325Q1640 295 1690 315Q1620 365 1640 400Q1700 340 1715 310Q1760 380 1805 365Q1760 295 1715 285Q1820 275 1845 230Q1755 245 1710 280Q1780 175 1750 135Q1700 205 1695 275" stroke-width="16"/>
+</g>
+<!-- distant lights -->
+<g fill="#59e4ee" filter="url(#glow)"><circle cx="340" cy="650" r="5"/><circle cx="920" cy="620" r="4"/><circle cx="1480" cy="640" r="5"/></g>
+<g fill="#ff65a8" filter="url(#glow)"><circle cx="600" cy="640" r="5"/><circle cx="1250" cy="615" r="5"/><circle cx="1810" cy="665" r="4"/></g>
+<!-- cinematic vignette -->
+<rect width="1920" height="1080" fill="none" stroke="#08071c" stroke-width="90" opacity=".6"/>
+</svg>
