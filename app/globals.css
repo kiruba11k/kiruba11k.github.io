@@ -1907,3 +1907,72 @@ p{line-height:1.8!important}
  .player-art{min-height:340px!important}
  .player-portrait{object-position:center 30%!important}
 }
+
+
+/* COMPACT RECRUITER-FIRST LAYOUT */
+.story-main{width:min(1180px,calc(100% - 56px))!important;margin:0 auto!important}
+.chapter-block{padding:62px 0 50px!important;scroll-margin-top:82px!important}
+.chapter-title-row{margin-bottom:22px!important}
+.chapter-title-row h2{font-size:clamp(30px,3.7vw,46px)!important}
+.game-intro{min-height:610px!important;height:min(740px,82vh)!important}
+.player-card{grid-template-columns:minmax(260px,.82fr) minmax(0,1.18fr)!important}
+.player-art{min-height:330px!important}
+.player-details{padding:28px 32px!important}
+.player-details h3{font-size:clamp(32px,4vw,48px)!important;line-height:1.04!important}
+.player-bio{font-size:13px!important;line-height:1.7!important;margin:16px 0!important}
+.player-stats{padding:16px 0!important;margin-top:14px!important}
+.achievement-row{margin-top:12px!important;padding:10px 0!important}
+.loadout-grid{gap:13px!important}
+.loadout-card{min-height:0!important;padding:19px!important}
+.loadout-card h3{font-size:21px!important;margin:12px 0 7px!important}
+.loadout-card p{font-size:12px!important;line-height:1.6!important}
+.loadout-skills{gap:5px!important;margin-top:12px!important}
+.loadout-skills span{padding:5px 7px!important;font-size:9px!important}
+.missions-grid{gap:15px!important}
+.mission-visual{height:210px!important}
+.mission-copy{padding:18px 19px!important}
+.mission-copy h3{font-size:21px!important;margin:8px 0!important}
+.mission-copy p{font-size:12px!important;line-height:1.65!important}
+.career-entry{padding:17px 19px!important;margin-bottom:9px!important}
+.career-copy h3{font-size:20px!important;margin:7px 0!important}
+.career-copy p{font-size:12px!important;line-height:1.65!important}
+.career-tags{margin-top:10px!important}
+.education-inline{display:flex;align-items:center;gap:14px;margin-top:11px;padding:15px 18px;border:1px solid #e5e3ee;border-radius:10px;background:#fff;box-shadow:0 8px 24px rgba(48,43,82,.04)}
+.education-inline-icon{width:38px;height:38px;display:grid;place-items:center;flex:none;border:1px solid #f1c7dc;background:#fff0f7;color:#df398b;border-radius:8px}
+.education-inline>div:nth-child(2){flex:1;min-width:0}
+.education-inline span,.education-inline>b{font:8px "DM Mono",monospace;letter-spacing:.12em;color:#159eae}
+.education-inline h3{margin:4px 0;font:700 15px "Space Grotesk",sans-serif;color:#29273f}
+.education-inline p{margin:0;font-size:11px;color:#77768c}
+.education-inline>b{color:#df398b;white-space:nowrap}
+.archive-topline{margin-bottom:14px!important}
+.archive-tools .search-wrap{height:46px!important}
+.archive-chapter .tab{padding:8px 12px!important}
+.repo-list{display:grid!important;gap:7px!important}
+.repo-row{min-height:70px!important;padding:12px 16px!important}
+.repo-row:hover{padding:12px 16px!important}
+.repo-title-line strong{font-size:14px!important}
+.repo-main p{font-size:11px!important;line-height:1.55!important;margin-top:4px!important}
+.repo-meta{font-size:9px!important;gap:9px!important}
+.directory-foot{margin-top:11px!important}
+.world-footer{padding:34px 0 22px!important}
+.floating-chapter{display:none!important}
+@media(max-width:900px){
+ .story-main{width:min(calc(100% - 36px),760px)!important}
+ .chapter-block{padding:50px 0 40px!important}
+ .player-card{grid-template-columns:1fr!important}
+ .player-art{min-height:350px!important}
+ .loadout-grid{grid-template-columns:1fr!important}
+ .mission-visual{height:205px!important}
+}
+@media(max-width:640px){
+ .story-main{width:calc(100% - 28px)!important}
+ .chapter-block{padding:40px 0 32px!important}
+ .chapter-title-row{margin-bottom:17px!important}
+ .player-art{min-height:315px!important}
+ .player-details{padding:21px!important}
+ .missions-grid{grid-template-columns:1fr!important}
+ .mission-visual{height:190px!important}
+ .education-inline{align-items:flex-start;padding:13px!important}
+ .education-inline>b{display:none}
+ .archive-topline{align-items:flex-start!important;flex-direction:column!important}
+}
