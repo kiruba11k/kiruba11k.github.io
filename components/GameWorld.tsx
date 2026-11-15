@@ -15,7 +15,7 @@ const chapters = [
 
 function CityArtwork() {
   return <div className="city-background" aria-hidden="true">
-    <img src="/images/vice-coast-scene.svg" alt="" fetchPriority="high" />
+    <img src="https://images.unsplash.com/photo-1535498730771-e735b998cd64?auto=format&fit=crop&w=2200&q=90" alt="" fetchPriority="high" />
     <div className="city-atmosphere" />
     <div className="city-grain" />
   </div>;
