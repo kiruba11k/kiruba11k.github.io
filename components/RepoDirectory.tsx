@@ -2,239 +2,140 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion, useScroll, useSpring } from "framer-motion";
-import { Search, List, LayoutGrid, Star, GitFork, CalendarDays, ArrowUpRight, RefreshCw, Github, Linkedin, Mail, ChevronDown, Code2, FolderGit2 } from "lucide-react";
+import { Search, List, LayoutGrid, Star, GitFork, CalendarDays, ArrowUpRight, RefreshCw, Github, Linkedin, Mail, ChevronDown, Code2, FolderGit2, Crosshair, MapPin, Trophy, BriefcaseBusiness, GraduationCap, Terminal, ShieldCheck, Cpu, Database, Eye, Rocket, X, Gamepad2 } from "lucide-react";
 import GameWorld from "@/components/GameWorld";
-import SidebarFilters from "@/components/SidebarFilters";
 import RepoModal from "@/components/RepoModal";
 import SurprisePill from "@/components/SurprisePill";
-import ScrollStory from "@/components/ScrollStory";
 import { decorateRepositories, fetchAllRepositories } from "@/lib/github";
-import type { DecoratedRepo, LanguageFilter, SidebarFilter } from "@/lib/types";
+import type { DecoratedRepo, LanguageFilter } from "@/lib/types";
 
 const languageTabs: LanguageFilter[] = ["All", "Python", "Java", "Notebooks", "Web / JS", "Other"];
+const chapters = [
+  {id:"chapter-profile",no:"01",name:"PLAYER",sub:"Identity"},
+  {id:"chapter-loadout",no:"02",name:"ARSENAL",sub:"Skills"},
+  {id:"chapter-career",no:"03",name:"STORY",sub:"Career"},
+  {id:"chapter-projects",no:"04",name:"MISSIONS",sub:"Projects"},
+  {id:"chapter-archive",no:"05",name:"GARAGE",sub:"GitHub"},
+];
+function displayName(name:string){return name.replace(/[-_]+/g," ").replace(/\\b\\w/g,l=>l.toUpperCase())}
+function shortDate(date:string){return new Date(date).toLocaleDateString("en-US",{month:"short",day:"numeric"})}
 
-function displayName(name: string) {
-  return name.replace(/[-_]+/g, " ").replace(/\b\w/g, (letter) => letter.toUpperCase());
+function SceneArt({type}:{type:"parcel"|"traffic"|"llm"|"career"|"education"}) {
+ const common=<defs><linearGradient id={"g"+type} x1="0" y1="0" x2="1" y2="1"><stop stopColor={type==="traffic"?"#ffb15f":type==="llm"?"#8b8df6":"#f77f9b"}/><stop offset="1" stopColor={type==="traffic"?"#e74f79":type==="llm"?"#343b83":"#4d315f"}/></linearGradient><linearGradient id={"h"+type} x2="0" y2="1"><stop stopColor="#fff" stopOpacity=".3"/><stop offset="1" stopColor="#fff" stopOpacity="0"/></linearGradient></defs>;
+ return <svg viewBox="0 0 620 340" preserveAspectRatio="xMidYMid slice" className="mission-art" aria-hidden="true">{common}
+ <rect width="620" height="340" fill="#11172c"/>
+ <circle cx="465" cy="105" r="88" fill={"url(#g"+type+")"} opacity=".9"/>
+ <path d="M0 240L90 170 160 215 255 130 345 208 440 145 620 205V340H0Z" fill="#202744"/>
+ <path d="M0 270L125 220 240 265 360 205 500 245 620 210V340H0Z" fill="#111a31"/>
+ {type==="parcel"&&<g transform="translate(205 80)"><path d="M0 55L105 0l120 55-110 65z" fill="#f2a16e"/><path d="M0 55v115l115 65V120z" fill="#c56c72"/><path d="M115 120v115l110-65V55z" fill="#8d506d"/><path d="M105 0v120" stroke="#ffe2b2" strokeWidth="5"/><path d="M60 30l110 60" stroke="#ffe2b2" strokeWidth="5"/><path d="M36 77l40-22 0 48-40 22z" fill="#f9d4a1"/><path d="M145 145l44-25v50l-44 25z" fill="#6de0d2"/></g>}
+ {type==="traffic"&&<g><path d="M310 340L420 130h40L390 340z" fill="#303951"/><path d="M350 340L430 130" stroke="#f8c16f" strokeWidth="5" strokeDasharray="22 18"/><g transform="translate(335 225)"><path d="M0 20l18-20h82l26 20 12 34H-10z" fill="#ed7087" stroke="#ffc0a4" strokeWidth="3"/><path d="M32 4h48l22 17H20z" fill="#29324c"/><circle cx="20" cy="55" r="12" fill="#090d19" stroke="#eab4a9" strokeWidth="4"/><circle cx="104" cy="55" r="12" fill="#090d19" stroke="#eab4a9" strokeWidth="4"/></g><g fill="#ffcf80"><circle cx="95" cy="110" r="5"/><circle cx="130" cy="150" r="4"/><circle cx="175" cy="90" r="4"/></g></g>}
+ {type==="llm"&&<g><circle cx="310" cy="165" r="104" fill="none" stroke="#b9b9ff" strokeOpacity=".45" strokeWidth="2"/><circle cx="310" cy="165" r="68" fill="none" stroke="#b9b9ff" strokeOpacity=".5" strokeDasharray="5 8"/><circle cx="310" cy="165" r="32" fill="#8d8ef2"/>{Array.from({length:12},(_,i)=><g key={i}><path d={`M310 165L${310+Math.cos(i*Math.PI/6)*120} ${165+Math.sin(i*Math.PI/6)*120}`} stroke="#a5c7ee" strokeOpacity=".5"/><circle cx={310+Math.cos(i*Math.PI/6)*120} cy={165+Math.sin(i*Math.PI/6)*120} r="7" fill={i%3===0?"#f5a17c":"#8dd8d0"}/></g>)}</g>}
+ {type==="career"&&<g fill="#1a223d" stroke="#677394" strokeWidth="2"><path d="M60 260V95h90v165zM170 260V50h105v210zM300 260V115h88v145zM405 260V75h110v185z"/><g fill="#f5a0a2" stroke="none">{Array.from({length:20},(_,i)=><rect key={i} x={75+(i%5)*16} y={115+Math.floor(i/5)*28} width="6" height="10"/> )}</g><path d="M0 260H620" stroke="#f1a3a1" strokeWidth="4"/></g>}
+ {type==="education"&&<g><path d="M140 135L310 55l170 80-170 80z" fill="#e58b9e"/><path d="M195 165v85q115 80 230 0v-85l-115 55z" fill="#8d6e9b"/><path d="M480 135v110" stroke="#ffd28d" strokeWidth="7"/><circle cx="480" cy="260" r="12" fill="#ffd28d"/></g>}
+ <path d="M0 0H620V340H0Z" fill="url(#h"+type+")" opacity=".35"/>
+ </svg>
 }
-function shortDate(date: string) {
-  return new Date(date).toLocaleDateString("en-US", { month: "short", day: "numeric" });
+
+function MissionCard({number,tag,title,desc,tech,type,href}:{number:string;tag:string;title:string;desc:string;tech:string;type:"parcel"|"traffic"|"llm";href:string}) {
+ return <motion.article className={"mission-card mission-"+type} whileHover={{y:-9,rotateX:2,rotateY:-1,scale:1.012}} transition={{type:"spring",stiffness:190,damping:20}}>
+  <div className="mission-visual"><SceneArt type={type}/><span className="mission-number">MISSION {number}</span><span className="mission-difficulty">● ● ● <i>CLASSIFIED</i></span><div className="mission-scan"/></div>
+  <div className="mission-copy"><div className="mission-type">{tag}</div><h3>{title}</h3><p>{desc}</p><div className="mission-tech">{tech}</div><a href={href} target="_blank" rel="noreferrer">VIEW MISSION FILE <ArrowUpRight size={14}/></a></div>
+ </motion.article>
 }
 
-export default function RepoDirectory({ initialRepos }: { initialRepos: DecoratedRepo[] }) {
-  const [repos, setRepos] = useState<DecoratedRepo[]>(initialRepos);
-  const [activeFilter, setActiveFilter] = useState<SidebarFilter>("all");
-  const [languageFilter, setLanguageFilter] = useState<LanguageFilter>("All");
-  const [query, setQuery] = useState("");
-  const [view, setView] = useState<"list" | "grid">("list");
-  const [visibleCount, setVisibleCount] = useState(24);
-  const [selectedRepo, setSelectedRepo] = useState<DecoratedRepo | null>(null);
-  const [loading, setLoading] = useState(initialRepos.length === 0);
-  const [loadError, setLoadError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
-  const { scrollYProgress } = useScroll();
-  const scrollProgress = useSpring(scrollYProgress, { stiffness: 110, damping: 28, restDelta: 0.001 });
-
-  const loadRepositories = useCallback(async () => {
-    setLoading(true);
-    setLoadError(false);
-    setErrorMessage("");
-    try {
-      const data = await fetchAllRepositories();
-      setRepos(decorateRepositories(data));
-    } catch (error) {
-      setLoadError(true);
-      setErrorMessage(error instanceof Error ? error.message : "Could not load GitHub repositories.");
-    } finally {
-      setLoading(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (initialRepos.length > 0) return;
-    void loadRepositories();
-  }, [initialRepos.length, loadRepositories]);
-
-  useEffect(() => {
-    function shortcuts(event: KeyboardEvent) {
-      const target = event.target as HTMLElement | null;
-      const typing = target && (target.tagName === "INPUT" || target.tagName === "TEXTAREA" || target.isContentEditable);
-      if (event.key === "/" && !typing && !selectedRepo) {
-        event.preventDefault();
-        document.getElementById("repo-search")?.focus();
-      }
-      if (event.key === "Escape") {
-        if (document.activeElement?.id === "repo-search") {
-          setQuery("");
-          (document.activeElement as HTMLElement).blur();
-        }
-      }
-    }
-    window.addEventListener("keydown", shortcuts);
-    return () => window.removeEventListener("keydown", shortcuts);
-  }, [selectedRepo]);
-
-  const counts = useMemo(() => {
-    const result: Record<SidebarFilter, number> = { all: repos.length, featured: 0, "agentic-rag": 0, "computer-vision": 0, "python-ai": 0, "java-fullstack": 0, "data-science": 0 };
-    repos.forEach((repo) => {
-      if (repo.isFeatured) result.featured += 1;
-      repo.categories.forEach((category) => { result[category] += 1; });
-    });
-    return result;
-  }, [repos]);
-
-  const filteredRepos = useMemo(() => {
-    const normalized = query.trim().toLowerCase();
-    return repos.filter((repo) => {
-      const matchesSidebar = activeFilter === "all" || (activeFilter === "featured" ? repo.isFeatured : repo.categories.includes(activeFilter));
-      const matchesLanguage = languageFilter === "All" || repo.languageGroup === languageFilter;
-      const haystack = [repo.name, repo.description || "", repo.language || "", ...(repo.topics || [])].join(" ").toLowerCase();
-      return matchesSidebar && matchesLanguage && (!normalized || haystack.includes(normalized));
-    }).sort((a, b) => {
-      if (activeFilter === "all" || activeFilter === "featured") {
-        if (a.isFeatured !== b.isFeatured) return a.isFeatured ? -1 : 1;
-      }
-      return Date.parse(b.pushed_at) - Date.parse(a.pushed_at);
-    });
-  }, [repos, activeFilter, languageFilter, query]);
-
-  const openSurprise = useCallback(() => {
-    if (!filteredRepos.length) return;
-    const current = filteredRepos[Math.floor(Math.random() * filteredRepos.length)];
-    setSelectedRepo(current);
-  }, [filteredRepos]);
-
-  const shownRepos = filteredRepos.slice(0, visibleCount);
-
-  return (
-    <div className="app-shell">
-      <motion.div className="scroll-progress" style={{ scaleX: scrollProgress }} />
-      <GameWorld />
-      <div className="directory-layout">
-        <SidebarFilters active={activeFilter} counts={counts} onChange={(filter) => { setActiveFilter(filter); setVisibleCount(24); }} />
-        <main className="main-column">
-          <motion.div className="intro-block reveal-section" initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
-            <div className="eyebrow mono"><span className="eyebrow-dot" /> AI / ML ENGINEER / BENGALURU, INDIA</div>
-            <h1>Hey, I’m <span>Kirubakaran.</span></h1>
-            <p>AI/ML Engineer with 1.5+ years of experience building machine learning solutions, deep learning applications, Generative AI pipelines and LLM-powered systems. I work across computer vision, NLP, model fine-tuning and production APIs with FastAPI and Django REST Framework. <strong>{repos.length ? repos.length + " public repositories" : "AI systems built for real workflows"}.</strong></p>
-            <div className="intro-links">
-              <a className="connect-pill" href="mailto:kiruba11geo@gmail.com"><Mail size={13} /> let’s connect <ArrowUpRight size={12} /></a>
-              <a href="https://github.com/kiruba11k" target="_blank" rel="noreferrer"><Github size={14} /> GitHub</a>
-              <a href="https://www.linkedin.com/in/kirubakaranperiyasamy/" target="_blank" rel="noreferrer"><Linkedin size={14} /> LinkedIn</a>
-            </div>
-          </motion.div>
-
-          <motion.section className="focus-slot reveal-section" initial={{ opacity: 0, y: 34 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.25 }} transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }} whileHover={{ y: -3 }}>
-            <div className="focus-label"><span>CURRENT ROLE</span><span className="experience-pill">1.5+ YEARS EXPERIENCE</span></div>
-            <div className="focus-row">
-              <div className="focus-symbol"><Code2 size={18} /></div>
-              <div className="focus-copy"><strong>AI / ML Engineer · LeadStrategus</strong><span>April 2025 — Present · Bengaluru, India</span></div>
-              <a href="https://www.linkedin.com/in/kirubakaranperiyasamy/" target="_blank" rel="noreferrer" aria-label="View LinkedIn profile"><ArrowUpRight size={16} className="focus-arrow" /></a>
-            </div>
-          </motion.section>
-
-          <motion.section id="chapter-profile" className="profile-section reveal-section game-chapter-section" initial={{ opacity: 0, y: 42 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.16 }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
-            <div className="profile-section-head"><span className="section-overline mono">PROFILE / 02</span><h2>Building AI that moves beyond the demo.</h2></div>
-            <div className="impact-grid">
-              <div className="impact-card"><strong>3</strong><span>Generative AI automation tools shipped</span></div>
-              <div className="impact-card"><strong>~40%</strong><span>Less manual processing across workflows</span></div>
-              <div className="impact-card"><strong>10+</strong><span>Web sources and APIs integrated</span></div>
-              <div className="impact-card"><strong>35%</strong><span>Output-quality improvement after SFT</span></div>
-            </div>
-            <div id="chapter-loadout" className="profile-section-head skills-head"><span className="section-overline mono">TECH STACK / 03</span><h2>Tools I work with</h2></div>
-            <div className="skill-groups">
-              <div className="skill-group"><strong>ML &amp; Deep Learning</strong><div className="skill-tags"><span>Python</span><span>PyTorch</span><span>TensorFlow</span><span>Keras</span><span>Scikit-learn</span><span>NumPy</span><span>Pandas</span></div></div>
-              <div className="skill-group"><strong>Computer Vision &amp; NLP</strong><div className="skill-tags"><span>OpenCV</span><span>YOLO</span><span>CNNs</span><span>Segmentation</span><span>ByteTrack</span><span>Transformers</span><span>BERT</span><span>Hugging Face</span></div></div>
-              <div className="skill-group"><strong>GenAI &amp; Engineering</strong><div className="skill-tags"><span>LLMs</span><span>RAG</span><span>LangChain</span><span>LangGraph</span><span>LoRA / QLoRA</span><span>FastAPI</span><span>Django REST</span><span>Docker</span><span>AWS</span><span>Weights &amp; Biases</span></div></div>
-            </div>
-          </motion.section>
-
-          <motion.section id="chapter-career" className="experience-section reveal-section game-chapter-section" initial={{ opacity: 0, y: 42 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
-            <div className="profile-section-head"><span className="section-overline mono">EXPERIENCE / 04</span><h2>Where I’ve contributed</h2></div>
-            <div className="experience-list">
-              <article className="experience-item"><div className="experience-date mono">APR 2025 — PRESENT</div><div><h3>AI / ML Engineer <span>· LeadStrategus</span></h3><p>Built and deployed GenAI automation tools, data-ingestion pipelines and fine-tuned language models. Developed and evaluated ML/DL models using PyTorch, TensorFlow and scikit-learn.</p></div></article>
-              <article className="experience-item"><div className="experience-date mono">AUG 2024 — SEP 2024</div><div><h3>Django Developer Intern <span>· Tecosys</span></h3><p>Contributed to Cerina GPT and designed 8+ Django REST APIs to connect AI inference endpoints with real-time application workflows.</p></div></article>
-            </div>
-          </motion.section>
-
-          <ScrollStory />
-
-          <motion.section id="chapter-projects" className="work-section reveal-section game-chapter-section" initial={{ opacity: 0, y: 42 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
-            <div className="profile-section-head"><span className="section-overline mono">SELECTED WORK / 05</span><h2>Projects worth exploring</h2></div>
-            <div className="work-grid">
-              <motion.article className="work-card" whileHover={{ y: -7, rotateX: 1.5, rotateY: -1.5, scale: 1.015 }} transition={{ type: "spring", stiffness: 260, damping: 20 }}><span className="work-index mono">01 / COMPUTER VISION</span><h3>ParcelGuard</h3><p>Visual inspection pipeline combining YOLO detection, Mask R-CNN / U-Net segmentation, ByteTrack and reference-guided anomaly analysis.</p><div className="work-tags">PyTorch · OpenCV · ResNet18 · FastAPI</div></motion.article>
-              <article className="work-card"><span className="work-index mono">02 / VIDEO ANALYTICS</span><h3>Smart Traffic Intelligence</h3><p>Vehicle detection and tracking for cars, motorcycles, buses and trucks, with persistent IDs, virtual-line counting and real-time analytics.</p><div className="work-tags">YOLO · OpenCV · ByteTrack</div></article>
-              <article className="work-card"><span className="work-index mono">03 / LLM FINE-TUNING</span><h3>Mistral-7B · LoRA / QLoRA</h3><p>Fine-tuned a 7B model on 5K domain pairs with PEFT, tracked experiments in Weights &amp; Biases and published the model to Hugging Face Hub.</p><div className="work-tags">Mistral-7B · PEFT · Hugging Face</div></article>
-            </div>
-          </motion.section>
-
-          <motion.section className="education-section reveal-section" initial={{ opacity: 0, y: 42 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.25 }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
-            <div className="profile-section-head"><span className="section-overline mono">EDUCATION / 06</span><h2>Foundation</h2></div>
-            <div className="education-card"><div><h3>B.E. Computer Science &amp; Engineering</h3><p>Sree Sakthi Engineering College · Coimbatore</p></div><span className="education-date mono">AUG 2020 — MAY 2024</span></div>
-            <p className="education-note">Relevant coursework: Machine Learning, Neural Networks, Data Structures &amp; Algorithms, Computer Vision.</p>
-          </motion.section>
-
-          <motion.section id="chapter-archive" className="directory-section reveal-section game-chapter-section" initial={{ opacity: 0, y: 42 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.08 }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
-            <div className="directory-heading">
-              <div><div className="section-overline mono">THE INDEX / 01</div><h2>Repository directory<span className="count-chip mono">{repos.length}</span></h2></div>
-              <div className="directory-actions"><span className="sync-status"><i /> LIVE INDEX</span><button className={"view-toggle " + (view === "list" ? "selected" : "")} onClick={() => setView("list")} aria-label="List view"><List size={15} /></button><button className={"view-toggle " + (view === "grid" ? "selected" : "")} onClick={() => setView("grid")} aria-label="Grid view"><LayoutGrid size={15} /></button></div>
-            </div>
-            <div className="search-wrap">
-              <Search size={17} className="search-icon" />
-              <input id="repo-search" type="search" value={query} onChange={(event) => { setQuery(event.target.value); setVisibleCount(24); }} placeholder={"Search all " + repos.length + " repositories…"} aria-label="Search repositories" />
-              {query && <button className="clear-search" onClick={() => setQuery("")} aria-label="Clear search">×</button>}
-              <kbd>/</kbd>
-            </div>
-            <div className="language-tabs" role="tablist" aria-label="Filter by language">
-              {languageTabs.map((tab) => (
-                <button key={tab} role="tab" aria-selected={languageFilter === tab} className={languageFilter === tab ? "tab active" : "tab"} onClick={() => { setLanguageFilter(tab); setVisibleCount(24); }}>
-                  {tab}{languageFilter === tab && <motion.span className="tab-underline" layoutId="language-underline" transition={{ type: "spring", stiffness: 400, damping: 34 }} />}
-                </button>
-              ))}
-            </div>
-
-            <div className="results-line"><span>{filteredRepos.length} repositories</span><span className="mono">{activeFilter === "all" ? "ALL PROJECTS" : activeFilter.toUpperCase().replace("-", " ")}</span></div>
-            {loadError && <div className="error-panel"><span>{errorMessage || "Couldn’t reach GitHub just now."}</span><button onClick={() => void loadRepositories()}><RefreshCw size={13} /> Retry</button></div>}
-            {loading && <div className="loading-state"><span className="loading-spinner" /> Fetching repositories from GitHub…</div>}
-            {!loading && !loadError && filteredRepos.length === 0 && <div className="empty-state"><FolderGit2 size={25} /><strong>No repositories found</strong><span>Try another keyword or category.</span></div>}
-            <div className={view === "list" ? "repo-list" : "repo-grid"}>
-              <AnimatePresence mode="popLayout">
-                {shownRepos.map((repo, index) => (
-                  <motion.button
-                    layout
-                    key={repo.id}
-                    className={view === "list" ? "repo-row" : "repo-card"}
-                    onClick={() => setSelectedRepo(repo)}
-                    initial={{ opacity: 0, y: 12 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.12 }}
-                    whileHover={{ y: -3, scale: view === "grid" ? 1.015 : 1.005 }}
-                    whileTap={{ scale: 0.995 }}
-                    exit={{ opacity: 0, y: -8 }}
-                    transition={{ duration: 0.22, delay: index < 12 ? index * 0.018 : 0 }}
-                  >
-                    <div className="repo-main">
-                      <div className="repo-title-line"><strong>{displayName(repo.name)}</strong>{repo.isFeatured && <span className="featured-badge"><Star size={10} fill="currentColor" /> Featured</span>}<ArrowUpRight size={13} className="repo-open-icon" /></div>
-                      <p>{repo.description || repo.featuredNote || repo.fallbackDescription}</p>
-                      {view === "grid" && (repo.topics || []).length > 0 && <div className="repo-topics">{(repo.topics || []).slice(0, 3).map((topic) => <span key={topic}>{topic}</span>)}</div>}
-                    </div>
-                    <div className="repo-meta">
-                      {repo.language && <span className="language-pill"><i />{repo.language}</span>}
-                      {repo.stargazers_count > 0 && <span><Star size={12} />{repo.stargazers_count}</span>}
-                      {repo.forks_count > 0 && <span><GitFork size={12} />{repo.forks_count}</span>}
-                      <span className="repo-date"><CalendarDays size={12} />{shortDate(repo.updated_at)}</span>
-                    </div>
-                  </motion.button>
-                ))}
-              </AnimatePresence>
-            </div>
-            {filteredRepos.length > visibleCount && <button className="load-more" onClick={() => setVisibleCount((count) => count + 24)}>Load more repositories <ChevronDown size={14} /><span className="mono">{Math.min(visibleCount, filteredRepos.length)} / {filteredRepos.length}</span></button>}
-            <div className="directory-foot mono"><span>SHOWING {shownRepos.length} OF {filteredRepos.length}</span><span>DATA VIA GITHUB REST API</span></div>
-          </motion.section>
-          <motion.footer className="main-footer reveal-section" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.55 }}><span>© {new Date().getFullYear()} KIRUBAKARAN PERIYASAMY</span><span>BUILT AROUND THE WORK, NOT THE HYPE.</span></motion.footer>
-        </main>
-      </div>
-      <SurprisePill disabled={filteredRepos.length === 0} onClick={openSurprise} />
-      <RepoModal repo={selectedRepo} onClose={() => setSelectedRepo(null)} />
+export default function RepoDirectory({initialRepos}:{initialRepos:DecoratedRepo[]}) {
+ const [repos,setRepos]=useState<DecoratedRepo[]>(initialRepos);
+ const [languageFilter,setLanguageFilter]=useState<LanguageFilter>("All");
+ const [query,setQuery]=useState("");
+ const [view,setView]=useState<"list"|"grid">("list");
+ const [visibleCount,setVisibleCount]=useState(24);
+ const [selectedRepo,setSelectedRepo]=useState<DecoratedRepo|null>(null);
+ const [loading,setLoading]=useState(initialRepos.length===0);
+ const [loadError,setLoadError]=useState(false);
+ const [errorMessage,setErrorMessage]=useState("");
+ const [activeChapter,setActiveChapter]=useState("chapter-profile");
+ const {scrollYProgress}=useScroll();
+ const scrollProgress=useSpring(scrollYProgress,{stiffness:110,damping:28,restDelta:.001});
+ const loadRepositories=useCallback(async()=>{
+  setLoading(true);setLoadError(false);setErrorMessage("");
+  try{const data=await fetchAllRepositories();setRepos(decorateRepositories(data))}
+  catch(error){setLoadError(true);setErrorMessage(error instanceof Error?error.message:"Could not load GitHub repositories.")}
+  finally{setLoading(false)}
+ },[]);
+ useEffect(()=>{if(initialRepos.length>0)return;void loadRepositories()},[initialRepos.length,loadRepositories]);
+ useEffect(()=>{
+  const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)setActiveChapter(e.target.id)}),{rootMargin:"-25% 0px -60% 0px"});
+  chapters.forEach(c=>{const el=document.getElementById(c.id);if(el)obs.observe(el)});
+  return()=>obs.disconnect();
+ },[]);
+ useEffect(()=>{
+  function keys(e:KeyboardEvent){const t=e.target as HTMLElement|null;const typing=t&&(t.tagName==="INPUT"||t.tagName==="TEXTAREA"||t.isContentEditable);if(e.key==="/"&&!typing&&!selectedRepo){e.preventDefault();document.getElementById("repo-search")?.focus()}if(e.key==="Escape"&&document.activeElement?.id==="repo-search"){setQuery("");(document.activeElement as HTMLElement).blur()}}
+  window.addEventListener("keydown",keys);return()=>window.removeEventListener("keydown",keys)
+ },[selectedRepo]);
+ const filteredRepos=useMemo(()=>{const q=query.trim().toLowerCase();return repos.filter(r=>(languageFilter==="All"||r.languageGroup===languageFilter)&&(!q||[r.name,r.description||"",r.language||"",...(r.topics||[])].join(" ").toLowerCase().includes(q))).sort((a,b)=>{if(a.isFeatured!==b.isFeatured)return a.isFeatured?-1:1;return Date.parse(b.pushed_at)-Date.parse(a.pushed_at)})},[repos,languageFilter,query]);
+ const shownRepos=filteredRepos.slice(0,visibleCount);
+ const openSurprise=useCallback(()=>{if(filteredRepos.length)setSelectedRepo(filteredRepos[Math.floor(Math.random()*filteredRepos.length)])},[filteredRepos]);
+ const jump=(id:string)=>document.getElementById(id)?.scrollIntoView({behavior:"smooth",block:"start"});
+ return <div className="app-shell vice-shell">
+  <motion.div className="scroll-progress" style={{scaleX:scrollProgress}}/>
+  <GameWorld/>
+  <div className="world-nav">
+   <div className="world-nav-inner"><span className="world-location"><MapPin size={13}/> VICE COAST · SAN ANDREAS</span><nav>{chapters.map(c=><button key={c.id} className={activeChapter===c.id?"active":""} onClick={()=>jump(c.id)}><small>{c.no}</small>{c.name}</button>)}</nav><a href="mailto:kiruba11geo@gmail.com">CONTACT <ArrowUpRight size={13}/></a></div>
+  </div>
+  <main className="story-main">
+   <section id="chapter-profile" className="chapter-block player-chapter">
+    <div className="chapter-title-row"><div><span className="chapter-kicker">01 / CHARACTER SELECT</span><h2>Meet the <em>player.</em></h2></div><span className="chapter-side-note">PLAYER PROFILE <b>001</b></span></div>
+    <div className="player-card">
+     <div className="player-art"><div className="player-sun"/><div className="player-palm palm-a"/><div className="player-palm palm-b"/><div className="player-cityline"><i/><i/><i/><i/><i/><i/></div><div className="player-silhouette"><div className="player-head"/><div className="player-body"/></div><span className="player-art-caption">THE BUILDER · EST. 2024</span></div>
+     <div className="player-details"><div className="player-label"><span>PLAYER NAME</span><b>ACTIVE</b></div><h3>KIRUBAKARAN<br/><em>PERIYASAMY</em></h3><p className="player-role">AI / ML ENGINEER <span>·</span> BENGALURU, INDIA</p><p className="player-bio">I build intelligent systems that move beyond demos — from computer vision and deep learning to LLM-powered applications and production AI pipelines.</p><div className="player-stats"><div><small>EXPERIENCE</small><strong>1.5+ <i>YRS</i></strong></div><div><small>PRIMARY CLASS</small><strong>AI <i>ENGINEER</i></strong></div><div><small>BASE</small><strong>IND <i>/ IN</i></strong></div></div><div className="player-links"><a href="https://www.linkedin.com/in/kirubakaranperiyasamy/" target="_blank" rel="noreferrer"><Linkedin size={14}/> LINKEDIN</a><a href="https://github.com/kiruba11k" target="_blank" rel="noreferrer"><Github size={14}/> GITHUB</a><a href="mailto:kiruba11geo@gmail.com"><Mail size={14}/> EMAIL</a></div></div>
     </div>
-  );
+    <div className="achievement-row"><div><Trophy/><span><b>3</b> GENAI TOOLS SHIPPED</span></div><div><ShieldCheck/><span><b>~40%</b> LESS MANUAL WORK</span></div><div><Database/><span><b>10+</b> SOURCES & APIS</span></div><div><Cpu/><span><b>35%</b> SFT QUALITY LIFT</span></div></div>
+   </section>
+   <section id="chapter-loadout" className="chapter-block loadout-chapter">
+    <div className="chapter-title-row"><div><span className="chapter-kicker">02 / WEAPON WHEEL</span><h2>Choose your <em>loadout.</em></h2></div><span className="chapter-side-note">SKILL INVENTORY <b>10+</b></span></div>
+    <div className="loadout-grid">
+     <article className="loadout-card loadout-ai"><div className="loadout-icon"><Cpu/></div><span className="loadout-level">LVL 08 · CORE CLASS</span><h3>Machine learning</h3><p>Training, evaluation and deep neural networks.</p><div className="loadout-skills">{["Python","PyTorch","TensorFlow","Keras","Scikit-learn","NumPy","Pandas"].map(x=><span key={x}>{x}</span>)}</div><div className="loadout-meter"><i style={{width:"92%"}}/></div></article>
+     <article className="loadout-card loadout-vision"><div className="loadout-icon"><Eye/></div><span className="loadout-level">LVL 07 · SPECIALIST</span><h3>Vision & language</h3><p>Perception systems, detection, tracking and NLP.</p><div className="loadout-skills">{["OpenCV","YOLO","CNNs","Segmentation","ByteTrack","Transformers","BERT","Hugging Face"].map(x=><span key={x}>{x}</span>)}</div><div className="loadout-meter"><i style={{width:"86%"}}/></div></article>
+     <article className="loadout-card loadout-genai"><div className="loadout-icon"><Terminal/></div><span className="loadout-level">LVL 09 · ADVANCED</span><h3>GenAI engineering</h3><p>LLM orchestration, retrieval, fine-tuning and APIs.</p><div className="loadout-skills">{["LLMs","RAG","LangChain","LangGraph","LoRA / QLoRA","FastAPI","Django REST","Docker","AWS","W&B"].map(x=><span key={x}>{x}</span>)}</div><div className="loadout-meter"><i style={{width:"89%"}}/></div></article>
+    </div>
+   </section>
+   <section id="chapter-career" className="chapter-block career-chapter">
+    <div className="chapter-title-row"><div><span className="chapter-kicker">03 / STORY MISSIONS</span><h2>The road so <em>far.</em></h2></div><span className="chapter-side-note">CAREER LOG <b>02</b></span></div>
+    <div className="career-scene"><SceneArt type="career"/><div className="career-scene-title"><span>THE CITY IS YOURS</span><b>BUILD YOUR<br/>OWN PATH.</b></div></div>
+    <div className="career-timeline">
+     <article className="career-entry"><div className="career-date">APR 2025 — PRESENT <i>MISSION ACTIVE</i></div><div className="career-marker"><BriefcaseBusiness/></div><div className="career-copy"><span>MAIN STORY · BENGALURU</span><h3>AI / ML Engineer <em>@ LeadStrategus</em></h3><p>Built and deployed GenAI automation tools, data-ingestion pipelines and fine-tuned language models. Developed and evaluated ML/DL models using PyTorch, TensorFlow and scikit-learn.</p><div className="career-tags">GENAI · ML/DL · DATA PIPELINES · LLMs</div></div></article>
+     <article className="career-entry"><div className="career-date">AUG 2024 — SEP 2024 <i>COMPLETED</i></div><div className="career-marker"><Code2/></div><div className="career-copy"><span>EARLY ACCESS · INTERNSHIP</span><h3>Django Developer Intern <em>@ Tecosys</em></h3><p>Contributed to Cerina GPT and designed 8+ Django REST APIs to connect AI inference endpoints with real-time application workflows.</p><div className="career-tags">PYTHON · DJANGO REST · API ENGINEERING</div></div></article>
+    </div>
+   </section>
+   <section id="chapter-projects" className="chapter-block missions-chapter">
+    <div className="chapter-title-row"><div><span className="chapter-kicker">04 / SELECTED OPERATIONS</span><h2>Choose a <em>mission.</em></h2></div><span className="chapter-side-note">3 FEATURED FILES <b>● ● ●</b></span></div>
+    <div className="missions-grid">
+     <MissionCard number="01" tag="COMPUTER VISION / INSPECTION" title="ParcelGuard" desc="A visual inspection system combining object detection, segmentation, tracking and reference-guided anomaly analysis to identify parcel damage." tech="YOLO · MASK R-CNN / U-NET · BYTETRACK · PYTORCH" type="parcel" href="https://github.com/kiruba11k"/>
+     <MissionCard number="02" tag="REAL-TIME VIDEO ANALYTICS" title="Smart Traffic Intelligence" desc="Detect and track cars, motorcycles, buses and trucks with persistent identities, virtual-line counting and live traffic analytics." tech="YOLO · OPENCV · BYTETRACK" type="traffic" href="https://github.com/kiruba11k"/>
+     <MissionCard number="03" tag="LLM FINE-TUNING / NLP" title="Mistral-7B · LoRA / QLoRA" desc="Fine-tuned a 7B language model on 5K domain pairs using PEFT, tracked experiments and published the model to Hugging Face Hub." tech="MISTRAL-7B · PEFT · W&B · HUGGING FACE" type="llm" href="https://github.com/kiruba11k"/>
+    </div>
+   </section>
+   <section className="chapter-block education-chapter">
+    <div className="chapter-title-row"><div><span className="chapter-kicker">05 / ORIGIN STORY</span><h2>Where it <em>started.</em></h2></div><span className="chapter-side-note">FOUNDATION <b>2024</b></span></div>
+    <div className="education-mission"><div className="education-art"><SceneArt type="education"/><span>LEVEL 01 · UNLOCKED</span></div><div><GraduationCap/><span className="education-label">ACADEMIC CREDENTIAL</span><h3>B.E. Computer Science<br/>& Engineering</h3><p>Sree Sakthi Engineering College · Coimbatore</p><small>AUG 2020 — MAY 2024</small></div></div>
+   </section>
+   <section id="chapter-archive" className="chapter-block archive-chapter">
+    <div className="chapter-title-row"><div><span className="chapter-kicker">06 / THE GARAGE</span><h2>Built, tested, <em>stored.</em></h2></div><span className="chapter-side-note">LIVE GITHUB FEED <b>{repos.length}</b></span></div>
+    <div className="archive-topline"><p>Explore the code, experiments and side quests behind the missions.</p><a href="https://github.com/kiruba11k" target="_blank" rel="noreferrer">OPEN GITHUB PROFILE <ArrowUpRight size={14}/></a></div>
+    <div className="archive-tools"><div className="search-wrap"><Search size={17}/><input id="repo-search" type="search" value={query} onChange={e=>{setQuery(e.target.value);setVisibleCount(24)}} placeholder={"Search "+repos.length+" repositories..."}/>{query&&<button onClick={()=>setQuery("")}>×</button>}<kbd>/</kbd></div><div className="directory-actions"><button className={view==="list"?"selected":""} onClick={()=>setView("list")} aria-label="List view"><List size={15}/></button><button className={view==="grid"?"selected":""} onClick={()=>setView("grid")} aria-label="Grid view"><LayoutGrid size={15}/></button></div></div>
+    <div className="language-tabs">{languageTabs.map(tab=><button key={tab} className={languageFilter===tab?"tab active":"tab"} onClick={()=>{setLanguageFilter(tab);setVisibleCount(24)}}>{tab}</button>)}</div>
+    <div className="results-line"><span>{filteredRepos.length} repositories</span><span className="mono">PUBLIC REPOSITORY INDEX</span></div>
+    {loadError&&<div className="error-panel"><span>{errorMessage||"Could not reach GitHub."}</span><button onClick={()=>void loadRepositories()}><RefreshCw size={13}/> Retry</button></div>}
+    {loading&&<div className="loading-state"><span className="loading-spinner"/> Fetching live repository data...</div>}
+    {!loading&&!loadError&&filteredRepos.length===0&&<div className="empty-state"><FolderGit2 size={25}/><strong>No repositories found</strong><span>Try another keyword or language.</span></div>}
+    <div className={view==="list"?"repo-list":"repo-grid"}><AnimatePresence mode="popLayout">{shownRepos.map((repo,index)=><motion.button layout key={repo.id} className={view==="list"?"repo-row":"repo-card"} onClick={()=>setSelectedRepo(repo)} initial={{opacity:0,y:12}} whileInView={{opacity:1,y:0}} viewport={{once:true,amount:.12}} whileHover={{y:-3,scale:view==="grid"?1.015:1.005}} whileTap={{scale:.995}} exit={{opacity:0,y:-8}} transition={{duration:.22,delay:index<12?index*.018:0}}><div className="repo-main"><div className="repo-title-line"><strong>{displayName(repo.name)}</strong>{repo.isFeatured&&<span className="featured-badge"><Star size={10} fill="currentColor"/> Featured</span>}<ArrowUpRight size={13}/></div><p>{repo.description||repo.featuredNote||repo.fallbackDescription}</p>{view==="grid"&&(repo.topics||[]).length>0&&<div className="repo-topics">{(repo.topics||[]).slice(0,3).map(topic=><span key={topic}>{topic}</span>)}</div>}</div><div className="repo-meta">{repo.language&&<span className="language-pill"><i/>{repo.language}</span>}{repo.stargazers_count>0&&<span><Star size={12}/>{repo.stargazers_count}</span>}{repo.forks_count>0&&<span><GitFork size={12}/>{repo.forks_count}</span>}<span className="repo-date"><CalendarDays size={12}/>{shortDate(repo.updated_at)}</span></div></motion.button>)}</AnimatePresence></div>
+    {filteredRepos.length>visibleCount&&<button className="load-more" onClick={()=>setVisibleCount(n=>n+24)}>LOAD MORE FILES <ChevronDown size={14}/><span>{Math.min(visibleCount,filteredRepos.length)} / {filteredRepos.length}</span></button>}
+    <div className="directory-foot mono"><span>SHOWING {shownRepos.length} OF {filteredRepos.length}</span><span>DATA VIA GITHUB REST API</span></div>
+   </section>
+   <footer className="world-footer"><div><span>END OF CURRENT SAVE</span><h2>More worlds<br/><em>to build.</em></h2></div><div className="world-footer-actions"><a href="mailto:kiruba11geo@gmail.com"><Mail size={15}/> START A CONVERSATION</a><a href="https://www.linkedin.com/in/kirubakaranperiyasamy/" target="_blank" rel="noreferrer">LINKEDIN <ArrowUpRight size={13}/></a><a href="https://github.com/kiruba11k" target="_blank" rel="noreferrer">GITHUB <ArrowUpRight size={13}/></a></div><small>© {new Date().getFullYear()} KIRUBAKARAN PERIYASAMY · BUILT TO EXPLORE</small></footer>
+  </main>
+  <div className="floating-chapter"><span>NOW PLAYING</span><b>{chapters.find(c=>c.id===activeChapter)?.name||"OPEN WORLD"}</b><i/></div>
+  <SurprisePill disabled={!filteredRepos.length} onClick={openSurprise}/>
+  <RepoModal repo={selectedRepo} onClose={()=>setSelectedRepo(null)}/>
+ </div>;
 }
