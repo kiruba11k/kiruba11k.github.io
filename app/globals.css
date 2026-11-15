@@ -882,3 +882,19 @@ body{
  .story-main:before{opacity:.28!important}
 }
 @media(prefers-reduced-motion:reduce){.city-background img{animation:none!important;transform:scale(1.04)!important}}
+
+/* FINAL VISUAL OVERRIDE: use the committed self-contained Vice Coast scene */
+.game-intro{position:relative!important;isolation:isolate!important;overflow:hidden!important;background:#10071e!important}
+.game-intro>.city-background{position:absolute!important;inset:0!important;z-index:0!important;display:block!important;opacity:1!important;visibility:visible!important;overflow:hidden!important}
+.game-intro>.city-background>img{position:absolute!important;inset:0!important;display:block!important;width:100%!important;height:100%!important;max-width:none!important;object-fit:cover!important;object-position:center 56%!important;opacity:1!important;visibility:visible!important;filter:saturate(1.2) contrast(1.08) brightness(.9)!important;transform:scale(1.06)!important;animation:vice-scene-drift 28s ease-in-out infinite alternate!important}
+.game-intro>.city-background>.city-atmosphere{position:absolute!important;inset:0!important;z-index:1!important;background:linear-gradient(90deg,rgba(7,3,18,.78),rgba(12,4,24,.34) 48%,rgba(12,4,24,.04) 85%),linear-gradient(0deg,rgba(8,5,20,.88),transparent 48%,rgba(8,4,20,.12))!important}
+.game-intro>.city-background>.city-grain{position:absolute!important;inset:0!important;z-index:2!important;pointer-events:none!important}
+.game-intro:after{z-index:3!important;pointer-events:none!important;background:linear-gradient(0deg,#080513 0%,transparent 24%,transparent 75%,rgba(8,4,20,.15))!important}
+.game-intro>.game-scanlines{z-index:4!important;pointer-events:none!important}
+.game-intro>.game-topbar,.game-intro>.game-hero-content,.game-intro>.game-city-label,.game-intro>.game-bottom-gradient,.game-intro>.game-scroll-cue,.game-intro>.game-controls-hint{z-index:5!important}
+.game-intro>.game-bottom-gradient{pointer-events:none!important}
+@keyframes vice-scene-drift{from{transform:scale(1.06) translate3d(-.5%,0,0)}to{transform:scale(1.13) translate3d(.5%,-.5%,0)}}
+.player-art{background-image:linear-gradient(90deg,rgba(8,4,20,.16),rgba(8,4,20,.5)),url("/images/vice-coast-scene.svg")!important;background-size:cover!important;background-position:center 55%!important}
+.career-scene .scene-art,.education-art .scene-art{background-image:url("/images/vice-coast-scene.svg")!important;background-size:cover!important;background-position:center 55%!important}
+.scene-art{background-image:linear-gradient(0deg,rgba(8,4,20,.3),rgba(8,4,20,.1)),url("/images/vice-coast-scene.svg")!important;background-size:cover!important;background-position:center 55%!important}
+@media(prefers-reduced-motion:reduce){.game-intro>.city-background>img{animation:none!important;transform:scale(1.04)!important}}
