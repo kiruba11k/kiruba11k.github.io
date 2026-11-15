@@ -1776,3 +1776,14 @@ p{line-height:1.8!important}
   animation:none!important;transition:none!important;transform:none!important;
  }
 }
+
+
+/* Real player portrait: use Kiruba's uploaded photo instead of the placeholder silhouette */
+.player-art{position:relative!important;min-height:440px!important;background:#17152b!important;isolation:isolate!important}
+.player-art:after{z-index:2!important;background:linear-gradient(0deg,rgba(8,10,25,.78),rgba(8,10,25,.04) 42%,rgba(8,10,25,.06))!important}
+.player-portrait-frame{position:absolute;inset:0;z-index:1;overflow:hidden;background:#17152b}
+.player-portrait{display:block;width:100%;height:100%;object-fit:cover;object-position:center 34%;filter:saturate(.88) contrast(1.02);transform:scale(1.015)}
+.player-portrait-frame:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(14,15,35,.02),rgba(14,15,35,.08) 62%,rgba(14,15,35,.3)),linear-gradient(0deg,rgba(8,10,25,.66),transparent 32%)}
+.player-portrait-frame>span{position:absolute;z-index:3;left:25px;bottom:20px;color:#fff0df;font:8px "DM Mono",monospace;letter-spacing:.2em}
+.player-sun,.player-cityline,.player-palm,.player-silhouette,.player-art-caption{display:none!important}
+@media(max-width:760px){.player-art{min-height:340px!important}.player-portrait{object-position:center 30%}}
