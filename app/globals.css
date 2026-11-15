@@ -1846,3 +1846,64 @@ p{line-height:1.8!important}
 @media(prefers-reduced-motion:reduce){
  .game-hero-content h1,.game-hero-content h1 em{animation:none!important}
 }
+
+
+/* PLAYER PORTRAIT VISIBILITY FIX — keep the actual image above decorative overlays */
+.player-art{
+  position:relative!important;
+  overflow:hidden!important;
+  isolation:isolate!important;
+  background:#17152b!important;
+}
+.player-art:before{
+  content:""!important;
+  position:absolute!important;
+  inset:0!important;
+  z-index:2!important;
+  pointer-events:none!important;
+  background:linear-gradient(90deg,rgba(8,10,25,.02),rgba(8,10,25,.12) 72%,rgba(8,10,25,.2)),linear-gradient(0deg,rgba(8,10,25,.62),transparent 48%)!important;
+}
+.player-art:after{
+  content:none!important;
+  display:none!important;
+}
+.player-portrait-frame{
+  display:block!important;
+  position:absolute!important;
+  inset:0!important;
+  z-index:1!important;
+  overflow:hidden!important;
+  background:#17152b!important;
+}
+.player-portrait{
+  display:block!important;
+  position:absolute!important;
+  inset:0!important;
+  z-index:0!important;
+  width:100%!important;
+  height:100%!important;
+  object-fit:cover!important;
+  object-position:center 34%!important;
+  opacity:1!important;
+  visibility:visible!important;
+  filter:saturate(.98) contrast(1.02)!important;
+  transform:scale(1.01)!important;
+}
+.player-portrait-frame:after{
+  content:""!important;
+  position:absolute!important;
+  inset:0!important;
+  z-index:1!important;
+  pointer-events:none!important;
+  background:linear-gradient(0deg,rgba(8,10,25,.62),transparent 42%)!important;
+}
+.player-portrait-frame>span{
+  display:block!important;
+  z-index:2!important;
+  color:#fff!important;
+  text-shadow:0 2px 12px rgba(0,0,0,.7)!important;
+}
+@media(max-width:760px){
+ .player-art{min-height:340px!important}
+ .player-portrait{object-position:center 30%!important}
+}
