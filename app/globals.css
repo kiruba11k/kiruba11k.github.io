@@ -1095,3 +1095,290 @@ html,body{background:#080411!important}
 .repo-card,.repo-row,.search-wrap{background:rgba(18,9,34,.84)!important;border-color:rgba(255,79,157,.36)!important;backdrop-filter:blur(14px)!important}
 .world-footer{background:linear-gradient(100deg,rgba(40,12,47,.95),rgba(8,4,19,.97)),url("https://images.unsplash.com/photo-1535498730771-e735b998cd64?auto=format&fit=crop&w=1800&q=85") center/cover!important}
 @media(max-width:760px){.archive-chapter{background-attachment:scroll!important}.mission-visual{height:230px!important}.career-scene{height:260px!important}.loadout-card{min-height:390px!important}.scene-art{min-height:230px!important}}
+
+
+/* =========================================================
+   LIGHT MODE REBUILD — complete site-wide surface + typography
+   Warm ChatGPT-inspired canvas, cool lavender panels, Vice Coast accents.
+   This intentionally overrides every earlier dark-mode pass above.
+   ========================================================= */
+:root{
+  color-scheme:light!important;
+  --vc-pink:#e83e91;
+  --vc-cyan:#159eae;
+  --vc-cream:#242238;
+  --light-canvas:#f5f6fb;
+  --light-surface:#ffffff;
+  --light-surface-2:#eef0f8;
+  --light-ink:#242238;
+  --light-muted:#66677d;
+  --light-border:#dfe1ec;
+  --light-shadow:0 14px 42px rgba(49,43,82,.09);
+}
+html,body{
+  background:#f5f6fb!important;
+  color:#242238!important;
+  color-scheme:light!important;
+}
+body{
+  background-image:
+    radial-gradient(ellipse at 8% 8%,rgba(232,62,145,.075),transparent 34%),
+    radial-gradient(ellipse at 90% 24%,rgba(21,158,174,.07),transparent 32%),
+    linear-gradient(180deg,#fafaff 0%,#f3f4fa 48%,#f8f8fc 100%)!important;
+  background-attachment:fixed!important;
+}
+.app-shell,.app-shell.vice-shell{
+  min-height:100vh!important;
+  background:transparent!important;
+  color:var(--light-ink)!important;
+}
+.story-main{
+  background:transparent!important;
+  color:var(--light-ink)!important;
+}
+.story-main:before{display:none!important;content:none!important}
+.chapter-block,
+.chapter-block:nth-of-type(odd),
+.chapter-block+.chapter-block{
+  background:transparent!important;
+  color:var(--light-ink)!important;
+  border-top:1px solid rgba(117,111,153,.14)!important;
+  backdrop-filter:none!important;
+}
+.chapter-title-row h2,.world-footer h2,
+.game-hero-content h1,.player-details h3,.loadout-card h3,
+.career-copy h3,.mission-copy h3,.education-mission h3{
+  color:#242238!important;
+  text-shadow:none!important;
+}
+.chapter-title-row h2 em,.world-footer h2 em,
+.game-hero-content h1 em,.player-details h3 em,
+.career-copy h3 em{color:#e83e91!important}
+.chapter-kicker,.loadout-level,.mission-type,.education-label{
+  color:#d52e82!important;
+}
+.chapter-side-note,.chapter-side-note b{color:#77758d!important}
+p,.player-bio,.loadout-card p,.career-copy p,.mission-copy p,
+.archive-topline p,.education-mission p{
+  color:#62647a!important;
+}
+small,.mono,.career-copy>span,.career-date,.career-tags,
+.player-role,.player-label,.player-stats small,
+.mission-tech,.directory-foot,.results-line,.repo-meta{
+  color:#73748a!important;
+}
+/* Header / navigation surfaces */
+.game-nav,.world-nav,.game-chapter-bar{
+  background:rgba(255,255,255,.88)!important;
+  color:#34334b!important;
+  border-color:#e1e2ed!important;
+  box-shadow:0 5px 22px rgba(39,35,69,.06)!important;
+  backdrop-filter:blur(18px) saturate(1.15)!important;
+}
+.game-nav a,.world-nav a,.world-nav button,.game-nav button,
+.game-nav-brand,.game-nav-right,.world-location,
+.game-chapter-bar span,.game-chapter-bar strong{
+  color:#4d4c65!important;
+}
+.game-nav button.active,.world-nav button.active,
+.game-nav button:hover,.world-nav button:hover{color:#df3488!important}
+.game-nav button.active:after,.world-nav button.active:after{background:#e83e91!important}
+.game-chapter-progress{background:#e4e5ef!important}
+.game-chapter-progress i{background:linear-gradient(90deg,#e83e91,#42bdc7)!important}
+.game-nav-right svg,.world-location svg{color:#159eae!important}
+/* Opening hero: keep the Vice Coast photograph, but lift it into a bright daytime/editorial treatment */
+.game-intro{
+  background:#f0eff8!important;
+  color:#242238!important;
+}
+.game-intro>.city-background{opacity:1!important}
+.game-intro>.city-background>img{
+  filter:saturate(.82) contrast(.94) brightness(1.18)!important;
+  opacity:.72!important;
+}
+.game-intro>.city-background>.city-atmosphere{
+  background:
+    linear-gradient(90deg,rgba(248,247,253,.9) 0%,rgba(248,247,253,.76) 43%,rgba(248,247,253,.28) 82%),
+    linear-gradient(0deg,rgba(245,245,251,.96) 0%,rgba(245,245,251,.05) 58%,rgba(255,255,255,.24) 100%)!important;
+}
+.game-intro:after{
+  background:linear-gradient(0deg,#f5f6fb 0%,rgba(245,246,251,.04) 27%,rgba(255,255,255,.08) 100%)!important;
+}
+.game-intro>.game-scanlines{opacity:.035!important;mix-blend-mode:multiply!important}
+.game-topbar,.game-hero-content,.game-city-label,.game-scroll-cue,.game-controls-hint{color:#34334b!important}
+.game-logo,.game-top-status,.game-top-status span,.game-sound,
+.game-hero-meta,.game-kicker,.game-scroll-cue,.game-controls-hint{
+  color:#55556d!important;
+}
+.game-logo span{background:#fff!important;color:#e83e91!important;border-color:#e83e91!important}
+.game-kicker>span:first-child{background:#e83e91!important}
+.game-kicker-line{background:linear-gradient(90deg,#e83e91,transparent)!important}
+.game-hero-content h1{color:#242238!important}
+.game-hero-content h1 em{color:#e83e91!important;text-shadow:0 5px 24px rgba(232,62,145,.13)!important}
+.game-hero-content p{color:#55566d!important}
+.game-hero-meta{border-color:rgba(89,87,120,.2)!important}
+.game-city-label span{color:#df3e91!important;text-shadow:0 8px 24px rgba(232,62,145,.13)!important}
+.game-city-label small,.game-city-label b{color:#56556d!important}
+.game-sound,.game-ghost-button,.game-controls-hint span{
+  background:rgba(255,255,255,.72)!important;
+  color:#4e4d65!important;
+  border-color:#d9d9e8!important;
+}
+.game-start-button,.surprise-pill{
+  background:linear-gradient(105deg,#ed4a9a,#ff9bc3)!important;
+  color:#32132a!important;
+  box-shadow:0 9px 25px rgba(232,62,145,.17)!important;
+}
+.game-ghost-button{border:1px solid #d6d5e4!important}
+.game-ghost-button:hover{border-color:#e83e91!important;color:#d52e82!important}
+.game-bottom-gradient{background:linear-gradient(0deg,#f5f6fb,transparent)!important}
+.game-scroll-cue svg{color:#e83e91!important}
+/* Profile, skill, career, education, project and metric cards */
+.player-card,.loadout-card,.career-entry,.education-mission,
+.mission-card,.achievement-row>div,.repo-card,.repo-row{
+  color:#242238!important;
+  background:rgba(255,255,255,.88)!important;
+  border:1px solid #e0e1ed!important;
+  box-shadow:var(--light-shadow)!important;
+  backdrop-filter:blur(12px)!important;
+}
+.player-card{background:rgba(255,255,255,.94)!important}
+.player-art{
+  background-image:
+    linear-gradient(90deg,rgba(255,255,255,.1),rgba(245,244,252,.2)),
+    url("https://images.unsplash.com/photo-1535498730771-e735b998cd64?auto=format&fit=crop&w=1800&q=90")!important;
+}
+.player-art:before{background:linear-gradient(90deg,rgba(255,255,255,.03),rgba(22,17,43,.1)),linear-gradient(0deg,rgba(18,13,34,.34),transparent 60%)!important}
+.player-art-caption{color:#fff!important;text-shadow:0 2px 12px rgba(0,0,0,.6)!important}
+.player-label,.player-label span{color:#77758b!important}
+.player-label b{color:#159eae!important}
+.player-stats{border-color:#e6e5ef!important}
+.player-stats strong{color:#27263e!important}
+.player-stats strong i{color:#85849a!important}
+.player-links a{color:#d83285!important}
+.achievement-row>div{background:rgba(255,255,255,.82)!important}
+.achievement-row svg{color:#e83e91!important}
+.achievement-row span{color:#68687d!important}
+.achievement-row b{color:#27263e!important}
+/* Loadout cards become light glass panels, not dark image tiles */
+.loadout-card,.loadout-ai,.loadout-vision,.loadout-genai{
+  background:linear-gradient(145deg,rgba(255,255,255,.97),rgba(239,240,249,.96))!important;
+  border-color:#dedfeb!important;
+  box-shadow:0 16px 44px rgba(51,47,82,.08)!important;
+}
+.loadout-card:before{display:none!important;content:none!important}
+.loadout-card .loadout-icon{
+  background:#f5eaf2!important;
+  color:#d83285!important;
+  border-color:#f0c9dd!important;
+}
+.loadout-card .loadout-level{color:#d83285!important}
+.loadout-card h3{color:#27263e!important}
+.loadout-card p{color:#69697e!important}
+.loadout-card .loadout-skills span{
+  background:#fff!important;
+  color:#53536b!important;
+  border:1px solid #e1e1ec!important;
+  backdrop-filter:none!important;
+}
+.loadout-meter{background:#e2e3ed!important}
+.loadout-meter i{background:linear-gradient(90deg,#e83e91,#45bdc5)!important}
+/* Career timeline and origin story */
+.career-scene{
+  border:1px solid #dfe0ec!important;
+  box-shadow:0 18px 48px rgba(49,43,82,.08)!important;
+}
+.career-scene-title{color:#fff!important;text-shadow:0 3px 18px rgba(0,0,0,.7)!important}
+.career-entry{
+  background:linear-gradient(110deg,#fff,rgba(246,246,252,.96))!important;
+  border-color:#e0e1ed!important;
+}
+.career-date{color:#77758b!important}
+.career-date i{color:#159eae!important}
+.career-marker{background:#f9eaf2!important;color:#d83285!important;border-color:#efc9dc!important}
+.career-copy>span{color:#77758b!important}
+.career-copy h3{color:#29283f!important}
+.career-copy h3 em{color:#df3e91!important}
+.career-copy p{color:#66677d!important}
+.career-tags{color:#159eae!important}
+.education-mission{
+  background:#fff!important;
+  border-color:#e0e1ed!important;
+}
+.education-mission>div:last-child{color:#29283f!important}
+.education-mission svg{color:#e83e91!important}
+.education-mission h3{color:#29283f!important}
+.education-mission p{color:#68697e!important}
+.education-mission small{color:#159eae!important}
+.education-art>span{color:#fff!important;text-shadow:0 2px 10px rgba(0,0,0,.6)!important}
+/* Mission cards */
+.mission-card{background:#fff!important;border-color:#e0e1ed!important}
+.mission-copy{background:#fff!important}
+.mission-copy h3{color:#29283f!important}
+.mission-copy p{color:#68697e!important}
+.mission-type{color:#d83285!important}
+.mission-tech{color:#159eae!important}
+.mission-brief{color:#55556d!important;border-color:#e83e91!important}
+.mission-brief p,.mission-brief small{color:#66677d!important}
+.mission-brief-toggle{color:#d83285!important;border-color:#e8c4d7!important;background:#fff5fa!important}
+.mission-copy>a{color:#d83285!important}
+.mission-photo-shade{background:linear-gradient(0deg,rgba(16,12,32,.62),transparent 72%)!important}
+.mission-number,.mission-difficulty,.mission-corner-mark{color:#fff!important;text-shadow:0 2px 12px rgba(0,0,0,.7)!important}
+/* Repository directory and footer */
+.archive-chapter{
+  background:linear-gradient(180deg,rgba(248,248,253,.95),rgba(242,243,250,.98))!important;
+}
+.archive-topline p{color:#68697e!important}
+.archive-topline a,.directory-foot,.results-line .mono{color:#77758b!important}
+.archive-tools .search-wrap,.search-wrap{
+  background:#fff!important;
+  border:1px solid #dedfeb!important;
+  box-shadow:0 6px 22px rgba(51,47,82,.045)!important;
+}
+.search-wrap input{background:transparent!important;color:#29283f!important}
+.search-wrap input::placeholder{color:#9291a4!important}
+.search-wrap kbd{background:#f1f1f7!important;color:#66657b!important;border-color:#dedfeb!important}
+.language-tabs .tab,.directory-actions button{
+  background:#fff!important;color:#66657d!important;border-color:#dedfeb!important;
+}
+.language-tabs .tab.active,.directory-actions button.selected{
+  background:#e83e91!important;color:#fff!important;border-color:#e83e91!important;
+}
+.repo-card,.repo-row{
+  background:rgba(255,255,255,.94)!important;
+  border-color:#e0e1ed!important;
+}
+.repo-card:hover,.repo-row:hover{border-color:#e8a4c6!important;box-shadow:0 16px 40px rgba(51,47,82,.1)!important}
+.repo-title-line strong,.repo-main strong{color:#29283f!important}
+.repo-main p{color:#696a7f!important}
+.repo-topics span,.language-pill{background:#f1f1f8!important;color:#68677d!important;border-color:#e0e1ed!important}
+.repo-meta,.repo-meta span{color:#77758b!important}
+.featured-badge{background:#fff0f7!important;color:#d83285!important;border-color:#f2c5dc!important}
+.load-more{background:linear-gradient(100deg,#e83e91,#ff9bc3)!important;color:#32132a!important}
+.world-footer{
+  background:linear-gradient(115deg,#f4eaf3,#edf1f8 55%,#f8f3fa)!important;
+  border-top:1px solid #e0ddea!important;
+  color:#29283f!important;
+}
+.world-footer>div>span,.world-footer small{color:#77758b!important}
+.world-footer h2{color:#29283f!important}
+.world-footer-actions a:first-child{background:linear-gradient(100deg,#e83e91,#ff9bc3)!important;color:#32132a!important}
+.world-footer-actions a:not(:first-child){color:#d83285!important}
+/* Floating UI, progress and focus states */
+.floating-chapter{
+  background:rgba(255,255,255,.94)!important;
+  color:#66657b!important;
+  border:1px solid #e1dce9!important;
+  box-shadow:0 10px 30px rgba(44,39,72,.12)!important;
+}
+.floating-chapter b{color:#d83285!important}
+.floating-chapter i{background:#e83e91!important}
+.scroll-progress{background:linear-gradient(90deg,#e83e91,#ff9bc3,#35b8c4)!important}
+.surprise-pill{background:linear-gradient(100deg,#ed4a9a,#ff9bc3)!important;color:#32132a!important}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid #159eae!important;outline-offset:3px!important}
+@media(max-width:760px){
+  body{background-attachment:scroll!important}
+  .game-intro>.city-background>img{filter:saturate(.82) contrast(.94) brightness(1.12)!important}
+  .game-intro>.city-background>.city-atmosphere{background:linear-gradient(90deg,rgba(248,247,253,.88),rgba(248,247,253,.54)),linear-gradient(0deg,#f5f6fb,transparent 70%)!important}
+  .chapter-block,.chapter-block:nth-of-type(odd){background:transparent!important}
+}
