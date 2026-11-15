@@ -9,7 +9,8 @@ const chapters = [
   { id: "chapter-loadout", no: "02", name: "SKILL LOADOUT", sub: "Tools & abilities" },
   { id: "chapter-career", no: "03", name: "CAREER MISSIONS", sub: "Experience log" },
   { id: "chapter-projects", no: "04", name: "FIELD OPERATIONS", sub: "Featured projects" },
-  { id: "chapter-archive", no: "05", name: "THE ARCHIVE", sub: "130 repositories" },
+  { id: "chapter-education", no: "05", name: "ORIGIN STORY", sub: "Education" },
+  { id: "chapter-archive", no: "06", name: "THE GARAGE", sub: "GitHub repository archive" },
 ];
 
 function CityArtwork() {
@@ -22,6 +23,7 @@ function CityArtwork() {
 
 export default function GameWorld() {
   const [started, setStarted] = useState(false);
+  const [pointer, setPointer] = useState({x:0,y:0});
   const [active, setActive] = useState("chapter-profile");
   const reduceMotion = useReducedMotion();
   useEffect(() => {
@@ -32,8 +34,16 @@ export default function GameWorld() {
       const node = document.getElementById(chapter.id);
       if (node) observer.observe(node);
     });
-    return () => observer.disconnect();
-  }, []);
+    const onKey = (event: KeyboardEvent) => {
+      if (event.target instanceof HTMLElement && ["INPUT","TEXTAREA","BUTTON"].includes(event.target.tagName)) return;
+      const number = Number(event.key);
+      if (number >= 1 && number <= chapters.length) jump(chapters[number-1].id);
+      if (event.key.toLowerCase() === "j") jump(chapters[Math.min(activeIndex+1,chapters.length-1)].id);
+      if (event.key.toLowerCase() === "k") jump(chapters[Math.max(activeIndex-1,0)].id);
+    };
+    window.addEventListener("keydown",onKey);
+    return () => { observer.disconnect(); window.removeEventListener("keydown",onKey); };
+  }, [active]);
   const activeIndex = Math.max(0, chapters.findIndex(chapter => chapter.id === active));
   const jump = (id: string) => {
     setStarted(true);
@@ -41,7 +51,7 @@ export default function GameWorld() {
     document.getElementById(id)?.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
   };
   return <>
-    <section className="game-intro" id="game-start">
+    <section className="game-intro" id="game-start" onPointerMove={event=>{const r=event.currentTarget.getBoundingClientRect();setPointer({x:(event.clientX-r.left)/r.width-.5,y:(event.clientY-r.top)/r.height-.5})}} style={{"--pointer-x":`${pointer.x*18}px`,"--pointer-y":`${pointer.y*12}px`} as React.CSSProperties}>
       <CityArtwork />
       <div className="game-scanlines" />
       <div className="game-topbar"><a href="#game-start" className="game-logo"><span>KP</span> OPEN WORLD <i>™</i></a><div className="game-top-status"><span><i /> ONLINE</span><span>VICE COAST · INDIA SERVER</span></div><button className="game-sound" aria-label="Sound is off"><Volume2 size={15}/><span>SOUND OFF</span></button></div>
@@ -57,7 +67,7 @@ export default function GameWorld() {
       </div>
       <motion.div className="game-city-label" animate={reduceMotion ? undefined : { y: [0,-7,0], opacity:[.92,1,.92] }} transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}><span>VICE COAST</span><small>THE CITY NEVER STOPS LEARNING</small><b>MISSION PROGRESS <i>{String(activeIndex + 1).padStart(2,"0")} / 05</i></b></motion.div>
       <div className="game-bottom-gradient"/>
-      <div className="game-scroll-cue"><span>SCROLL TO EXPLORE</span><ArrowDown size={14}/></div>
+      <div className="game-scroll-cue"><span>SCROLL TO EXPLORE</span><ArrowDown size={14}/></div><div className="game-controls-hint"><span>1—6</span> SELECT CHAPTER <i/> <span>J / K</span> NEXT / PREVIOUS</div>
     </section>
     <header className="game-nav">
       <a href="#game-start" className="game-nav-brand">KP<span> / STORY MODE</span></a>
