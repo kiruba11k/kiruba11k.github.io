@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { X, ExternalLink, Copy, Check, Star, GitFork, CalendarDays, Code2, Terminal } from "lucide-react";
+import { fetchRepositoryLanguages } from "@/lib/github";
 import type { DecoratedRepo } from "@/lib/types";
 
 export default function RepoModal({ repo, onClose }: { repo: DecoratedRepo | null; onClose: () => void }) {
@@ -15,11 +16,7 @@ export default function RepoModal({ repo, onClose }: { repo: DecoratedRepo | nul
     let cancelled = false;
     setLanguages({});
     setLoadingLanguages(true);
-    fetch("/api/repos/" + encodeURIComponent(repo.name) + "/languages")
-      .then((response) => {
-        if (!response.ok) throw new Error("Could not load languages");
-        return response.json();
-      })
+    fetchRepositoryLanguages(repo.name)
       .then((data: Record<string, number>) => { if (!cancelled) setLanguages(data); })
       .catch(() => { if (!cancelled) setLanguages({}); })
       .finally(() => { if (!cancelled) setLoadingLanguages(false); });
