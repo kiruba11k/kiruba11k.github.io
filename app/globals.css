@@ -770,3 +770,58 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--vc-cyan);outline-of
 @media(max-width:900px){.story-main{width:calc(100% - 44px)}.mission-visual{height:235px}.chapter-block{padding:82px 0 76px}}
 @media(max-width:600px){.story-main{width:calc(100% - 30px)}.chapter-block{padding:70px 0 64px}.chapter-title-row h2{font-size:clamp(39px,12vw,56px)}.mission-visual{height:230px}.mission-copy{padding:20px 17px}.mission-copy h3{font-size:27px}.mission-copy p{min-height:0}.world-footer{background:linear-gradient(145deg,#321a40,#110d24)}.scene-reveal{transform:translateY(24px) scale(.99);filter:none}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.scene-reveal,.scene-reveal.scene-visible{opacity:1;transform:none;filter:none;transition:none}.mission-card,.mission-visual .mission-photo,.city-art{animation:none!important;transition:none!important}}
+
+
+/* CINEMATIC VICE COAST — photographic open-world pass */
+body{
+ background-color:#080615;
+ background-image:linear-gradient(180deg,rgba(8,5,22,.72),rgba(8,5,22,.91) 42%,rgba(8,5,22,.96)),url("/images/vice-coast.webp");
+ background-position:center top;
+ background-size:cover;
+ background-attachment:fixed;
+ background-repeat:no-repeat;
+}
+.app-shell.vice-shell{background:transparent!important}
+.city-background{position:absolute;inset:0;z-index:-3;overflow:hidden;background:#10091e}
+.city-background img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 53%;transform:scale(1.015);animation:vice-coast-drift 36s ease-in-out infinite alternate;filter:saturate(1.15) contrast(1.08) brightness(.88)}
+.city-atmosphere{position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,4,20,.84) 0%,rgba(15,5,27,.54) 43%,rgba(13,5,24,.08) 78%),linear-gradient(0deg,#080615 0%,rgba(8,6,22,.12) 35%,rgba(8,5,22,.08) 100%),linear-gradient(180deg,rgba(18,7,32,.25),transparent 40%)}
+.city-grain{position:absolute;inset:0;pointer-events:none;opacity:.12;background:repeating-linear-gradient(0deg,rgba(255,255,255,.045) 0 1px,transparent 1px 4px);mix-blend-mode:soft-light}
+.game-intro{height:min(900px,100svh);min-height:700px;background:#12071f}
+.game-intro:after{background:linear-gradient(90deg,rgba(7,4,18,.8),rgba(12,5,24,.46) 44%,rgba(10,4,20,.05) 80%),linear-gradient(0deg,#080615 0%,rgba(8,6,22,.04) 42%,rgba(8,5,22,.14) 100%)}
+.game-hero-content{max-width:850px;left:clamp(24px,9.5vw,150px);top:48%}
+.game-hero-content h1{font-size:clamp(58px,9.8vw,142px);line-height:.82;letter-spacing:-.045em}
+.game-hero-content h1 em{color:#ff4d9d;text-shadow:0 0 35px rgba(255,56,151,.4)}
+.game-city-label{right:clamp(24px,7vw,110px);bottom:16%;text-align:right}
+.game-city-label span{font-size:clamp(44px,7vw,88px);letter-spacing:-.035em;color:#ff69ad;text-shadow:0 0 28px rgba(255,44,146,.58),0 5px 0 rgba(40,8,40,.4)}
+.game-city-label b{margin-top:9px;color:#ffe4f1;font:8px "DM Mono",monospace;letter-spacing:.14em}
+.game-city-label b i{font-style:normal;color:#ff5ba6;margin-left:8px}
+.game-topbar{top:26px}
+.game-logo span{box-shadow:0 0 24px rgba(255,62,150,.3)}
+.story-main{isolation:isolate}
+.story-main:before{position:fixed;inset:0;z-index:-2;opacity:.12;background-image:url("/images/vice-coast.webp");background-position:center;background-size:cover;background-repeat:no-repeat;filter:saturate(1.25);content:"";pointer-events:none}
+.chapter-block{background:linear-gradient(180deg,rgba(10,6,25,.35),rgba(9,6,22,.68));backdrop-filter:blur(2px)}
+.chapter-block+.chapter-block{border-top:1px solid rgba(255,90,164,.27)}
+.player-art{background-image:linear-gradient(180deg,rgba(8,5,22,.08),rgba(8,5,22,.72)),url("/images/vice-coast.webp")!important;background-size:cover!important;background-position:65% 52%!important}
+.player-art .player-sun,.player-art .player-palm,.player-art .player-cityline,.player-art .player-silhouette{display:none!important}
+.player-art:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 35%,rgba(12,5,26,.2)),linear-gradient(0deg,rgba(8,5,22,.8),transparent 60%);z-index:1}
+.player-art-caption{z-index:3}
+.player-card{background:rgba(15,9,30,.92)!important;backdrop-filter:blur(14px)}
+.loadout-card,.career-entry,.education-mission,.mission-card,.achievement-row>div,.repo-card{backdrop-filter:blur(12px)}
+.career-scene{background-image:linear-gradient(90deg,rgba(9,5,22,.9),rgba(18,8,30,.56)),url("/images/vice-coast.webp");background-size:cover;background-position:center 48%}
+.game-nav,.game-chapter-bar{backdrop-filter:blur(18px)}
+.game-chapter-progress i{transition:width .55s cubic-bezier(.2,.7,.2,1)}
+.mission-card{transform-style:preserve-3d}
+.mission-visual:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(9,5,22,.06),transparent 40%,rgba(9,5,22,.45));mix-blend-mode:multiply}
+@keyframes vice-coast-drift{0%{transform:scale(1.015) translate3d(0,0,0)}100%{transform:scale(1.085) translate3d(-1.2%,.5%,0)}}
+@media(max-width:700px){
+ .game-intro{height:850px;min-height:0}
+ .city-background img{object-position:61% center}
+ .city-atmosphere{background:linear-gradient(90deg,rgba(7,4,18,.78),rgba(12,5,24,.3)),linear-gradient(0deg,#080615,transparent 72%)}
+ .game-hero-content{top:44%;left:22px;right:18px}
+ .game-hero-content h1{font-size:clamp(51px,13vw,88px)}
+ .game-city-label{bottom:11%;right:20px}
+ .game-city-label span{font-size:48px}
+ .story-main:before{opacity:.08}
+ .player-art{min-height:300px;background-position:67% center!important}
+}
+@media(prefers-reduced-motion:reduce){.city-background img{animation:none;transform:none}}
