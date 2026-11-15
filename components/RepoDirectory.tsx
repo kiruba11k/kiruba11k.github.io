@@ -109,9 +109,9 @@ export default function RepoDirectory({ initialRepos }: { initialRepos: Decorate
         <SidebarFilters active={activeFilter} counts={counts} onChange={(filter) => { setActiveFilter(filter); setVisibleCount(24); }} />
         <main className="main-column">
           <div className="intro-block">
-            <div className="eyebrow mono"><span className="eyebrow-dot" /> INDEPENDENT BUILDER / COIMBATORE, INDIA</div>
+            <div className="eyebrow mono"><span className="eyebrow-dot" /> AI / ML ENGINEER / BENGALURU, INDIA</div>
             <h1>Hey, I’m <span>Kirubakaran.</span></h1>
-            <p>AI/ML Engineer &amp; Full-Stack Builder based in Coimbatore, India — working across agentic AI, LLM systems, computer vision, Python, and Java. <strong>{repos.length || "130+"} public repositories</strong> and counting.</p>
+            <p>AI/ML Engineer with 1.5+ years of experience building machine learning solutions, deep learning applications, Generative AI pipelines and LLM-powered systems. I work across computer vision, NLP, model fine-tuning and production APIs with FastAPI and Django REST Framework. <strong>{repos.length ? repos.length + " public repositories" : "AI systems built for real workflows"}.</strong></p>
             <div className="intro-links">
               <a className="connect-pill" href="mailto:kiruba11geo@gmail.com"><Mail size={13} /> let’s connect <ArrowUpRight size={12} /></a>
               <a href="https://github.com/kiruba11k" target="_blank" rel="noreferrer"><Github size={14} /> GitHub</a>
@@ -120,12 +120,45 @@ export default function RepoDirectory({ initialRepos }: { initialRepos: Decorate
           </div>
 
           <section className="focus-slot">
-            <div className="focus-label"><span>FOCUS AREAS</span><span className="experience-pill">1.5+ YRS EXP</span></div>
-            <a className="focus-row" href="https://github.com/kiruba11k?tab=repositories" target="_blank" rel="noreferrer">
+            <div className="focus-label"><span>CURRENT ROLE</span><span className="experience-pill">1.5+ YEARS EXPERIENCE</span></div>
+            <div className="focus-row">
               <div className="focus-symbol"><Code2 size={18} /></div>
-              <div className="focus-copy"><strong>AI &amp; Software Engineering</strong><span>Python · Java · LangGraph · PyTorch · FastAPI · Docker</span></div>
-              <ArrowUpRight size={16} className="focus-arrow" />
-            </a>
+              <div className="focus-copy"><strong>AI / ML Engineer · LeadStrategus</strong><span>April 2025 — Present · Bengaluru, India</span></div>
+              <a href="https://www.linkedin.com/in/kirubakaranperiyasamy/" target="_blank" rel="noreferrer" aria-label="View LinkedIn profile"><ArrowUpRight size={16} className="focus-arrow" /></a>
+            </div>
+          </section>
+
+          <section className="profile-section">
+            <div className="profile-section-head"><span className="section-overline mono">PROFILE / 02</span><h2>Building AI that moves beyond the demo.</h2></div>
+            <div className="impact-grid">
+              <div className="impact-card"><strong>3</strong><span>Generative AI automation tools shipped</span></div>
+              <div className="impact-card"><strong>~40%</strong><span>Less manual processing across workflows</span></div>
+              <div className="impact-card"><strong>10+</strong><span>Web sources and APIs integrated</span></div>
+              <div className="impact-card"><strong>35%</strong><span>Output-quality improvement after SFT</span></div>
+            </div>
+            <div className="profile-section-head skills-head"><span className="section-overline mono">TECH STACK / 03</span><h2>Tools I work with</h2></div>
+            <div className="skill-groups">
+              <div className="skill-group"><strong>ML &amp; Deep Learning</strong><div className="skill-tags"><span>Python</span><span>PyTorch</span><span>TensorFlow</span><span>Keras</span><span>Scikit-learn</span><span>NumPy</span><span>Pandas</span></div></div>
+              <div className="skill-group"><strong>Computer Vision &amp; NLP</strong><div className="skill-tags"><span>OpenCV</span><span>YOLO</span><span>CNNs</span><span>Segmentation</span><span>ByteTrack</span><span>Transformers</span><span>BERT</span><span>Hugging Face</span></div></div>
+              <div className="skill-group"><strong>GenAI &amp; Engineering</strong><div className="skill-tags"><span>LLMs</span><span>RAG</span><span>LangChain</span><span>LangGraph</span><span>LoRA / QLoRA</span><span>FastAPI</span><span>Django REST</span><span>Docker</span><span>AWS</span><span>Weights &amp; Biases</span></div></div>
+            </div>
+          </section>
+
+          <section className="experience-section">
+            <div className="profile-section-head"><span className="section-overline mono">EXPERIENCE / 04</span><h2>Where I’ve contributed</h2></div>
+            <div className="experience-list">
+              <article className="experience-item"><div className="experience-date mono">APR 2025 — PRESENT</div><div><h3>AI / ML Engineer <span>· LeadStrategus</span></h3><p>Built and deployed GenAI automation tools, data-ingestion pipelines and fine-tuned language models. Developed and evaluated ML/DL models using PyTorch, TensorFlow and scikit-learn.</p></div></article>
+              <article className="experience-item"><div className="experience-date mono">AUG 2024 — SEP 2024</div><div><h3>Django Developer Intern <span>· Tecosys</span></h3><p>Contributed to Cerina GPT and designed 8+ Django REST APIs to connect AI inference endpoints with real-time application workflows.</p></div></article>
+            </div>
+          </section>
+
+          <section className="work-section">
+            <div className="profile-section-head"><span className="section-overline mono">SELECTED WORK / 05</span><h2>Projects worth exploring</h2></div>
+            <div className="work-grid">
+              <article className="work-card"><span className="work-index mono">01 / COMPUTER VISION</span><h3>ParcelGuard</h3><p>Visual inspection pipeline combining YOLO detection, Mask R-CNN / U-Net segmentation, ByteTrack and reference-guided anomaly analysis.</p><div className="work-tags">PyTorch · OpenCV · ResNet18 · FastAPI</div></article>
+              <article className="work-card"><span className="work-index mono">02 / VIDEO ANALYTICS</span><h3>Smart Traffic Intelligence</h3><p>Vehicle detection and tracking for cars, motorcycles, buses and trucks, with persistent IDs, virtual-line counting and real-time analytics.</p><div className="work-tags">YOLO · OpenCV · ByteTrack</div></article>
+              <article className="work-card"><span className="work-index mono">03 / LLM FINE-TUNING</span><h3>Mistral-7B · LoRA / QLoRA</h3><p>Fine-tuned a 7B model on 5K domain pairs with PEFT, tracked experiments in Weights &amp; Biases and published the model to Hugging Face Hub.</p><div className="work-tags">Mistral-7B · PEFT · Hugging Face</div></article>
+            </div>
           </section>
 
           <section className="directory-section">
