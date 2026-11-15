@@ -15,7 +15,7 @@ const chapters = [
 
 function CityArtwork() {
   return <div className="city-background" aria-hidden="true">
-    <img src="/images/vice-coast.webp" alt="" fetchPriority="high" />
+    <img src="/images/vice-coast-scene.svg" alt="" fetchPriority="high" />
     <div className="city-atmosphere" />
     <div className="city-grain" />
   </div>;
@@ -65,7 +65,7 @@ export default function GameWorld() {
         </motion.div>
         <div className="game-hero-meta"><span>PLAYER 001 / KIRUBA</span><span>AI ENGINEER · LEVEL 01.5+</span><span>OPEN WORLD EXPERIENCE</span></div>
       </div>
-      <motion.div className="game-city-label" animate={reduceMotion ? undefined : { y: [0,-7,0], opacity:[.92,1,.92] }} transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}><span>VICE COAST</span><small>THE CITY NEVER STOPS LEARNING</small><b>MISSION PROGRESS <i>{String(activeIndex + 1).padStart(2,"0")} / 05</i></b></motion.div>
+      <motion.div className="game-city-label" animate={reduceMotion ? undefined : { y: [0,-7,0], opacity:[.92,1,.92] }} transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}><span>VICE COAST</span><small>THE CITY NEVER STOPS LEARNING</small><b>MISSION PROGRESS <i>{String(activeIndex + 1).padStart(2,"0")} / 06</i></b></motion.div>
       <div className="game-bottom-gradient"/>
       <div className="game-scroll-cue"><span>SCROLL TO EXPLORE</span><ArrowDown size={14}/></div><div className="game-controls-hint"><span>1—6</span> SELECT CHAPTER <i/> <span>J / K</span> NEXT / PREVIOUS</div>
     </section>
