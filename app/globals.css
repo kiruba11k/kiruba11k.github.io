@@ -189,3 +189,22 @@ button,input{font:inherit}button{cursor:pointer}a{color:inherit;text-decoration:
   .work-card{min-height:0}
   .education-card{flex-direction:column;gap:8px}
 }
+
+
+/* Scroll-led motion and tactile hover feedback */
+.scroll-progress{position:fixed;z-index:100;top:0;left:0;right:0;height:2px;transform-origin:0 50%;background:var(--text);box-shadow:0 0 12px color-mix(in srgb,var(--text) 45%,transparent);pointer-events:none}
+.reveal-section{will-change:transform,opacity}
+.impact-card,.skill-tags span,.experience-item,.education-card,.work-card{transition:border-color .25s ease,background .25s ease,box-shadow .25s ease}
+.impact-card:hover,.education-card:hover{border-color:color-mix(in srgb,var(--text) 28%,var(--line));box-shadow:0 14px 35px rgba(0,0,0,.13)}
+.impact-card strong{transition:letter-spacing .25s ease,transform .25s ease}
+.impact-card:hover strong{letter-spacing:-.09em;transform:translateY(-2px)}
+.skill-tags span{transition:transform .2s ease,border-color .2s ease,background .2s ease,color .2s ease}
+.skill-tags span:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--text) 35%,var(--line));background:var(--raised-2);color:var(--text)}
+.experience-item{transition:padding-left .25s ease,border-color .25s ease}
+.experience-item:hover{padding-left:8px;border-bottom-color:color-mix(in srgb,var(--text) 28%,var(--line))}
+.work-card{position:relative;overflow:hidden;transform-style:preserve-3d;perspective:800px}
+.work-card:before{content:"";position:absolute;inset:0;opacity:0;background:radial-gradient(circle at 0 0,color-mix(in srgb,var(--text) 10%,transparent),transparent 58%);transition:opacity .3s ease;pointer-events:none}
+.work-card:hover:before{opacity:1}
+.work-card>*{position:relative}
+.repo-row,.repo-card{transform-origin:center;transition:border-color .2s ease,background .2s ease}
+@media(prefers-reduced-motion:reduce){.scroll-progress{display:none}.reveal-section{will-change:auto}}
