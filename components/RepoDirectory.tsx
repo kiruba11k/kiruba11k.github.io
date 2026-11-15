@@ -22,10 +22,18 @@ function displayName(name:string){return name.replace(/[-_]+/g," ").replace(/\\b
 function shortDate(date:string){return new Date(date).toLocaleDateString("en-US",{month:"short",day:"numeric"})}
 
 function SceneArt({type}:{type:"parcel"|"traffic"|"llm"|"career"|"education"}) {
+ const scenes = {
+  career: { image:"https://images.unsplash.com/photo-1535498730771-e735b998cd64?auto=format&fit=crop&w=2000&q=90", label:"VICE COAST · CAREER DISTRICT", position:"center 48%" },
+  education: { image:"https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=1800&q=90", label:"ORIGIN POINT · COIMBATORE", position:"center 52%" },
+  parcel: { image:"https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1600&q=90", label:"INDUSTRIAL DISTRICT", position:"center 52%" },
+  traffic: { image:"https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=1600&q=90", label:"NEON HIGHWAY", position:"center 55%" },
+  llm: { image:"https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1600&q=90", label:"DIGITAL SKYLINE", position:"center 50%" }
+ } as const;
+ const scene=scenes[type];
  return <div className={`scene-art scene-art-${type}`} aria-hidden="true">
-  <div className="scene-art-sun"/><div className="scene-art-skyline"><i/><i/><i/><i/><i/><i/><i/><i/></div>
-  <div className="scene-art-road"/><div className="scene-art-reflection"/>
-  <div className="scene-art-caption">{type==="career"?"VICE COAST · CAREER DISTRICT":type==="education"?"ORIGIN POINT · COIMBATORE":type==="parcel"?"INDUSTRIAL DISTRICT":type==="traffic"?"NEON HIGHWAY":"DIGITAL SKYLINE"}</div>
+  <img className="scene-photo" src={scene.image} alt="" loading="lazy" style={{objectPosition:scene.position}}/>
+  <div className="scene-photo-grade"/>
+  <div className="scene-art-caption">{scene.label}</div>
  </div>;
 }
 function MissionCard({number,tag,title,desc,tech,type,href,image,alt}:{number:string;tag:string;title:string;desc:string;tech:string;type:"parcel"|"traffic"|"llm";href:string;image:string;alt:string}) {
