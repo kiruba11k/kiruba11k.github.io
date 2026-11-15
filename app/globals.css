@@ -916,3 +916,130 @@ body{
 .scene-art-career .scene-art-sun,.scene-art-career .scene-art-skyline,.scene-art-career .scene-art-road,.scene-art-career .scene-art-reflection,.scene-art-education .scene-art-sun,.scene-art-education .scene-art-skyline,.scene-art-education .scene-art-road,.scene-art-education .scene-art-reflection{opacity:.08!important}
 @media(max-width:760px){.game-intro>.city-background>img{object-position:60% center!important}}
 @media(prefers-reduced-motion:reduce){.game-intro>.city-background>img{animation:none!important;transform:scale(1.02)!important}}
+
+
+/* VICE COAST — FULL SITE ENVIRONMENT PASS
+   Real photographic layers across every chapter; remove the leftover CSS skyline props. */
+html{background:#090512!important}
+body{background:#090512!important}
+.vice-shell{
+  min-height:100vh!important;
+  background:#090512!important;
+  position:relative!important;
+  isolation:isolate!important;
+}
+.story-main{
+  position:relative!important;
+  isolation:isolate!important;
+  background:
+    linear-gradient(180deg,rgba(7,4,18,.48),rgba(7,4,18,.72)),
+    url("/images/vice-coast.webp") center 46%/cover fixed!important;
+}
+.story-main:before{
+  content:none!important;
+  display:none!important;
+}
+.chapter-block{
+  background:linear-gradient(180deg,rgba(9,5,23,.48),rgba(9,5,23,.60))!important;
+  backdrop-filter:blur(1px) saturate(1.08)!important;
+}
+.chapter-block+.chapter-block{
+  border-top:1px solid rgba(255,83,160,.24)!important;
+}
+.player-card{
+  background:rgba(13,7,28,.72)!important;
+  border:1px solid rgba(255,76,157,.52)!important;
+  box-shadow:0 25px 90px rgba(0,0,0,.36),0 0 55px rgba(255,45,143,.08)!important;
+}
+.player-art{
+  background:
+    linear-gradient(90deg,rgba(8,4,20,.08),rgba(8,4,20,.54)),
+    url("/images/vice-coast.webp") center 48%/cover no-repeat!important;
+  min-height:420px!important;
+}
+.player-art .player-sun,.player-art .player-palm,.player-art .player-cityline,.player-art .player-silhouette{display:none!important}
+.loadout-card{
+  position:relative!important;
+  overflow:hidden!important;
+  isolation:isolate!important;
+  background-color:rgba(14,8,29,.72)!important;
+  background-size:cover!important;
+  background-position:center!important;
+  border:1px solid rgba(255,76,157,.42)!important;
+  box-shadow:0 22px 70px rgba(0,0,0,.36),inset 0 1px rgba(255,255,255,.07)!important;
+}
+.loadout-card:before{
+  content:""!important;
+  position:absolute!important;
+  inset:0!important;
+  z-index:-1!important;
+  opacity:1!important;
+  filter:none!important;
+  border-radius:inherit!important;
+}
+.loadout-ai{background-image:linear-gradient(180deg,rgba(11,5,24,.58),rgba(11,5,24,.91)),url("https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=85")!important}
+.loadout-vision{background-image:linear-gradient(180deg,rgba(7,9,25,.56),rgba(7,9,25,.91)),url("https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=1200&q=85")!important}
+.loadout-genai{background-image:linear-gradient(180deg,rgba(13,5,26,.54),rgba(13,5,26,.92)),url("https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=85")!important}
+.loadout-card .loadout-icon,.loadout-card .loadout-level,.loadout-card h3,.loadout-card p,.loadout-card .loadout-skills,.loadout-card .loadout-meter{position:relative!important;z-index:2!important}
+.loadout-card .loadout-skills span{background:rgba(20,11,35,.78)!important;border-color:rgba(255,100,174,.36)!important;backdrop-filter:blur(8px)!important}
+.career-scene{
+  background:
+    linear-gradient(90deg,rgba(8,4,20,.22),rgba(8,4,20,.05)),
+    url("/images/vice-coast.webp") center 48%/cover no-repeat!important;
+  border:1px solid rgba(255,83,160,.48)!important;
+  box-shadow:0 25px 80px rgba(0,0,0,.34)!important;
+}
+.career-scene .scene-art{background:transparent!important;opacity:1!important}
+.career-scene .scene-art-sun,.career-scene .scene-art-skyline,.career-scene .scene-art-road,.career-scene .scene-art-reflection{display:none!important}
+.career-scene .scene-art-caption{opacity:.6!important}
+.career-entry{
+  background:linear-gradient(105deg,rgba(19,10,36,.86),rgba(11,7,25,.78))!important;
+  border-color:rgba(255,78,159,.48)!important;
+  box-shadow:0 18px 55px rgba(0,0,0,.28)!important;
+}
+.mission-card{
+  background:rgba(12,7,25,.86)!important;
+  border-color:rgba(255,78,159,.48)!important;
+  box-shadow:0 22px 65px rgba(0,0,0,.35)!important;
+}
+.mission-visual{min-height:260px!important}
+.mission-photo{filter:saturate(1.18) contrast(1.06)!important;transform:scale(1.015)!important;transition:transform .7s ease,filter .7s ease!important}
+.mission-card:hover .mission-photo{transform:scale(1.08)!important;filter:saturate(1.35) contrast(1.08)!important}
+.education-mission{
+  background:rgba(12,7,26,.76)!important;
+  border:1px solid rgba(255,78,159,.48)!important;
+  box-shadow:0 22px 70px rgba(0,0,0,.36)!important;
+}
+.education-art{
+  position:relative!important;
+  overflow:hidden!important;
+  background:
+    linear-gradient(0deg,rgba(7,4,19,.5),rgba(7,4,19,.05)),
+    url("https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=1400&q=85") center/cover no-repeat!important;
+}
+.education-art .scene-art{display:none!important}
+.archive-chapter{
+  background:
+    linear-gradient(180deg,rgba(8,4,20,.58),rgba(8,4,20,.76)),
+    url("/images/vice-coast.webp") center 58%/cover fixed!important;
+}
+.archive-tools .search-wrap,.repo-card,.repo-row{
+  background:rgba(17,9,33,.78)!important;
+  backdrop-filter:blur(14px) saturate(1.2)!important;
+  border-color:rgba(255,81,160,.34)!important;
+}
+.achievement-row>div{
+  background:rgba(16,9,31,.72)!important;
+  border-color:rgba(255,81,160,.3)!important;
+  backdrop-filter:blur(12px)!important;
+}
+.world-nav,.game-chapter-bar{
+  background:rgba(7,4,19,.78)!important;
+  backdrop-filter:blur(18px) saturate(1.2)!important;
+}
+@media(max-width:760px){
+  .story-main{background-attachment:scroll!important}
+  .archive-chapter{background-attachment:scroll!important}
+  .player-art{min-height:290px!important}
+  .loadout-card{background-position:center!important}
+}
