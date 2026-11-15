@@ -21,21 +21,23 @@ function displayName(name:string){return name.replace(/[-_]+/g," ").replace(/\\b
 function shortDate(date:string){return new Date(date).toLocaleDateString("en-US",{month:"short",day:"numeric"})}
 
 function SceneArt({type}:{type:"parcel"|"traffic"|"llm"|"career"|"education"}) {
- const common=<defs><linearGradient id={"g"+type} x1="0" y1="0" x2="1" y2="1"><stop stopColor={type==="traffic"?"#ffb15f":type==="llm"?"#8b8df6":"#f77f9b"}/><stop offset="1" stopColor={type==="traffic"?"#e74f79":type==="llm"?"#343b83":"#4d315f"}/></linearGradient><linearGradient id={"h"+type} x2="0" y2="1"><stop stopColor="#fff" stopOpacity=".3"/><stop offset="1" stopColor="#fff" stopOpacity="0"/></linearGradient></defs>;
- return <svg viewBox="0 0 620 340" preserveAspectRatio="xMidYMid slice" className="mission-art" aria-hidden="true">{common}
- <rect width="620" height="340" fill="#11172c"/>
- <circle cx="465" cy="105" r="88" fill={"url(#g"+type+")"} opacity=".9"/>
- <path d="M0 240L90 170 160 215 255 130 345 208 440 145 620 205V340H0Z" fill="#202744"/>
- <path d="M0 270L125 220 240 265 360 205 500 245 620 210V340H0Z" fill="#111a31"/>
- {type==="parcel"&&<g transform="translate(205 80)"><path d="M0 55L105 0l120 55-110 65z" fill="#f2a16e"/><path d="M0 55v115l115 65V120z" fill="#c56c72"/><path d="M115 120v115l110-65V55z" fill="#8d506d"/><path d="M105 0v120" stroke="#ffe2b2" strokeWidth="5"/><path d="M60 30l110 60" stroke="#ffe2b2" strokeWidth="5"/><path d="M36 77l40-22 0 48-40 22z" fill="#f9d4a1"/><path d="M145 145l44-25v50l-44 25z" fill="#6de0d2"/></g>}
- {type==="traffic"&&<g><path d="M310 340L420 130h40L390 340z" fill="#303951"/><path d="M350 340L430 130" stroke="#f8c16f" strokeWidth="5" strokeDasharray="22 18"/><g transform="translate(335 225)"><path d="M0 20l18-20h82l26 20 12 34H-10z" fill="#ed7087" stroke="#ffc0a4" strokeWidth="3"/><path d="M32 4h48l22 17H20z" fill="#29324c"/><circle cx="20" cy="55" r="12" fill="#090d19" stroke="#eab4a9" strokeWidth="4"/><circle cx="104" cy="55" r="12" fill="#090d19" stroke="#eab4a9" strokeWidth="4"/></g><g fill="#ffcf80"><circle cx="95" cy="110" r="5"/><circle cx="130" cy="150" r="4"/><circle cx="175" cy="90" r="4"/></g></g>}
- {type==="llm"&&<g><circle cx="310" cy="165" r="104" fill="none" stroke="#b9b9ff" strokeOpacity=".45" strokeWidth="2"/><circle cx="310" cy="165" r="68" fill="none" stroke="#b9b9ff" strokeOpacity=".5" strokeDasharray="5 8"/><circle cx="310" cy="165" r="32" fill="#8d8ef2"/>{Array.from({length:12},(_,i)=><g key={i}><path d={`M310 165L${310+Math.cos(i*Math.PI/6)*120} ${165+Math.sin(i*Math.PI/6)*120}`} stroke="#a5c7ee" strokeOpacity=".5"/><circle cx={310+Math.cos(i*Math.PI/6)*120} cy={165+Math.sin(i*Math.PI/6)*120} r="7" fill={i%3===0?"#f5a17c":"#8dd8d0"}/></g>)}</g>}
- {type==="career"&&<g fill="#1a223d" stroke="#677394" strokeWidth="2"><path d="M60 260V95h90v165zM170 260V50h105v210zM300 260V115h88v145zM405 260V75h110v185z"/><g fill="#f5a0a2" stroke="none">{Array.from({length:20},(_,i)=><rect key={i} x={75+(i%5)*16} y={115+Math.floor(i/5)*28} width="6" height="10"/> )}</g><path d="M0 260H620" stroke="#f1a3a1" strokeWidth="4"/></g>}
- {type==="education"&&<g><path d="M140 135L310 55l170 80-170 80z" fill="#e58b9e"/><path d="M195 165v85q115 80 230 0v-85l-115 55z" fill="#8d6e9b"/><path d="M480 135v110" stroke="#ffd28d" strokeWidth="7"/><circle cx="480" cy="260" r="12" fill="#ffd28d"/></g>}
- <path d="M0 0H620V340H0Z" fill="url(#h"+type+")" opacity=".35"/>
- </svg>
+ const gradient = type==="traffic" ? ["#ffb15f","#e74f79"] : type==="llm" ? ["#8b8df6","#343b83"] : ["#f77f9b","#4d315f"];
+ return (
+  <svg viewBox="0 0 620 340" preserveAspectRatio="xMidYMid slice" className="mission-art" aria-hidden="true">
+   <defs><linearGradient id={"g"+type} x1="0" y1="0" x2="1" y2="1"><stop stopColor={gradient[0]}/><stop offset="1" stopColor={gradient[1]}/></linearGradient><linearGradient id={"h"+type} x2="0" y2="1"><stop stopColor="#fff" stopOpacity=".3"/><stop offset="1" stopColor="#fff" stopOpacity="0"/></linearGradient></defs>
+   <rect width="620" height="340" fill="#11172c"/>
+   <circle cx="465" cy="105" r="88" fill={"url(#g"+type+")"} opacity=".9"/>
+   <path d="M0 240L90 170 160 215 255 130 345 208 440 145 620 205V340H0Z" fill="#202744"/>
+   <path d="M0 270L125 220 240 265 360 205 500 245 620 210V340H0Z" fill="#111a31"/>
+   {type==="parcel" && <g transform="translate(205 80)"><path d="M0 55L105 0l120 55-110 65z" fill="#f2a16e"/><path d="M0 55v115l115 65V120z" fill="#c56c72"/><path d="M115 120v115l110-65V55z" fill="#8d506d"/><path d="M105 0v120" stroke="#ffe2b2" strokeWidth="5"/><path d="M60 30l110 60" stroke="#ffe2b2" strokeWidth="5"/><path d="M36 77l40-22v48l-40 22z" fill="#f9d4a1"/><path d="M145 145l44-25v50l-44 25z" fill="#6de0d2"/></g>}
+   {type==="traffic" && <g><path d="M310 340L420 130h40L390 340z" fill="#303951"/><path d="M350 340L430 130" stroke="#f8c16f" strokeWidth="5" strokeDasharray="22 18"/><g transform="translate(335 225)"><path d="M0 20l18-20h82l26 20 12 34H-10z" fill="#ed7087" stroke="#ffc0a4" strokeWidth="3"/><path d="M32 4h48l22 17H20z" fill="#29324c"/><circle cx="20" cy="55" r="12" fill="#090d19" stroke="#eab4a9" strokeWidth="4"/><circle cx="104" cy="55" r="12" fill="#090d19" stroke="#eab4a9" strokeWidth="4"/></g><g fill="#ffcf80"><circle cx="95" cy="110" r="5"/><circle cx="130" cy="150" r="4"/><circle cx="175" cy="90" r="4"/></g></g>}
+   {type==="llm" && <g><circle cx="310" cy="165" r="104" fill="none" stroke="#b9b9ff" strokeOpacity=".45" strokeWidth="2"/><circle cx="310" cy="165" r="68" fill="none" stroke="#b9b9ff" strokeOpacity=".5" strokeDasharray="5 8"/><circle cx="310" cy="165" r="32" fill="#8d8ef2"/>{Array.from({length:12},(_,i)=><g key={i}><path d={"M310 165L"+(310+Math.cos(i*Math.PI/6)*120)+" "+(165+Math.sin(i*Math.PI/6)*120)} stroke="#a5c7ee" strokeOpacity=".5"/><circle cx={310+Math.cos(i*Math.PI/6)*120} cy={165+Math.sin(i*Math.PI/6)*120} r="7" fill={i%3===0?"#f5a17c":"#8dd8d0"}/></g>)}</g>}
+   {type==="career" && <g fill="#1a223d" stroke="#677394" strokeWidth="2"><path d="M60 260V95h90v165zM170 260V50h105v210zM300 260V115h88v145zM405 260V75h110v185z"/><g fill="#f5a0a2" stroke="none">{Array.from({length:20},(_,i)=><rect key={i} x={75+(i%5)*16} y={115+Math.floor(i/5)*28} width="6" height="10"/>)}</g><path d="M0 260H620" stroke="#f1a3a1" strokeWidth="4"/></g>}
+   {type==="education" && <g><path d="M140 135L310 55l170 80-170 80z" fill="#e58b9e"/><path d="M195 165v85q115 80 230 0v-85l-115 55z" fill="#8d6e9b"/><path d="M480 135v110" stroke="#ffd28d" strokeWidth="7"/><circle cx="480" cy="260" r="12" fill="#ffd28d"/></g>}
+   <rect width="620" height="340" fill={"url(#h"+type+")"} opacity=".35"/>
+  </svg>
+ );
 }
-
 function MissionCard({number,tag,title,desc,tech,type,href}:{number:string;tag:string;title:string;desc:string;tech:string;type:"parcel"|"traffic"|"llm";href:string}) {
  return <motion.article className={"mission-card mission-"+type} whileHover={{y:-9,rotateX:2,rotateY:-1,scale:1.012}} transition={{type:"spring",stiffness:190,damping:20}}>
   <div className="mission-visual"><SceneArt type={type}/><span className="mission-number">MISSION {number}</span><span className="mission-difficulty">● ● ● <i>CLASSIFIED</i></span><div className="mission-scan"/></div>
