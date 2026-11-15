@@ -1,59 +1,70 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useScroll, useSpring, useTransform, type MotionValue } from "framer-motion";
-import { Database, BrainCircuit, FlaskConical, Rocket, ArrowDown, Activity } from "lucide-react";
+import { motion, useReducedMotion, useScroll, useSpring, useTransform, type MotionValue } from "framer-motion";
+import { Database, BrainCircuit, FlaskConical, Rocket, ArrowUpRight } from "lucide-react";
 
 const stages = [
-  { number: "01", title: "Ingest", subtitle: "Raw signals", detail: "Bring images, documents and structured data into a reliable pipeline.", icon: Database, output: "Clean inputs" },
-  { number: "02", title: "Understand", subtitle: "Model intelligence", detail: "Apply vision, language and retrieval models to extract useful signals.", icon: BrainCircuit, output: "Model predictions" },
-  { number: "03", title: "Evaluate", subtitle: "Measure quality", detail: "Validate outputs, inspect failure cases and iterate against real metrics.", icon: FlaskConical, output: "Reliable results" },
-  { number: "04", title: "Ship", subtitle: "Production systems", detail: "Expose capabilities through APIs and integrate them into applications.", icon: Rocket, output: "Useful software" }
+  { number: "01", title: "Ingest", subtitle: "Data foundations", detail: "Images, documents and signals enter a clean, structured pipeline.", icon: Database, output: "Structured inputs", visual: "data" },
+  { number: "02", title: "Understand", subtitle: "Model intelligence", detail: "Vision, language and retrieval models turn raw data into context.", icon: BrainCircuit, output: "Useful predictions", visual: "network" },
+  { number: "03", title: "Evaluate", subtitle: "Quality loop", detail: "Metrics and failure analysis guide each iteration toward reliability.", icon: FlaskConical, output: "Measured quality", visual: "evaluate" },
+  { number: "04", title: "Deploy", subtitle: "Production systems", detail: "Validated capabilities become APIs and products people can use.", icon: Rocket, output: "Working software", visual: "deploy" },
 ];
 
-function PipelineNode({ stage, index, progress }: { stage: typeof stages[number]; index: number; progress: MotionValue<number> }) {
-  const start = index * 0.22;
-  const opacity = useTransform(progress, [Math.max(0, start - 0.08), Math.min(1, start + 0.12), Math.min(1, start + 0.34)], [0.48, 1, 1]);
-  const scale = useTransform(progress, [Math.max(0, start - 0.08), Math.min(1, start + 0.12)], [0.96, 1]);
+function StageCard({ stage, index, progress, reduceMotion }: { stage: typeof stages[number]; index: number; progress: MotionValue<number>; reduceMotion: boolean }) {
+  const start = index * 0.25;
+  const active = useTransform(progress, [Math.max(0, start - 0.12), Math.min(1, start + 0.08), Math.min(1, start + 0.23)], [0.48, 1, 1]);
+  const lift = useTransform(progress, [Math.max(0, start - 0.12), Math.min(1, start + 0.08)], [12, 0]);
   const Icon = stage.icon;
   return (
-    <motion.article className="story-node" style={{ opacity, scale }}>
-      <div className="story-node-top"><span className="mono">{stage.number} / STAGE</span><Icon size={19} strokeWidth={1.6} /></div>
-      <h3>{stage.title}</h3>
-      <span className="story-node-subtitle">{stage.subtitle}</span>
-      <p>{stage.detail}</p>
-      <div className="story-node-output"><Activity size={12} /><span>{stage.output}</span></div>
+    <motion.article className={`pipeline-card pipeline-card-${stage.visual}`} style={reduceMotion ? undefined : { opacity: active, y: lift }}>
+      <div className="pipeline-card-meta"><span className="mono">{stage.number} / 04</span><span className="pipeline-card-status"><i /> STAGE</span></div>
+      <div className={`pipeline-art pipeline-art-${stage.visual}`} aria-hidden="true">
+        {stage.visual === "data" && <div className="data-stack"><span /><span /><span /><span /><span /><span /><span /></div>}
+        {stage.visual === "network" && <div className="network-graphic"><i /><i /><i /><i /><i /><i /><i /><i /><i /><b /><b /><b /><b /></div>}
+        {stage.visual === "evaluate" && <div className="gauge-graphic"><i /><b /><span>98.4</span><small>QUALITY SCORE</small></div>}
+        {stage.visual === "deploy" && <div className="terminal-graphic"><span> &gt; deploy --prod</span><i /><i /><i /></div>}
+        <div className="pipeline-art-icon"><Icon size={18} strokeWidth={1.6} /></div>
+      </div>
+      <div className="pipeline-card-copy">
+        <span className="pipeline-card-subtitle">{stage.subtitle}</span>
+        <h3>{stage.title}</h3>
+        <p>{stage.detail}</p>
+      </div>
+      <div className="pipeline-card-output"><span className="pipeline-output-dot" />{stage.output}<ArrowUpRight size={13} /></div>
     </motion.article>
   );
 }
 
 export default function ScrollStory() {
   const target = useRef<HTMLElement>(null);
+  const reduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({ target, offset: ["start start", "end end"] });
-  const progress = useSpring(scrollYProgress, { stiffness: 90, damping: 24, mass: 0.35 });
+  const progress = useSpring(scrollYProgress, { stiffness: 75, damping: 22, mass: 0.35 });
   const lineWidth = useTransform(progress, [0, 1], ["0%", "100%"]);
-  const glowY = useTransform(progress, [0, 1], [42, -42]);
-  const glowRotate = useTransform(progress, [0, 1], [-8, 8]);
+  const glowX = useTransform(progress, [0, 1], ["4%", "96%"]);
 
   return (
-    <section ref={target} id="build-process" className="scroll-story">
-      <div className="story-sticky">
-        <motion.div className="story-orb story-orb-one" style={{ y: glowY, rotate: glowRotate }} />
-        <motion.div className="story-orb story-orb-two" style={{ y: useTransform(progress, [0, 1], [-24, 34]), rotate: useTransform(progress, [0, 1], [12, -12]) }} />
-        <div className="story-heading">
-          <div className="section-overline mono">HOW I APPROACH ENGINEERING / 04</div>
-          <h2>From raw signal to <span>real-world impact.</span></h2>
-          <p>Scroll through the stages. Each layer turns a technical capability into something a product can use.</p>
-        </div>
-        <div className="story-progress-label mono"><span>THE BUILD PIPELINE</span><span>SCROLL TO EXPLORE <ArrowDown size={11} /></span></div>
-        <div className="story-track">
-          <div className="story-track-base" />
-          <motion.div className="story-track-fill" style={{ width: lineWidth }} />
-          <div className="story-nodes">
-            {stages.map((stage, index) => <PipelineNode key={stage.number} stage={stage} index={index} progress={progress} />)}
+    <section ref={target} id="build-process" className="scroll-story pipeline-story">
+      <div className="story-sticky pipeline-sticky">
+        <div className="pipeline-backdrop-grid" />
+        <motion.div className="pipeline-ambient" style={reduceMotion ? undefined : { left: glowX }} />
+        <div className="pipeline-heading">
+          <div>
+            <div className="section-overline mono"><span className="pipeline-heading-mark" /> THE ENGINEERING LOOP / 04 STAGES</div>
+            <h2>Ideas become<br /><span>intelligent systems.</span></h2>
           </div>
+          <p>Not just models. A complete path from messy inputs to dependable software in production.</p>
         </div>
-        <div className="story-footer"><span className="mono">DATA → INTELLIGENCE → VALIDATION → DEPLOYMENT</span><span className="story-live"><i /> SYSTEM THINKING, END TO END</span></div>
+        <div className="pipeline-rail-labels mono"><span>01 — INPUT</span><span>02 — INTELLIGENCE</span><span>03 — VALIDATION</span><span>04 — DELIVERY</span></div>
+        <div className="pipeline-rail"><div className="pipeline-rail-base" /><motion.div className="pipeline-rail-progress" style={{ width: reduceMotion ? "100%" : lineWidth }} /><motion.div className="pipeline-rail-beam" style={reduceMotion ? undefined : { left: glowX }} /></div>
+        <div className="pipeline-cards">
+          {stages.map((stage, index) => <StageCard key={stage.number} stage={stage} index={index} progress={progress} reduceMotion={!!reduceMotion} />)}
+        </div>
+        <div className="pipeline-bottom">
+          <span className="pipeline-bottom-note"><i /> BUILT TO WORK BEYOND THE DEMO</span>
+          <span className="mono">DATA <b>→</b> MODELS <b>→</b> EVALUATION <b>→</b> PRODUCTION</span>
+        </div>
       </div>
     </section>
   );
