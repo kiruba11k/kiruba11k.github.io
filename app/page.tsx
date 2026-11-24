@@ -1,7 +1,5 @@
-"use client";
-
-import RepoDirectory from "@/components/RepoDirectory";
+import Portfolio from "@/components/Portfolio";
 
 export default function HomePage() {
-  return <RepoDirectory initialRepos={[]} />;
+  return <Portfolio />;
 }

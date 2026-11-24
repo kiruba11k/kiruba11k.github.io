@@ -8,17 +8,20 @@ https://kiruba11k.github.io/
 
 ## Features
 
-- Browser-side GitHub REST API fetching with pagination (100 repositories per page, up to 1,000).
-- Six featured repositories pinned above the chronological repository list.
-- Automatic categorization using repository name, description, topics and primary language.
-- Sidebar filters, language tabs, instant search and keyboard shortcuts (/ and Esc).
-- List/grid views, progressive loading, repository details, language breakdown and clone-command copy.
-- Responsive design, curved domain showcase, dark/light theme and Surprise me action.
+An open-world, game-inspired portfolio ("Vice Coast Edition"):
+
+- **Hero:** a procedural sunset coast rendered in a WebGL fragment shader. It shows as an 8×8 Bayer dither or as live ASCII glyphs, and a cursor "flashlight" lights the scene.
+- **HUD:** a radar minimap with one blip per chapter, the Bengaluru clock, a GitHub repo "cash" counter and wanted stars that fill as you explore. Each new chapter shows a "checkpoint reached" banner.
+- **Floating toolbar** (Radix UI + Lucide): fast travel, a typeface dropdown (Allo · Sans · Serif · Mono · Pixel), a dither/ASCII render toggle and a day/night theme. Choices are saved in localStorage.
+- **Chapters:** Player (dithered postage-stamp portrait, segmented skill stats, achievement stamps), Arsenal (keyboard-navigable weapon wheel), Missions (animated ASCII scenes with expandable route briefs), Story (career timeline), Garage (live GitHub repositories with search, language filter and a Radix dialog), and Contact.
+- **Keyboard:** `1`–`6` fast travel, `0` top, `/` search, `T` theme, `M` render mode. Respects `prefers-reduced-motion`.
 
 ## Stack
 
-- Next.js 14 App Router, React 18 and TypeScript
-- Tailwind CSS, Framer Motion and Lucide React
+- Next.js 14 App Router (static export), React 18 and TypeScript
+- WebGL / Canvas 2D for the dither and ASCII renderers
+- Radix UI primitives (Dropdown Menu, Toggle Group, Tooltip, Dialog) and Lucide icons
+- Hand-written CSS design tokens (no CSS framework)
 - GitHub REST API (public endpoints; no token required)
 
 ## Run locally
