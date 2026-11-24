@@ -62,7 +62,7 @@ export default function Garage({ repos, loading, error, onRetry, onOpen }: {
             <span className="g-desc">{r.description || r.featuredNote || r.fallbackDescription}</span>
           </span>
           <span className="g-meta">
-            <span>{r.language || "—"}</span>
+            <span>{r.language || "·"}</span>
             {r.stargazers_count > 0 && <span><Star size={11} /> {r.stargazers_count}</span>}
             <span>{ago(r.pushed_at)}</span>
           </span>

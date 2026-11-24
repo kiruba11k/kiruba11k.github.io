@@ -10,6 +10,9 @@ import Toolbar from "@/components/Toolbar";
 import WeaponWheel from "@/components/WeaponWheel";
 import Garage from "@/components/Garage";
 import RepoDialog from "@/components/RepoDialog";
+import NewsTicker from "@/components/NewsTicker";
+import HeistBoard from "@/components/HeistBoard";
+import RapSheet from "@/components/RapSheet";
 import LoadingScreen from "@/components/LoadingScreen";
 import { PrefsProvider, usePrefs } from "@/lib/prefs";
 import { ACHIEVEMENTS, LINKS, MISSIONS, SECTIONS, STATS, STORY, type SectionId } from "@/lib/content";
@@ -38,25 +41,40 @@ function Stamp({ top, value, bottom, tilt = 0 }: { top: string; value: string; b
 }
 
 function MissionCard({ m }: { m: typeof MISSIONS[number] }) {
-  const [open, setOpen] = useState(false);
-  return <article className={"mission" + (open ? " is-open" : "")}>
+  const [state, setState] = useState<"idle" | "running" | "passed">("idle");
+  const [step, setStep] = useState(0);
+  useEffect(() => {
+    if (state !== "running") return;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced) { setStep(m.objectives.length); setState("passed"); return; }
+    if (step >= m.objectives.length) { const t = window.setTimeout(() => setState("passed"), 350); return () => window.clearTimeout(t); }
+    const t = window.setTimeout(() => setStep(s => s + 1), 420);
+    return () => window.clearTimeout(t);
+  }, [state, step, m.objectives.length]);
+  const start = () => { if (state === "idle") { setStep(0); setState("running"); } else { setState("idle"); setStep(0); } };
+  return <article className={"mission is-" + state}>
     <div className="mission-screen">
-      <AsciiScene scene={m.scene} active={open} />
+      <AsciiScene scene={m.scene} active={state !== "idle"} />
       <span className="mission-no">MISSION {m.no}</span>
       <span className="mission-diff" aria-label={`Difficulty ${m.difficulty} of 5`}>{"★".repeat(m.difficulty)}<i>{"★".repeat(5 - m.difficulty)}</i></span>
+      {state === "passed" && <div className="mission-passed" role="status">
+        <span className="mp-k">MISSION PASSED</span>
+        <dl>{m.results.map(([k, v]) => <div key={k}><dt>{k}</dt><dd>{v}</dd></div>)}</dl>
+      </div>}
     </div>
     <div className="mission-body">
       <span className="mono-label">{m.tag}</span>
       <h3>{m.title}</h3>
       <p>{m.desc}</p>
       <ul className="chip-list">{m.stack.map(s => <li key={s}>{s}</li>)}</ul>
-      <div className="mission-route" aria-hidden={!open} data-open={open}>
-        <span className="mono-label">ROUTE</span>
-        <ol>{m.route.map((r, i) => <li key={r} style={{ "--i": i } as React.CSSProperties}><span>{String(i + 1).padStart(2, "0")}</span>{r}</li>)}</ol>
-        <p className="mission-reward"><b>REWARD</b> {m.reward}</p>
-      </div>
+      {state !== "idle" && <div className="objectives">
+        <span className="mono-label">OBJECTIVES · {Math.min(step, m.objectives.length)} / {m.objectives.length}</span>
+        <ol>{m.objectives.map((o, i) => <li key={o} className={i < step ? "is-done" : i === step && state === "running" ? "is-now" : ""}>
+          <span className="obj-box" aria-hidden="true">{i < step ? "✓" : ""}</span>{o}
+        </li>)}</ol>
+      </div>}
       <div className="mission-actions">
-        <button className="btn btn-primary" aria-expanded={open} onClick={() => setOpen(o => !o)}>{open ? "Abort brief" : "Start mission"}</button>
+        <button className="btn btn-primary" aria-expanded={state !== "idle"} onClick={start}>{state === "idle" ? "Start mission" : state === "running" ? "Abort" : "Replay"}</button>
         <a className="link" href={m.href} target="_blank" rel="noreferrer">Mission file <ArrowUpRight size={13} /></a>
       </div>
     </div>
@@ -145,7 +163,7 @@ function Page() {
       if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.isContentEditable)) return;
       if (selected || document.querySelector("[role=menu]")) return;
       const n = Number(e.key);
-      if (e.key >= "1" && e.key <= "6") { jump(SECTIONS[n - 1].id); }
+      if (e.key >= "1" && e.key <= String(SECTIONS.length)) { jump(SECTIONS[n - 1].id); }
       else if (e.key === "0") window.scrollTo({ top: 0, behavior: "smooth" });
       else if (e.key === "/") { e.preventDefault(); jump("garage"); window.setTimeout(() => document.getElementById("repo-search")?.focus({ preventScroll: true }), 450); }
       else if (e.key.toLowerCase() === "t") setTheme(theme === "night" ? "day" : "night");
@@ -163,7 +181,7 @@ function Page() {
     <Hud active={active} visited={wanted} progress={progress} repoCount={repos.length} />
     <Checkpoint label={checkpoint} />
 
-    {/* ── HERO ───────────────────────────── */}
+    {/* HERO */}
     <section className="hero" id="top" data-render={render}>
       <DitherCanvas />
       <div className="hero-grain" aria-hidden="true" />
@@ -187,9 +205,10 @@ function Page() {
         <button className="hero-scroll" onClick={() => jump("player")} aria-label="Scroll to player profile"><ArrowDown size={14} /> Scroll to explore</button>
       </div>
     </section>
+    <NewsTicker />
 
     <main className="main">
-      {/* ── 01 PLAYER ─────────────────────── */}
+      {/* 01 PLAYER */}
       <section id="player" className="sec">
         <SectionHead no="01" kicker="Character select" title={<>Meet the <em>player</em>.</>} aside={<span className="mono-label">STATS SYNCED · 2026</span>} />
         <div className="player grid-12" data-reveal>
@@ -206,7 +225,7 @@ function Page() {
             </dl>
           </div>
           <div className="player-copy">
-            <p className="lede">I build intelligent systems that move beyond demos — from <a className="link" href="#missions">computer vision</a> and deep learning to LLM-powered applications and production AI pipelines.</p>
+            <p className="lede">I build intelligent systems that move beyond demos: from <a className="link" href="#missions">computer vision</a> and deep learning to LLM-powered applications and production AI pipelines.</p>
             <div className="stats">
               <span className="mono-label">SKILL STATS</span>
               {STATS.map((s, i) => <div className="stat" key={s.label}>
@@ -222,21 +241,28 @@ function Page() {
         </div>
       </section>
 
-      {/* ── 02 ARSENAL ────────────────────── */}
+      {/* 02 ARSENAL */}
       <section id="arsenal" className="sec">
         <SectionHead no="02" kicker="Weapon wheel" title={<>Choose your <em>loadout</em>.</>} aside={<span className="mono-label">6 SLOTS · 35+ TOOLS</span>} />
         <div data-reveal><WeaponWheel /></div>
       </section>
 
-      {/* ── 03 MISSIONS ───────────────────── */}
+      {/* 03 MISSIONS */}
       <section id="missions" className="sec">
         <SectionHead no="03" kicker="Selected work" title={<>Pick a <em>mission</em>.</>} aside={<span className="mono-label">3 FEATURED FILES</span>} />
         <div className="missions" data-reveal>{MISSIONS.map(m => <MissionCard key={m.no} m={m} />)}</div>
       </section>
 
-      {/* ── 04 STORY ──────────────────────── */}
+      {/* 04 HEIST */}
+      <section id="heist" className="sec">
+        <SectionHead no="04" kicker="Heist planning" title={<>How the job <em>gets done</em>.</>} aside={<span className="mono-label">IDEA TO PRODUCTION · 5 SETUPS</span>} />
+        <p className="sec-intro" data-reveal>Every model I ship goes through the same five setups. Click a card to tick it off, or run the whole job.</p>
+        <div data-reveal><HeistBoard /></div>
+      </section>
+
+      {/* 05 STORY */}
       <section id="story" className="sec">
-        <SectionHead no="04" kicker="Story mode" title={<>Where I&apos;ve <em>built</em>.</>} aside={<span className="mono-label">PROGRESS 2 / ∞</span>} />
+        <SectionHead no="05" kicker="Story mode" title={<>Where I&apos;ve <em>built</em>.</>} aside={<span className="mono-label">PROGRESS 2 / ∞ · RAP SHEET ON FILE</span>} />
         <ol className="story" data-reveal>
           {STORY.map(s => <li key={s.role} className={"story-item" + (s.status === "In progress" ? " is-live" : "")}>
             <div className="story-when"><span>{s.when}</span><span className="story-status">{s.status === "In progress" ? <><span className="dot-live" /> In progress</> : "✓ Complete"}</span></div>
@@ -245,27 +271,29 @@ function Page() {
               <span className="mono-label">{s.kind}</span>
               <h3>{s.role} <span className="at">@ {s.org}</span></h3>
               <p>{s.body}</p>
+              <ul className="wins">{s.wins.map(w => <li key={w}><span aria-hidden="true">+</span>{w}</li>)}</ul>
               <ul className="chip-list">{s.tags.map(t => <li key={t}>{t}</li>)}</ul>
             </div>
           </li>)}
         </ol>
+        <div data-reveal><RapSheet /></div>
       </section>
 
-      {/* ── 05 GARAGE ─────────────────────── */}
+      {/* 06 GARAGE */}
       <section id="garage" className="sec">
-        <SectionHead no="05" kicker="The garage" title={<>Built, tested, <em>parked</em>.</>} aside={<a className="link" href={LINKS.github} target="_blank" rel="noreferrer">github.com/kiruba11k <ArrowUpRight size={12} /></a>} />
+        <SectionHead no="06" kicker="The garage" title={<>Built, tested, <em>parked</em>.</>} aside={<a className="link" href={LINKS.github} target="_blank" rel="noreferrer">github.com/kiruba11k <ArrowUpRight size={12} /></a>} />
         <div data-reveal><Garage repos={repos} loading={loading} error={error} onRetry={() => void load()} onOpen={setSelected} /></div>
       </section>
 
-      {/* ── 06 CONTACT ────────────────────── */}
+      {/* 07 CONTACT */}
       <section id="contact" className="sec sec-contact">
-        <SectionHead no="06" kicker="Phone · contacts" title={<>More worlds <em>to build</em>.</>} />
+        <SectionHead no="07" kicker="Phone · contacts" title={<>More worlds <em>to build</em>.</>} />
         <div className="contact" data-reveal>
-          <p className="lede">Hiring for applied ML, computer vision or GenAI work? Give me a call — I pick up.</p>
+          <p className="lede">Hiring for applied ML, computer vision or GenAI work? Give me a call. I pick up.</p>
           <ul className="phone">
             <li><a href={LINKS.email}><span className="phone-ico"><Mail size={16} /></span><span><b>Email</b><small>{LINKS.emailLabel}</small></span><ArrowUpRight size={14} /></a></li>
             <li><a href={LINKS.linkedin} target="_blank" rel="noreferrer"><span className="phone-ico"><Linkedin size={16} /></span><span><b>LinkedIn</b><small>/in/kirubakaranperiyasamy</small></span><ArrowUpRight size={14} /></a></li>
-            <li><a href={LINKS.github} target="_blank" rel="noreferrer"><span className="phone-ico"><Github size={16} /></span><span><b>GitHub</b><small>@kiruba11k · {repos.length || "—"} repos</small></span><ArrowUpRight size={14} /></a></li>
+            <li><a href={LINKS.github} target="_blank" rel="noreferrer"><span className="phone-ico"><Github size={16} /></span><span><b>GitHub</b><small>@kiruba11k · {repos.length || "·"} repos</small></span><ArrowUpRight size={14} /></a></li>
           </ul>
         </div>
         <footer className="foot">

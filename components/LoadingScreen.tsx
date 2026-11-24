@@ -3,7 +3,8 @@
 import { useEffect, useState } from "react";
 
 const TIPS = [
-  "Press 1 – 6 to fast travel between chapters.",
+  "Press 1 to 7 to fast travel between chapters.",
+  "Hit Start mission on a project to run its objectives.",
   "Press / anywhere to search the garage of repositories.",
   "Switch the hero between dither and ASCII rendering with M.",
   "Every chapter you visit raises your wanted level."

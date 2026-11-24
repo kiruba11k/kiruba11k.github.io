@@ -2,11 +2,11 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Kirubakaran Periyasamy — AI / ML Engineer",
+  title: "Kirubakaran Periyasamy · AI / ML Engineer",
   description: "AI/ML Engineer in Bengaluru building computer vision, NLP and Generative AI systems. An open-world portfolio with missions, a weapon wheel of skills and a garage of live GitHub repositories.",
   metadataBase: new URL("https://kiruba11k.github.io"),
   openGraph: {
-    title: "Kirubakaran Periyasamy — AI / ML Engineer",
+    title: "Kirubakaran Periyasamy · AI / ML Engineer",
     description: "Open-world portfolio: computer vision, LLM fine-tuning, RAG pipelines and production AI engineering.",
     type: "website"
   }

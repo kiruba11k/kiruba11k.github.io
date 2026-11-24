@@ -1,4 +1,4 @@
-# Kirubakaran — GitHub Repository Directory
+# Kirubakaran · GitHub Repository Directory
 
 A static Next.js App Router portfolio and searchable directory for all public repositories owned by [@kiruba11k](https://github.com/kiruba11k).
 
@@ -13,8 +13,8 @@ An open-world, game-inspired portfolio ("Vice Coast Edition"):
 - **Hero:** a procedural sunset coast rendered in a WebGL fragment shader. It shows as an 8×8 Bayer dither or as live ASCII glyphs, and a cursor "flashlight" lights the scene.
 - **HUD:** a radar minimap with one blip per chapter, the Bengaluru clock, a GitHub repo "cash" counter and wanted stars that fill as you explore. Each new chapter shows a "checkpoint reached" banner.
 - **Floating toolbar** (Radix UI + Lucide): fast travel, a typeface dropdown (Allo · Sans · Serif · Mono · Pixel), a dither/ASCII render toggle and a day/night theme. Choices are saved in localStorage.
-- **Chapters:** Player (dithered postage-stamp portrait, segmented skill stats, achievement stamps), Arsenal (keyboard-navigable weapon wheel), Missions (animated ASCII scenes with expandable route briefs), Story (career timeline), Garage (live GitHub repositories with search, language filter and a Radix dialog), and Contact.
-- **Keyboard:** `1`–`6` fast travel, `0` top, `/` search, `T` theme, `M` render mode. Respects `prefers-reduced-motion`.
+- **Chapters:** Player (dithered postage-stamp portrait, segmented skill stats, achievement stamps), Arsenal (keyboard-navigable weapon wheel with field-tested proof per skill), a Vice Coast News ticker, Missions (animated ASCII scenes, live objective checklists and Mission Passed results), The Job (a heist planning board for the end-to-end ML workflow), Story (career timeline and a police rap sheet), Garage (live GitHub repositories with search, language filter and a Radix dialog), and Contact.
+- **Keyboard:** `1` to `7` fast travel, `0` top, `/` search, `T` theme, `M` render mode. Respects `prefers-reduced-motion`.
 
 ## Stack
 

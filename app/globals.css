@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Kirubakaran — Vice Coast Edition
+   Kirubakaran · Vice Coast Edition
    Swiss grid + tactile micro-UI + retro-digital dither. Tokens first.
    ========================================================================== */
 
@@ -286,7 +286,7 @@ h2 em, h1 em, h3 em { color: var(--accent); font-style: italic; }
 @keyframes bob { 50% { transform: translateY(3px); } }
 
 /* ==========================================================================
-   Sections — Swiss grid
+   Sections · Swiss grid
    ========================================================================== */
 .main { position: relative; }
 .sec { max-width: var(--max); margin: 0 auto; padding: clamp(72px, 11vw, 140px) var(--gutter) 0; }
@@ -360,14 +360,7 @@ h2 em, h1 em, h3 em { color: var(--accent); font-style: italic; }
 .mission-body { display: flex; flex-direction: column; gap: 12px; padding: 20px; flex: 1; }
 .mission-body h3 { font-size: calc(clamp(24px, 2.4vw, 30px) * var(--display-scale)); }
 .mission-body > p { margin: 0; color: var(--muted); font-size: 14.5px; line-height: 1.55; }
-.mission-route[data-open="false"] { display: none; }
-.mission-route[data-open="true"] { display: block; animation: route-in .35s var(--ease); }
-.mission-route ol { list-style: none; margin: 8px 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
-.mission-route li { font: 500 11px/1.2 var(--f-mono); padding: 8px 6px; border-radius: 6px; background: var(--bg-2); border: 1px solid var(--line); display: grid; gap: 4px; animation: route-in .4s var(--spring) both; animation-delay: calc(var(--i) * 70ms); }
-.mission-route li span { color: var(--accent); font-size: 10px; }
 @keyframes route-in { from { opacity: 0; transform: translateY(8px); } }
-.mission-reward { margin: 10px 0 0; font: 500 12px/1.4 var(--f-mono); color: var(--text); }
-.mission-reward b { color: var(--accent-3); margin-right: 6px; letter-spacing: .1em; }
 .mission-actions { margin-top: auto; padding-top: 8px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .mission-actions .link { font: 500 12px/1 var(--f-mono); }
 
@@ -506,10 +499,13 @@ h2 em, h1 em, h3 em { color: var(--accent); font-style: italic; }
   .dlg-stats div:nth-child(2) { border-right: 0; }
   .dlg-stats div:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
   .tb-brand, .tb-brand + .tb-sep { display: none; }
-  .tb-btn { min-width: 32px; height: 32px; }
+  .toolbar { gap: 2px; padding: 4px; }
+  .tb-group { gap: 0; }
+  .tb-sep { margin: 0 1px; }
+  .tb-btn { min-width: 30px; height: 32px; }
   .tb-font span, .tb-chev { display: none; }
-  .tb-font { padding: 0; width: 32px; }
-  .tb-seg-item { width: 28px; height: 28px; }
+  .tb-font { padding: 0; width: 30px; }
+  .tb-seg-item { width: 26px; height: 28px; }
   .loader-foot { flex-direction: column; align-items: flex-start; }
 }
 
@@ -523,3 +519,127 @@ h2 em, h1 em, h3 em { color: var(--accent); font-style: italic; }
 :root[data-theme="light"] .hero[data-render="ascii"] :is(.hero-sub, .hero-tag .mono-label, .hero-foot .mono-label, .hero-scroll) { color: #22132a; text-shadow: 0 0 12px #f6eee3, 0 0 4px #f6eee3; }
 :root[data-theme="light"] .hero[data-render="ascii"] .hero-grain { opacity: 0; }
 :root[data-theme="light"] .hero[data-render="ascii"] .hero-sub .hl { color: inherit; }
+
+/* ==========================================================================
+   v2: Vice Coast News, proof, mission results, heist board, rap sheet
+   ========================================================================== */
+.sec-intro { margin: -12px 0 28px; max-width: 60ch; color: var(--muted); font-size: 16px; }
+
+/* news ticker */
+.news { position: relative; z-index: 2; display: flex; align-items: stretch; height: 46px; background: var(--accent); color: var(--on-accent); border-block: 2px solid var(--key-edge); overflow: hidden; }
+.news-badge { flex: none; display: flex; align-items: center; gap: 10px; padding: 0 16px; background: var(--text); color: var(--bg); position: relative; z-index: 1; clip-path: polygon(0 0, 100% 0, calc(100% - 14px) 100%, 0 100%); padding-right: 28px; }
+.news-badge b { font: 800 20px/1 "Bricolage Grotesque", sans-serif; font-style: italic; letter-spacing: -.05em; }
+.news-badge small { font: 600 9px/1.1 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; max-width: 60px; opacity: .75; }
+.news-live { display: inline-flex; align-items: center; gap: 5px; font: 700 10px/1 var(--f-mono); letter-spacing: .14em; color: var(--accent); }
+.news-live i { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); animation: pulse 1.4s infinite; }
+.news-track { display: flex; flex: 1; min-width: 0; -webkit-mask: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent); mask: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent); }
+.news-list { flex: none; display: flex; align-items: center; gap: 40px; padding: 0 20px; margin: 0; list-style: none; animation: crawl 60s linear infinite; white-space: nowrap; }
+.news:hover .news-list { animation-play-state: paused; }
+.news-list li { font: 600 13px/1 var(--f-body); letter-spacing: .01em; text-transform: uppercase; display: inline-flex; align-items: center; gap: 12px; }
+.news-dot { font-size: 9px; opacity: .6; }
+@keyframes crawl { to { transform: translateX(-100%); } }
+
+/* weapon wheel proof */
+.ammo { display: flex; align-items: baseline; gap: 12px; }
+.ammo strong { font: var(--display-weight) calc(clamp(40px, 5vw, 60px) * var(--display-scale))/1 var(--f-display); letter-spacing: var(--display-track); color: var(--accent-3); }
+.proof { display: grid; gap: 10px; padding: 16px; border-radius: 14px; background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow); }
+.proof ul { list-style: none; margin: 0; padding: 0; display: grid; }
+.proof li { display: grid; gap: 3px; padding: 10px 0; border-top: 1px dashed var(--line-2); animation: route-in .4s var(--ease) both; animation-delay: calc(var(--i) * 70ms); }
+.proof li:first-child { border-top: 0; padding-top: 4px; }
+.proof-what { font-weight: 600; font-size: 14.5px; justify-self: start; }
+.proof-result { font: 400 13px/1.45 var(--f-mono); color: var(--muted); }
+@keyframes route-in { from { opacity: 0; transform: translateY(8px); } }
+
+/* mission objectives + results */
+.objectives { display: grid; gap: 8px; padding: 12px; border-radius: 12px; background: var(--bg-2); border: 1px solid var(--line); animation: route-in .3s var(--ease); }
+.objectives ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.objectives li { display: flex; align-items: center; gap: 10px; font-size: 13.5px; color: var(--faint); transition: color .25s; }
+.objectives li.is-now { color: var(--text); }
+.objectives li.is-done { color: var(--text); }
+.obj-box { flex: none; width: 16px; height: 16px; border-radius: 4px; border: 1.5px solid var(--line-2); display: grid; place-items: center; font: 700 11px/1 var(--f-mono); color: var(--on-accent); transition: background .2s, border-color .2s; }
+.is-now .obj-box { border-color: var(--accent); animation: blip 1s infinite; }
+.is-done .obj-box { background: var(--accent-3); border-color: var(--accent-3); animation: star-in .35s var(--spring); }
+.mission.is-running { border-color: var(--accent); }
+.mission.is-passed { border-color: var(--accent-3); }
+.mission-passed { position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 14px; padding: 16px; background: color-mix(in srgb, var(--bg) 78%, transparent); backdrop-filter: blur(3px); animation: fade .3s; }
+.mp-k { font: var(--display-weight) calc(clamp(28px, 3vw, 38px) * var(--display-scale))/1 var(--f-display); letter-spacing: var(--display-track); font-style: italic; color: var(--sun); text-shadow: 0 3px 0 color-mix(in srgb, var(--accent) 60%, #000); animation: cp-text .5s var(--spring) both; }
+.mission-passed dl { margin: 0; display: grid; gap: 4px; width: min(100%, 280px); }
+.mission-passed dl div { display: flex; justify-content: space-between; gap: 12px; font: 500 12px/1.4 var(--f-mono); border-bottom: 1px dotted var(--line-2); padding: 3px 0; animation: route-in .4s var(--ease) both; }
+.mission-passed dl div:nth-child(2) { animation-delay: .1s; }
+.mission-passed dl div:nth-child(3) { animation-delay: .2s; }
+.mission-passed dt { color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+.mission-passed dd { margin: 0; color: var(--text); text-align: right; }
+
+/* heist board */
+.heist { display: grid; gap: 18px; }
+.heist-top { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; }
+.heist-progress { display: flex; gap: 4px; flex: 1; max-width: 240px; }
+.heist-progress i { flex: 1; height: 6px; border-radius: 2px; background: var(--line-2); transition: background .3s; }
+.heist-progress i.on { background: var(--accent-3); }
+.heist-top .btn { margin-left: auto; }
+.board { position: relative; padding: clamp(20px, 3vw, 36px); border-radius: 18px; background:
+  radial-gradient(circle at 20% 30%, rgba(255, 255, 255, .04) 0 1px, transparent 1.5px) 0 0 / 7px 7px,
+  radial-gradient(circle at 70% 60%, rgba(0, 0, 0, .18) 0 1px, transparent 1.5px) 0 0 / 5px 5px,
+  linear-gradient(160deg, #6b4a2e, #4f351f); box-shadow: inset 0 0 0 10px #3a2614, inset 0 0 0 12px #2a1a0c, inset 0 10px 40px rgba(0, 0, 0, .45); overflow: hidden; }
+:root[data-theme="light"] .board { background:
+  radial-gradient(circle at 20% 30%, rgba(255, 255, 255, .12) 0 1px, transparent 1.5px) 0 0 / 7px 7px,
+  linear-gradient(160deg, #b98a5a, #9c6f43); box-shadow: inset 0 0 0 10px #7a5130, inset 0 0 0 12px #5e3d22, inset 0 10px 30px rgba(0, 0, 0, .25); }
+.board-string { position: absolute; left: 0; right: 0; top: 30px; width: 100%; height: 120px; pointer-events: none; z-index: 1; }
+.board-string path { fill: none; stroke: #d9233c; stroke-width: .5; vector-effect: non-scaling-stroke; stroke-width: 2; filter: drop-shadow(0 2px 1px rgba(0, 0, 0, .4)); }
+.board-cards { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; position: relative; z-index: 2; }
+.pin-card { position: relative; transform: rotate(var(--r)); transition: transform .35s var(--spring); }
+.pin-card:hover { transform: rotate(0deg) translateY(-4px) scale(1.02); z-index: 3; }
+.pin { position: absolute; left: 50%; top: -6px; width: 14px; height: 14px; margin-left: -7px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #ff7a8a, #c4102a 60%, #6d0614); box-shadow: 0 3px 4px rgba(0, 0, 0, .45); z-index: 2; }
+.pin-body { position: relative; width: 100%; height: 100%; display: flex; flex-direction: column; gap: 8px; padding: 20px 14px 14px; text-align: left; background: #f8f1e4; color: #23162a; border-radius: 3px; box-shadow: 0 10px 18px -6px rgba(0, 0, 0, .55); overflow: hidden; }
+.pin-body:focus-visible { outline: 3px solid var(--accent-3); }
+.pin-step { font: 700 10px/1 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; color: #c4102a; }
+.pin-body strong { font: var(--display-weight) calc(22px * var(--display-scale))/1.05 var(--f-display); letter-spacing: var(--display-track); }
+.pin-role { font: 500 11px/1 var(--f-mono); color: #7a6470; text-transform: uppercase; letter-spacing: .06em; }
+.pin-body ul { margin: 4px 0 0; padding: 0 0 0 14px; display: grid; gap: 4px; font-size: 12.5px; line-height: 1.35; color: #3d2d3f; font-family: var(--f-body); }
+.pin-body ul li::marker { color: #c4102a; }
+.pin-proof { margin-top: auto; padding-top: 8px; border-top: 1px dashed rgba(35, 22, 42, .25); font: 500 11px/1.35 var(--f-mono); color: #23162a; display: grid; gap: 3px; }
+.pin-proof b { color: #0c8f7f; letter-spacing: .12em; font-size: 9.5px; }
+.pin-stamp { position: absolute; right: 8px; top: 30%; padding: 4px 10px; font: 800 22px/1 "Bricolage Grotesque", sans-serif; letter-spacing: .04em; color: #0c8f7f; border: 3px solid currentColor; border-radius: 6px; transform: rotate(-16deg) scale(1.8); opacity: 0; transition: transform .35s var(--spring), opacity .2s; mix-blend-mode: multiply; pointer-events: none; }
+.is-done .pin-stamp { opacity: .85; transform: rotate(-16deg) scale(1); }
+.heist-passed { position: absolute; inset: 0; z-index: 4; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; background: rgba(11, 6, 20, .55); backdrop-filter: blur(2px); animation: heist-out 2.6s var(--ease) forwards; pointer-events: none; }
+@keyframes heist-out { 0% { opacity: 0; } 10% { opacity: 1; } 75% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
+.heist-passed span { font: 800 calc(clamp(34px, 6vw, 72px) * var(--display-scale))/1 var(--f-display); font-family: "Bricolage Grotesque", sans-serif; font-style: italic; letter-spacing: -.04em; color: #ffe2a1; text-shadow: 0 4px 0 #c4102a; animation: cp-text .6s var(--spring) both; }
+.heist-passed small { font: 600 12px/1 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; color: #f6eadb; }
+
+/* story wins */
+.wins { list-style: none; margin: 2px 0 2px; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 14px; }
+.wins li { display: inline-flex; gap: 6px; font: 600 13px/1.3 var(--f-mono); color: var(--accent-3); }
+.wins li span { color: var(--sun); }
+
+/* rap sheet */
+.rap { margin-top: 24px; max-width: 860px; margin-left: calc(220px + 52px + 4px); border-radius: 6px; background: #efe6d4; color: #241a26; padding: 18px 20px; box-shadow: 0 20px 40px -18px rgba(0, 0, 0, .6); transform: rotate(-.6deg); position: relative; background-image: repeating-linear-gradient(0deg, transparent 0 27px, rgba(36, 26, 38, .07) 27px 28px); }
+.rap .mono-label { color: #6d5a62; }
+.rap-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding-bottom: 12px; border-bottom: 2px solid #241a26; }
+.rap-wanted { font: 800 26px/1 "Bricolage Grotesque", sans-serif; letter-spacing: .08em; color: #c4102a; border: 3px solid currentColor; padding: 4px 10px 2px; transform: rotate(4deg); }
+.rap-grid { display: grid; grid-template-columns: 150px 1fr; gap: 22px; padding-top: 16px; }
+.rap-mug { display: grid; gap: 6px; justify-items: start; align-content: start; }
+.rap-mug .dither-image { border: 2px solid #241a26; background: repeating-linear-gradient(0deg, #d8cdb8 0 12px, #c8bca5 12px 13px); }
+.rap-plate { font: 700 11px/1 var(--f-mono); letter-spacing: .1em; background: #241a26; color: #efe6d4; padding: 5px 8px; }
+.rap-body { display: grid; gap: 10px; align-content: start; }
+.rap-charges { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.rap-charges li { display: grid; grid-template-columns: 84px 1fr; gap: 10px; font-size: 14px; line-height: 1.35; }
+.rap-charges b { font: 700 11px/1.6 var(--f-mono); color: #c4102a; text-transform: uppercase; }
+.rap-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding-top: 8px; border-top: 1px dashed rgba(36, 26, 38, .3); }
+.rap-row p { margin: 4px 0 0; font: 500 12.5px/1.4 var(--f-mono); }
+.rap-foot { display: block; margin-top: 14px; text-align: right; }
+
+@media (max-width: 1100px) {
+  .board-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .board-string { display: none; }
+}
+@media (max-width: 980px) {
+  .rap { margin-left: 0; }
+}
+@media (max-width: 640px) {
+  .board-cards { grid-template-columns: 1fr; gap: 20px; }
+  .heist-top .btn { margin-left: 0; }
+  .rap-grid { grid-template-columns: 1fr; }
+  .rap-row { grid-template-columns: 1fr; }
+  .rap-charges li { grid-template-columns: 1fr; gap: 0; }
+  .news-badge small { display: none; }
+}

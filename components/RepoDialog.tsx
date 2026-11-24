@@ -40,7 +40,7 @@ export default function RepoDialog({ repo, onClose }: { repo: DecoratedRepo | nu
           <Dialog.Title className="dlg-title">{repo.name.replace(/[-_]+/g, " ")}</Dialog.Title>
           <Dialog.Description className="dlg-desc">{repo.description || repo.featuredNote || repo.fallbackDescription}</Dialog.Description>
           <dl className="dlg-stats">
-            <div><dt><Code2 size={13} /> Language</dt><dd>{repo.language || "—"}</dd></div>
+            <div><dt><Code2 size={13} /> Language</dt><dd>{repo.language || "·"}</dd></div>
             <div><dt><Star size={13} /> Stars</dt><dd>{repo.stargazers_count}</dd></div>
             <div><dt><GitFork size={13} /> Forks</dt><dd>{repo.forks_count}</dd></div>
             <div><dt><CalendarDays size={13} /> Updated</dt><dd>{new Date(repo.updated_at).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}</dd></div>

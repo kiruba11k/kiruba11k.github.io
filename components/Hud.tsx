@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Star } from "lucide-react";
-import { SECTIONS, type SectionId } from "@/lib/content";
+import { SECTIONS, SECTION_TOTAL, type SectionId } from "@/lib/content";
 
 function useClock() {
   const [time, setTime] = useState("--:--");
@@ -57,7 +57,7 @@ export default function Hud({ active, visited, progress, repoCount }: { active: 
       <div className="hud-zone">
         <span className="hud-zone-k">ZONE</span>
         <b>{section ? section.hud : "VICE COAST"}</b>
-        <span className="hud-zone-sub">{section ? section.no + " / 06" : "BENGALURU · IN"}</span>
+        <span className="hud-zone-sub">{section ? section.no + " / " + SECTION_TOTAL : "BENGALURU · IN"}</span>
       </div>
     </div>
     <div className="hud hud-right" aria-label="Status">

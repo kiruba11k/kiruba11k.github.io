@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { ArrowUpRight } from "lucide-react";
 import { ARSENAL } from "@/lib/content";
 
 const N = ARSENAL.length;
@@ -44,8 +45,16 @@ export default function WeaponWheel() {
       <div className="level-bar" aria-label={"Level " + item.level + " of 10"}>
         {Array.from({ length: 10 }, (_, i) => <i key={i} className={i < item.level ? "on" : ""} />)}
       </div>
+      <div className="ammo"><strong>{item.ammo}</strong><span className="mono-label">{item.ammoLabel}</span></div>
       <ul className="chip-list">{item.skills.map(s => <li key={s}>{s}</li>)}</ul>
-      <p className="arsenal-hint mono-label">Hover the wheel · or use ← → keys</p>
+      <div className="proof" key={item.id}>
+        <span className="mono-label">FIELD-TESTED IN</span>
+        <ul>{item.proof.map((p, i) => <li key={p.what} style={{ "--i": i } as React.CSSProperties}>
+          {p.href ? <a className="proof-what link" href={p.href} target="_blank" rel="noreferrer">{p.what} <ArrowUpRight size={12} /></a> : <span className="proof-what">{p.what}</span>}
+          <span className="proof-result">{p.result}</span>
+        </li>)}</ul>
+      </div>
+      <p className="arsenal-hint mono-label">Hover the wheel or use the arrow keys</p>
     </div>
   </div>;
 }

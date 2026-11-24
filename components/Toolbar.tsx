@@ -3,12 +3,12 @@
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import * as ToggleGroup from "@radix-ui/react-toggle-group";
 import * as Tooltip from "@radix-ui/react-tooltip";
-import { Check, ChevronUp, Crosshair, Grid2x2, Moon, Phone, Route, Sun, Target, Type, UserRound, Warehouse, Binary } from "lucide-react";
+import { Check, ChevronUp, ClipboardList, Crosshair, Grid2x2, Moon, Phone, Route, Sun, Target, Type, UserRound, Warehouse, Binary } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { FONT_OPTIONS, usePrefs, type FontChoice, type RenderMode } from "@/lib/prefs";
 import { SECTIONS, type SectionId } from "@/lib/content";
 
-const ICONS: Record<SectionId, LucideIcon> = { player: UserRound, arsenal: Crosshair, missions: Target, story: Route, garage: Warehouse, contact: Phone };
+const ICONS: Record<SectionId, LucideIcon> = { player: UserRound, arsenal: Crosshair, missions: Target, heist: ClipboardList, story: Route, garage: Warehouse, contact: Phone };
 
 function Tip({ label, kbd, children }: { label: string; kbd?: string; children: React.ReactNode }) {
   return <Tooltip.Root>
